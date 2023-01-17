@@ -1,0 +1,1 @@
+Root directory of the game project. Fill in all the details here about how the game is linking to the engine, where the engine is, and what anyone would need to be able to actually compile and use this template here. This should be like the README for the project, just without any markdown, and honestly, converting all of this to a README format would be a really great practice.
