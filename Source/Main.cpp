@@ -268,13 +268,14 @@ int main(void)
     camera = std::make_shared<Tower::Camera>();
     camera->Init(45.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.1f, 100.0f);
     // I need to fix the constructor first. The up, yaw and pitch aren't set yet.
-    camera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
+    camera->SetPosition(glm::vec3(0.0f, 0.0f, -25.0f));
     //camera->SetViewMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f)));
     camera->SetMovementSpeed(25.0f);
 
     // TODO: Something is going to have to know how to call this.
     shader->SetUniform("view", camera->GetViewMatrix());
     shader->SetUniform("projection", camera->GetProjectionMatrix());
+    shader->SetUniform("light_color", glm::vec4(1.0f, 0.5f, 0.31f, 1.0f));
 
     GameLogic();
 
