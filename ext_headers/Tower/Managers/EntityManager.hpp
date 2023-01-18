@@ -15,17 +15,17 @@ namespace Tower
 
         ~EntityManager(void);
 
-        Entity CreateEntity(void);
+        EntityID CreateEntity(void);
 
-        void DestroyEntity(Entity entity);
+        void DestroyEntity(EntityID entityID);
 
-        void SetSignature(Entity entity, Signature signature);
+        void SetSignature(EntityID entityID, Signature signature);
 
-        Signature GetSignature(Entity entity);
+        Signature GetSignature(EntityID entityID);
 
     private:
         // TODO: consider writing your own queue
-        std::queue<Entity> _entities;
+        std::queue<EntityID> _entities;
         std::array<Signature, MAX_ENTITIES> _signatures;
         U32 _activeEntities;
     };

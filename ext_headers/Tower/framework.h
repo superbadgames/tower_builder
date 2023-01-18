@@ -52,15 +52,16 @@ namespace Tower
 #define real_pow powf
 #define real_fmod fmod4
 #define real_epsilon DBL_EPSILON
+
     const real R_PI = static_cast<real>(3.14159265358979);
 
     //==========================================================================================================================
     // Global Helper functions
     //==========================================================================================================================
 
-    using Entity = U32;
+    using EntityID = U32;
     // TODO: This should be moved into a config file, loaded from the runtime application.
-    const Entity MAX_ENTITIES = 5000;
+    const EntityID MAX_ENTITIES = 5000;
 
     using ComponentType = U8;
 

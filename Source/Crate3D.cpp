@@ -4,7 +4,7 @@
 using namespace Lateralus;
 
 Crate3D::Crate3D(void):
-    _towerObject(),
+    _entity(),
     _rotationSpeed(15.0f),
     _angle(0.0f),
     _axis(glm::vec3(1.0f, 1.0f, 1.0f))
@@ -15,7 +15,7 @@ Crate3D::Crate3D(void):
 }
 
 Crate3D::Crate3D(Tower::p_Shader shader):
-    _towerObject(),
+    _entity(),
     _rotationSpeed(15.0f),
     _angle(0.0f),
     _axis(glm::vec3(1.0f, 1.0f, 1.0f))
@@ -24,7 +24,7 @@ Crate3D::Crate3D(Tower::p_Shader shader):
 }
 
 Crate3D::Crate3D(const string& modelFilepath, const string& texture, Tower::p_Shader shader):
-    _towerObject(),
+    _entity(),
     _rotationSpeed(15.0f),
     _angle(0.0f),
     _axis(glm::vec3(1.0f, 1.0f, 1.0f))
@@ -39,12 +39,12 @@ Crate3D::~Crate3D(void)
 
 void Crate3D::Init(const string& modelFilepath, const string& texture, Tower::p_Shader shader)
 {
-    _towerObject.AddTransform();
-    _towerObject.AddShader(shader);
-    _towerObject.AddModel(modelFilepath);
-    _towerObject.AddTexture(texture);
-    _towerObject.SetPosition(glm::vec3(0.0f, 0.0f, -2.0f));
-    _towerObject.SetRotationAxisAndAngle(_angle, _axis);
+    _entity.AddTransform();
+    _entity.AddShader(shader);
+    _entity.AddModel(modelFilepath);
+    _entity.AddTexture(texture);
+    _entity.SetPosition(glm::vec3(0.0f, 0.0f, -2.0f));
+    _entity.SetRotationAxisAndAngle(_angle, _axis);
 }
 
 void Crate3D::Init(Tower::p_Shader shader)
@@ -54,7 +54,7 @@ void Crate3D::Init(Tower::p_Shader shader)
 
 void Crate3D::Draw(void)
 {
-    _towerObject.Draw();
+    _entity.Draw();
 }
 
 void Crate3D::Update(F32 delta, F32 modifier)
@@ -74,15 +74,15 @@ void Crate3D::Update(F32 delta, F32 modifier)
         _angle = 0.0f;
     }
 
-    _towerObject.SetRotationAngle(_angle);
+    _entity.SetRotationAngle(_angle);
 }
 
 void Crate3D::SetPosition(const glm::vec3& position)
 {
-    _towerObject.SetPosition(position);
+    _entity.SetPosition(position);
 }
 
 void Crate3D::SetScale(const glm::vec3& scale)
 {
-    _towerObject.SetScale(scale);
+    _entity.SetScale(scale);
 }

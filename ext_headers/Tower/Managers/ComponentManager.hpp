@@ -23,8 +23,8 @@ namespace Tower
 
             assert(_componentTypes.find(typeName) == _componentTypes.end() && "Registering component type more than once.");
 
-            _componentTypes.insert({typeName, _nextComponentType});
-            _componentArrays.insert({typeName, std::make_shared<ComponentArray<T>>()});
+            _componentTypes.insert({ typeName, _nextComponentType });
+            _componentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
 
             ++_nextComponentType;
         }
@@ -40,30 +40,30 @@ namespace Tower
         }
 
         template<typename T>
-        void AddComponent(Entity entity, T component)
+        void AddComponent(EntityID entityID, T component)
         {
-            _GetComponentArray<T>()->InsertData(entity, component);
+            _GetComponentArray<T>()->InsertData(entityID, component);
         }
 
         template<typename T>
-        void RemoveComponent(Entity entity)
+        void RemoveComponent(EntityID entityID)
         {
-            _GetComponentArray<T>()->RemoveData(entity);
+            _GetComponentArray<T>()->RemoveData(entityID);
         }
 
         template<typename T>
-        T& GetComponent(Entity entity)
+        T& GetComponent(EntityID entityID)
         {
-            return _GetComponentArray<T>()->GetData(entity);
+            return _GetComponentArray<T>()->GetData(entityID);
         }
 
         template<typename T>
-        bool HasComponent(Entity entity)
+        bool HasComponent(EntityID entityID)
         {
-            return _GetComponentArray<T>()->HasData(entity);
+            return _GetComponentArray<T>()->HasData(entityID);
         }
 
-        void EntityDestroyed(Entity entity);
+        void EntityDestroyed(EntityID entityID);
 
     private:
         std::unordered_map<const char*, ComponentType> _componentTypes;

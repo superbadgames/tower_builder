@@ -5,7 +5,7 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Components/Camera.hpp>
-#include <Tower/TowerObject.hpp>
+#include <Tower/Entity.hpp>
 #include <Tower/Input/InputController.hpp>
 
 #include <GLFW/glfw3.h>
@@ -20,13 +20,16 @@ Tower::p_Shader shader;
 Tower::p_Texture containerTexture;
 Tower::p_InputController controller;
 
-void CrateDemo(void)
+void GameLogic(void)
 {
-    Tower::TowerObject crate{};
+    //
+    // 2D CRATES
+    //
+    Tower::Entity crate{};
     crate.AddTransform();
     crate.AddSprite(shader, containerTexture);
 
-    Tower::TowerObject crate2{};
+    Tower::Entity crate2{};
     crate2.AddTransform();
     crate2.AddSprite(shader, containerTexture);
 
@@ -53,13 +56,120 @@ void CrateDemo(void)
     F32 offset = 0.0f;
     F32 direction = 1.0f;
 
+    //
+    // CUBES
+    //
+    F32 scale = 0.5f;
+
+    glm::vec3 cubePositions[] = {
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(2.0f, 5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f, 3.0f, -7.5f),
+        glm::vec3(1.3f, -2.0f, -2.5f),
+        glm::vec3(1.5f, 2.0f, -2.5f),
+        glm::vec3(1.5f, 0.2f, -1.5f),
+        glm::vec3(-1.3f, 1.0f, -1.5f) };
+
+    std::vector<Crate3D> crates;
+
+    for (U32 i = 0; i < 10; i++)
+    {
+        crates.push_back(Crate3D());
+        crates[i].Init(shader);
+        crates[i].SetPosition(cubePositions[i]);
+        crates[i].SetScale(glm::vec3(scale));
+    }
+
+    bool firstMouseMove = true;
+    bool moveCamera = false;
+
+    //
+    // BEGIN WHILE LOOP
+    //
     while (!director->ShouldProgramClose())
     {
+        //
+        // START OF LOOP ACTIONS
+        //
         director->Tick();
         director->ProcessEvents();
-        //keyboard->Update();
+        F32 delta = director->GetDeltaTime();
 
-        offset += director->GetDeltaTime() * direction;
+        //
+        // SHOULD MOVE CAMERA INPUT LOOP
+        //
+        if (controller->IsKeyboardBindingActive("quit"))
+        {
+            director->CloseProgram();
+        }
+
+        if (controller->IsMouseBindingActive("move_camera"))
+        {
+            moveCamera = true;
+            director->GetWindowPointer()->HideMouseCursor();
+        }
+
+        if (controller->IsMouseBindingActive("stop_move_camera"))
+        {
+            std::cout << "Mouse Release happened\n";
+            moveCamera = false;
+            director->GetWindowPointer()->ShowMouseCursor();
+        }
+
+        //
+        // CAMERA LOOK LOOP
+        //
+        if (moveCamera)
+        {
+            const glm::vec2& prevMouse = controller->GetMousePreviousCursorPosition();
+            const glm::vec2& curMouse = controller->GetMouseCurrentCursorPosition();
+            // if (firstMouseMove)
+            // {
+            //     prevMouse = controller->GetMouseCurrentCursorPosition();
+            //     firstMouseMove = false;
+            // }
+            glm::vec2 offset;
+            offset.x = curMouse.x - prevMouse.x;
+            offset.y = prevMouse.y - curMouse.y;
+
+            camera->UpdateYaw(offset.x);
+            camera->UpdatePitch(offset.y);
+
+        }
+
+        //
+        // UPDATE CAMERA MOVEMENT LOOP
+        //
+        if (controller->IsKeyboardBindingActive("move_forward"))
+        {
+            camera->MoveForward(delta);
+        }
+        else if (controller->IsKeyboardBindingActive("move_back"))
+        {
+            camera->MoveBack(delta);
+        }
+        else if (controller->IsKeyboardBindingActive("move_right"))
+        {
+            camera->MoveRight(delta);
+        }
+        else if (controller->IsKeyboardBindingActive("move_left"))
+        {
+            camera->MoveLeft(delta);
+        }
+
+
+        //
+        // CAMERA UPDATE
+        //
+        camera->CalculateViewMatrix();
+
+        //
+        // 2D OBJECT UPDATE
+        //
+        offset += delta * direction;
 
         angle1 += 1.0f;
         angle2 -= 1.0f;
@@ -101,113 +211,23 @@ void CrateDemo(void)
         crate.Draw();
         crate2.Draw();
 
-        if (controller->IsKeyboardBindingActive("quit"))
-        {
-            director->CloseProgram();
-        }
-
-        director->Tock();
-    }
-}
-
-void Demo3D(void)
-{
-    F32 scale = 0.5f;
-
-    glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(2.0f, 5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f, 3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f, 2.0f, -2.5f),
-        glm::vec3(1.5f, 0.2f, -1.5f),
-        glm::vec3(-1.3f, 1.0f, -1.5f) };
-
-    std::vector<Crate3D> crates;
-
-    for (U32 i = 0; i < 10; i++)
-    {
-        crates.push_back(Crate3D());
-        crates[i].Init(shader);
-        crates[i].SetPosition(cubePositions[i]);
-        crates[i].SetScale(glm::vec3(scale));
-    }
-
-    bool firstMouseMove = true;
-    bool moveCamera = false;
-
-    while (!director->ShouldProgramClose())
-    {
-        director->Tick();
-        director->ProcessEvents();
-        F32 delta = director->GetDeltaTime();
-
-        if (controller->IsKeyboardBindingActive("quit"))
-        {
-            director->CloseProgram();
-        }
-
-        if (controller->IsMouseBindingActive("move_camera"))
-        {
-            moveCamera = true;
-            director->GetWindowPointer()->HideMouseCursor();
-        }
-
-        if (controller->IsMouseBindingActive("stop_move_camera"))
-        {
-            std::cout << "Mouse Release happened\n";
-            moveCamera = false;
-            director->GetWindowPointer()->ShowMouseCursor();
-        }
-
-        if (moveCamera)
-        {
-            const glm::vec2& prevMouse = controller->GetMousePreviousCursorPosition();
-            const glm::vec2& curMouse = controller->GetMouseCurrentCursorPosition();
-            // if (firstMouseMove)
-            // {
-            //     prevMouse = controller->GetMouseCurrentCursorPosition();
-            //     firstMouseMove = false;
-            // }
-            glm::vec2 offset;
-            offset.x = curMouse.x - prevMouse.x;
-            offset.y = prevMouse.y - curMouse.y;
-
-            camera->UpdateYaw(offset.x);
-            camera->UpdatePitch(offset.y);
-
-        }
-
-        // Update Camera (Movement)
-        if (controller->IsKeyboardBindingActive("move_forward"))
-        {
-            camera->MoveForward(delta);
-        }
-        else if (controller->IsKeyboardBindingActive("move_back"))
-        {
-            camera->MoveBack(delta);
-        }
-        else if (controller->IsKeyboardBindingActive("move_right"))
-        {
-            camera->MoveRight(delta);
-        }
-        else if (controller->IsKeyboardBindingActive("move_left"))
-        {
-            camera->MoveLeft(delta);
-        }
-
-
-        camera->CalculateViewMatrix();
+        //
+        // SHADER UPDATE
+        //
         shader->SetUniform("view", camera->GetViewMatrix());
 
+        //
+        // UPDATE AND DRAW ALL OBJECTS
+        //
         for (U32 i = 0; i < crates.size(); i++)
         {
             crates[i].Update(delta, (F32)i);
             crates[i].Draw();
         }
+
+        //
+        // END OF LOOP ACTIONS
+        //
         director->Tock();
         controller->ResetAllBindingStates();
     }
@@ -256,10 +276,7 @@ int main(void)
     shader->SetUniform("view", camera->GetViewMatrix());
     shader->SetUniform("projection", camera->GetProjectionMatrix());
 
-    // Launch the crate demo
-
-    //CrateDemo();
-    Demo3D();
+    GameLogic();
 
     director->Cleanup();
 

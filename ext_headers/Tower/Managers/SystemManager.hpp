@@ -18,12 +18,12 @@ namespace Tower
         template<typename T>
         shared_ptr<T> RegisterSystem(void)
         {
-           const char* typeName = typeid(T).name();
+            const char* typeName = typeid(T).name();
 
             assert(_systems.find(typeName) == _systems.end() && "Don't call RegisterSystem more than once per System.");
 
             auto system = std::make_shared<T>();
-            _systems.insert({typeName, system});
+            _systems.insert({ typeName, system });
             return system;
         }
 
@@ -37,15 +37,15 @@ namespace Tower
             const char* typeName = typeid(T).name();
             assert(_systems.find(typeName) != _systems.end() && "SystemManager failed SetSignature. No such System.");
 
-            _signatures.insert({typeName, signature});
+            _signatures.insert({ typeName, signature });
         }
 
-        void EntityDestroyed(Entity entity);
+        void EntityDestroyed(EntityID entityID);
 
-        void EntitySignatureChanged(Entity entity, Signature entitySignature);
+        void EntitySignatureChanged(EntityID entityID, Signature entitySignature);
 
     private:
-        std::unordered_map<const char*, Signature> _signatures {};
+        std::unordered_map<const char*, Signature> _signatures{};
         std::unordered_map<const char*, p_System> _systems{};
     };
 }

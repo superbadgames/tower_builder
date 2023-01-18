@@ -2,7 +2,7 @@
 
 #include "pch.h"
 #include "framework.hpp"
-#include <Tower/TowerObject.hpp>
+#include <Tower/Entity.hpp>
 #include <Tower/Rendering/Shader.hpp>
 #include <glm/vec3.hpp>
 
@@ -32,7 +32,7 @@ namespace Lateralus
         void SetScale(const glm::vec3& scale);
 
     private:
-        Tower::TowerObject _towerObject;
+        Tower::Entity _entity;
         F32 _rotationSpeed;
         F32 _angle;
         glm::vec3 _axis;

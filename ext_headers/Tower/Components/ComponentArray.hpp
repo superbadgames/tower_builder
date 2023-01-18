@@ -14,20 +14,20 @@ namespace Tower
     {
     public:
         virtual ~IComponentArray() = default;
-        virtual void v_EntityDestroyed(Entity entity)=0;
+        virtual void v_EntityDestroyed(EntityID entityID) = 0;
     };
     typedef shared_ptr<IComponentArray> p_IComponentArray;
 
     template<typename T>
-    class ComponentArray : public IComponentArray
+    class ComponentArray: public IComponentArray
     {
     public:
         ComponentArray(void)
-        :
-        _componentArray{},
-        _entityToIndex{},
-        _indexToEntity{},
-        _nextIndex(0)
+            :
+            _componentArray{},
+            _entityIDToIndex{},
+            _indexToEntityID{},
+            _nextIndex(0)
         {
 
         }
@@ -37,42 +37,42 @@ namespace Tower
 
         }
 
-        void InsertData(Entity entity, T component)
+        void InsertData(EntityID entityID, T component)
         {
-            assert(_entityToIndex.find(entity) == _entityToIndex.end() && "ComponentArray failed InsertData! Duplicate call made!");
+            assert(_entityIDToIndex.find(entityID) == _entityIDToIndex.end() && "ComponentArray failed InsertData! Duplicate call made!");
 
             size_t index = _nextIndex;
-            _entityToIndex[entity] = index;
-            _indexToEntity[index] = entity;
+            _entityIDToIndex[entityID] = index;
+            _indexToEntityID[index] = entityID;
             _componentArray[index] = component;
             ++_nextIndex;
         }
 
-        void RemoveData(Entity entity)
+        void RemoveData(EntityID entityID)
         {
-            assert(_entityToIndex.find(entity) != _entityToIndex.end() && "ComponentArray failed RemoveData! No such Entity!");
+            assert(_entityIDToIndex.find(entityID) != _entityIDToIndex.end() && "ComponentArray failed RemoveData! No such EntityID!");
 
-            size_t indexRemoved = _entityToIndex[entity];
+            size_t indexRemoved = _entityIDToIndex[entityID];
             size_t indexLastElement = _nextIndex - 1;
             _componentArray[indexRemoved] = _componentArray[indexLastElement];
 
-            Entity entityLastElement = _indexToEntity[indexLastElement];
-            _entityToIndex[entityLastElement] = indexRemoved;
-            _indexToEntity[indexRemoved] = entityLastElement;
+            EntityID entityIDLastElement = _indexToEntityID[indexLastElement];
+            _entityIDToIndex[entityIDLastElement] = indexRemoved;
+            _indexToEntityID[indexRemoved] = entityIDLastElement;
 
             --_nextIndex;
         }
 
 
-        T& GetData(Entity entity)
+        T& GetData(EntityID entityID)
         {
-           assert(HasData(entity) && "ComponentArray failed GetData! No such Entity!");
-            return _componentArray[entity];
+            assert(HasData(entityID) && "ComponentArray failed GetData! No such EntityID!");
+            return _componentArray[entityID];
         }
 
-        bool HasData(Entity entity)
+        bool HasData(EntityID entityID)
         {
-            if(_entityToIndex.find(entity) != _entityToIndex.end())
+            if (_entityIDToIndex.find(entityID) != _entityIDToIndex.end())
             {
                 return true;
             }
@@ -80,11 +80,11 @@ namespace Tower
             return false;
         }
 
-        void v_EntityDestroyed(Entity entity) override
+        void v_EntityDestroyed(EntityID entityID) override
         {
-            if(_entityToIndex.find(entity) != _entityToIndex.end())
+            if (_entityIDToIndex.find(entityID) != _entityIDToIndex.end())
             {
-                RemoveData(entity);
+                RemoveData(entityID);
             }
         }
 
@@ -95,8 +95,8 @@ namespace Tower
 
     private:
         std::array<T, MAX_ENTITIES> _componentArray;
-        std::unordered_map<Entity, size_t> _entityToIndex;
-        std::unordered_map<size_t, Entity> _indexToEntity;
+        std::unordered_map<EntityID, size_t> _entityIDToIndex;
+        std::unordered_map<size_t, EntityID> _indexToEntityID;
         std::size_t _nextIndex;
     };
 }
