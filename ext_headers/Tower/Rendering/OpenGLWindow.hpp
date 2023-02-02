@@ -4,7 +4,6 @@
 #include "Tower/framework.h"
 #include "Tower/Rendering/Window.hpp"
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/vec3.hpp>
 
 #include <iostream>
@@ -12,7 +11,7 @@
 
 namespace Tower
 {
-    class OpenGLWindow : public Window
+    class OpenGLWindow: public Window
     {
     public:
         OpenGLWindow(void);

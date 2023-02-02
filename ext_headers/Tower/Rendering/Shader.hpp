@@ -1,8 +1,8 @@
 #pragma once
 #include "pch.h"
 #include "Tower/framework.h"
-#include "Tower/Rendering/VertexAttribute.hpp"
 #include "Tower/Rendering/Uniform.hpp"
+#include "Tower/Rendering/VertexAttribute.hpp"
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>

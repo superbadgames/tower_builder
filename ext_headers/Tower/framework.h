@@ -12,6 +12,8 @@
 // Windows Header Files
 #include <windows.h>
 
+#include <GLFW/glfw3.h>
+
 // stl global includes
 #include <cstdint>
 #include <memory>

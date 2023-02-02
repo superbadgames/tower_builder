@@ -69,4 +69,5 @@ namespace Tower
         p_Model _model;
         p_Shader _shader;
     };
+    typedef shared_ptr<Entity> p_Entity;
 }

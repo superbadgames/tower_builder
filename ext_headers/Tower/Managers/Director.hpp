@@ -2,16 +2,13 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
-#include "Tower/Managers/EntityManager.hpp"
-#include "Tower/Managers/ComponentManager.hpp"
-#include "Tower/Managers/SystemManager.hpp"
 #include "Tower/Systems/TimeSystem.hpp"
-#include "Tower/Components/Clock.hpp"
 #include "Tower/Rendering/Window.hpp"
-#include "Tower/Input/InputController.hpp"
+// OpenGLWindow must be included before ShaderManager!
 #include "Tower/Rendering/OpenGLWindow.hpp"
-
-#include <GLFW/glfw3.h>
+#include "Tower/Managers/ShaderManager.hpp"
+#include "Tower/Rendering/Shader.hpp"
+#include "Tower/Input/InputController.hpp"
 
 namespace Tower
 {
@@ -44,6 +41,10 @@ namespace Tower
 
         p_Window GetWindowPointer(void) const;
 
+        p_ShaderManager GetShaderManager(void) const;
+
+        p_Shader GetShader(const string& name) const;
+
         void SetInput(p_InputController controller);
 
     private:
@@ -51,6 +52,7 @@ namespace Tower
 
         p_Window _window;
         TimeSystem _time;
+        p_ShaderManager _shaderManager;
 
         Director(void);
 

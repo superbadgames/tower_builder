@@ -6,7 +6,6 @@
 #include "Tower/Rendering/Mesh.hpp"
 #include "Tower/Rendering/Shader.hpp"
 #include "glm/vec4.hpp"
-#include <GLFW/glfw3.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

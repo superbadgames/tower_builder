@@ -16,7 +16,7 @@ using Lateralus::Crate3D;
 
 Tower::p_Director director;
 Tower::p_Camera camera;
-Tower::p_Shader shader;
+
 Tower::p_Texture containerTexture;
 Tower::p_InputController controller;
 
@@ -27,11 +27,11 @@ void GameLogic(void)
     //
     Tower::Entity crate{};
     crate.AddTransform();
-    crate.AddSprite(shader, containerTexture);
+    crate.AddSprite(director->GetShader("basic"), containerTexture);
 
     Tower::Entity crate2{};
     crate2.AddTransform();
-    crate2.AddSprite(shader, containerTexture);
+    crate2.AddSprite(director->GetShader("basic"), containerTexture);
 
     glm::vec4 blueColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
     glm::vec4 redColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -78,7 +78,7 @@ void GameLogic(void)
     for (U32 i = 0; i < 10; i++)
     {
         crates.push_back(Crate3D());
-        crates[i].Init(shader);
+        crates[i].Init(director->GetShader("basic"));
         crates[i].SetPosition(cubePositions[i]);
         crates[i].SetScale(glm::vec3(scale));
     }
@@ -214,7 +214,11 @@ void GameLogic(void)
         //
         // SHADER UPDATE
         //
-        shader->SetUniform("view", camera->GetViewMatrix());
+        // TODO: this pattern sucks a lot. I need a better way to get this done...
+        // I don't want to have to call this every fucking frame for every fucking
+        // shader. That would be a pain to remember, but this has to happen, or the
+        // view will never update.
+        director->GetShader("basic")->SetUniform("view", camera->GetViewMatrix());
 
         //
         // UPDATE AND DRAW ALL OBJECTS
@@ -259,7 +263,7 @@ int main(void)
 
     director->SetWindowBackgroundColor(windowBackgroundColor);
 
-    shader = std::make_shared<Tower::Shader>();
+    Tower::p_Shader shader = std::make_shared<Tower::Shader>();
     shader->Load("..\\..\\Assets\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Shaders\\basic_fragment.glsl");
 
     containerTexture = std::make_shared<Tower::Texture>();
@@ -273,9 +277,14 @@ int main(void)
     camera->SetMovementSpeed(25.0f);
 
     // TODO: Something is going to have to know how to call this.
+    // MOve this into a World::v_Init
     shader->SetUniform("view", camera->GetViewMatrix());
     shader->SetUniform("projection", camera->GetProjectionMatrix());
     shader->SetUniform("light_color", glm::vec4(1.0f, 0.5f, 0.31f, 1.0f));
+
+    // TODO TOMORROW:
+    // try to use a ShaderManager that is local to this file
+    director->GetShaderManager()->RegisterShader("basic", shader);
 
     GameLogic();
 
