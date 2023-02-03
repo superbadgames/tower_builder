@@ -43,7 +43,7 @@ namespace Tower
 
         p_ShaderManager GetShaderManager(void) const;
 
-        p_Shader GetShader(const string& name) const;
+        p_Shader GetShader(U32 shaderID) const;
 
         void SetInput(p_InputController controller);
 

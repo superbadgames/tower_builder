@@ -7,12 +7,15 @@
 #include <Tower/Components/Camera.hpp>
 #include <Tower/Entity.hpp>
 #include <Tower/Input/InputController.hpp>
+#include <Tower/Managers/ShaderManager.hpp>
 
 #include <GLFW/glfw3.h>
 
 #include <iostream>
 
 using Lateralus::Crate3D;
+
+const U32 BASIC_SHADER_ID = 1;
 
 Tower::p_Director director;
 Tower::p_Camera camera;
@@ -22,16 +25,17 @@ Tower::p_InputController controller;
 
 void GameLogic(void)
 {
+    Tower::p_Shader shaderPtr = director->GetShaderManager()->GetShader(BASIC_SHADER_ID);
     //
     // 2D CRATES
     //
     Tower::Entity crate{};
     crate.AddTransform();
-    crate.AddSprite(director->GetShader("basic"), containerTexture);
+    crate.AddSprite(shaderPtr, containerTexture);
 
     Tower::Entity crate2{};
     crate2.AddTransform();
-    crate2.AddSprite(director->GetShader("basic"), containerTexture);
+    crate2.AddSprite(shaderPtr, containerTexture);
 
     glm::vec4 blueColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
     glm::vec4 redColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -78,13 +82,14 @@ void GameLogic(void)
     for (U32 i = 0; i < 10; i++)
     {
         crates.push_back(Crate3D());
-        crates[i].Init(director->GetShader("basic"));
+        crates[i].Init(shaderPtr);
         crates[i].SetPosition(cubePositions[i]);
         crates[i].SetScale(glm::vec3(scale));
     }
 
     bool firstMouseMove = true;
     bool moveCamera = false;
+
 
     //
     // BEGIN WHILE LOOP
@@ -218,7 +223,8 @@ void GameLogic(void)
         // I don't want to have to call this every fucking frame for every fucking
         // shader. That would be a pain to remember, but this has to happen, or the
         // view will never update.
-        director->GetShader("basic")->SetUniform("view", camera->GetViewMatrix());
+        //director->GetShader("basic")->SetUniform("view", camera->GetViewMatrix());
+        shaderPtr->SetUniform("view", camera->GetViewMatrix());
 
         //
         // UPDATE AND DRAW ALL OBJECTS
@@ -263,8 +269,8 @@ int main(void)
 
     director->SetWindowBackgroundColor(windowBackgroundColor);
 
-    Tower::p_Shader shader = std::make_shared<Tower::Shader>();
-    shader->Load("..\\..\\Assets\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Shaders\\basic_fragment.glsl");
+    Tower::p_Shader basicShader = std::make_shared<Tower::Shader>();
+    basicShader->Load("..\\..\\Assets\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Shaders\\basic_fragment.glsl");
 
     containerTexture = std::make_shared<Tower::Texture>();
     containerTexture->Load("..\\..\\Assets\\Textures\\container.jpg");
@@ -278,13 +284,13 @@ int main(void)
 
     // TODO: Something is going to have to know how to call this.
     // MOve this into a World::v_Init
-    shader->SetUniform("view", camera->GetViewMatrix());
-    shader->SetUniform("projection", camera->GetProjectionMatrix());
-    shader->SetUniform("light_color", glm::vec4(1.0f, 0.5f, 0.31f, 1.0f));
+    basicShader->SetUniform("view", camera->GetViewMatrix());
+    basicShader->SetUniform("projection", camera->GetProjectionMatrix());
+    basicShader->SetUniform("light_color", glm::vec4(1.0f, 0.5f, 0.31f, 1.0f));
 
     // TODO TOMORROW:
     // try to use a ShaderManager that is local to this file
-    director->GetShaderManager()->RegisterShader("basic", shader);
+    director->GetShaderManager()->RegisterShader(BASIC_SHADER_ID, basicShader);
 
     GameLogic();
 

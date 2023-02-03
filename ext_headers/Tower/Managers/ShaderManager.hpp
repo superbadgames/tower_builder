@@ -3,7 +3,7 @@
 #include "pch.h"
 #include "Tower/framework.h"
 #include "Tower/Rendering/Shader.hpp"
-#include <map>
+#include <unordered_map>
 
 namespace Tower
 {
@@ -14,14 +14,14 @@ namespace Tower
 
         ~ShaderManager(void);
 
-        void LoadShader(const string& shaderName, const string& vertexFilepath, const string& fragmentFilepath);
+        void LoadShader(U32 shaderID, const string& vertexFilepath, const string& fragmentFilepath);
 
-        void RegisterShader(const string& shaderName, p_Shader shader);
+        void RegisterShader(U32 shaderID, p_Shader shader);
 
-        p_Shader GetShader(const string& shaderName);
+        p_Shader GetShader(U32 shaderID);
 
     private:
-        std::map<const char*, p_Shader> _shaders;
+        std::unordered_map<U32, p_Shader> _shaders;
     };
     typedef shared_ptr<ShaderManager> p_ShaderManager;
 }
