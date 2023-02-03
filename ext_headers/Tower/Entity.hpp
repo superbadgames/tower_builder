@@ -7,6 +7,7 @@
 #include "Tower/Rendering/Model.hpp"
 #include "Tower/Rendering/Mesh.hpp"
 #include "Tower/Rendering/Shader.hpp"
+#include "Tower/Components/Camera.hpp"
 
 namespace Tower
 {
@@ -17,7 +18,7 @@ namespace Tower
 
         ~Entity(void);
 
-        void Draw(void) const;
+        void Draw(p_Camera camera) const;
 
         void Update(F32 delta);
 

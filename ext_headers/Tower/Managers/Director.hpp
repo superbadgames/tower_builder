@@ -7,6 +7,7 @@
 // OpenGLWindow must be included before ShaderManager!
 #include "Tower/Rendering/OpenGLWindow.hpp"
 #include "Tower/Managers/ShaderManager.hpp"
+#include "Tower/Managers/TextureManager.hpp"
 #include "Tower/Rendering/Shader.hpp"
 #include "Tower/Input/InputController.hpp"
 
@@ -43,9 +44,13 @@ namespace Tower
 
         p_ShaderManager GetShaderManager(void) const;
 
-        p_Shader GetShader(U32 shaderID) const;
+        p_TextureManager GetTextureManager(void) const;
 
-        void SetInput(p_InputController controller);
+        void RegisterInputWithWindow(p_InputController controller);
+
+        void BeginUpdate(void);
+
+        void EndUpdate(void);
 
     private:
         static shared_ptr<Director> _instance;
@@ -53,6 +58,7 @@ namespace Tower
         p_Window _window;
         TimeSystem _time;
         p_ShaderManager _shaderManager;
+        p_TextureManager _textureManager;
 
         Director(void);
 

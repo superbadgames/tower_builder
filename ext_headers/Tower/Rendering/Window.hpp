@@ -43,9 +43,9 @@ namespace Tower
 
         void ShowMouseCursor(void) const;
 
-        inline S32 GetBufferWidth(void) { return _bufferWidth; }
+        inline S32 GetScreenWidth(void) { return _bufferWidth; }
 
-        inline S32 GetBufferHeight(void) { return _bufferHeight; }
+        inline S32 GetScreenHeight(void) { return _bufferHeight; }
 
     protected:
         GLFWwindow* _mainWindow;

@@ -11,6 +11,7 @@
 #include <string>
 
 using std::shared_ptr;
+using std::make_shared;
 using std::string;
 using std::unique_ptr;
 
