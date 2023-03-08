@@ -114,9 +114,9 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /y/d/E "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
-xcopy /y/d "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
-xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Command>
+<Command>xcopy /y/e "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
+xcopy /y/e "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
+xcopy /y/e "$(ProjectDir)..\Tower\Resources" "$(ProjectDir)Assets\Default\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,9 +144,9 @@ xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Comm
       <AdditionalOptions>/ENTRY:"mainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /y/d/E "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
-xcopy /y/d "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
-xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Command>
+<Command>xcopy /y/e "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
+xcopy /y/e "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
+xcopy /y/e "$(ProjectDir)..\Tower\Resources" "$(ProjectDir)Assets\Default\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -169,9 +169,9 @@ xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Comm
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /y/d/E "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
-xcopy /y/d "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
-xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Command>
+<Command>xcopy /y/e "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
+xcopy /y/e "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
+xcopy /y/e "$(ProjectDir)..\Tower\Resources" "$(ProjectDir)Assets\Default\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -193,15 +193,15 @@ xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Comm
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)ext_lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tower_release.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tower_release.lib;opengl32.lib;glew32.lib;glfw3.lib;freetype.lib%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <AdditionalOptions>/ENTRY:"mainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /y/d/E "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
-xcopy /y/d "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
-xcopy /y/d "$(ProjectDir)..\Tower\Shaders\" "$(ProjectDir)Assets\Shaders\"</Command>
+<Command>xcopy /y/e "$(ProjectDIr)..\Tower\Headers\Tower" "$(ProjectDir)ext_headers\Tower\"
+xcopy /y/e "$(ProjectDir)..\Tower\Builds\$(Configuration)\Tower_$(Configuration).lib" "$(ProjectDir)ext_lib\"
+xcopy /y/e "$(ProjectDir)..\Tower\Resources" "$(ProjectDir)Assets\Default\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

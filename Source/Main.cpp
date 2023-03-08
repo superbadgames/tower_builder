@@ -6,6 +6,7 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
+#include <Tower/Components/Font.hpp>
 
 #include <GLFW/glfw3.h>
 
@@ -30,13 +31,16 @@ int main(void)
     // Initialize shaders
     //
     Tower::p_Shader basicShader = std::make_shared<Tower::Shader>();
-    basicShader->Load("..\\..\\Assets\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Shaders\\basic_fragment.glsl");
+    basicShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
     director->GetShaderManager()->RegisterShader(BASIC_SHADER_ID, basicShader);
 
     //
     // Initialize Textures
     //
     director->GetTextureManager()->LoadTexture(CRATE_TEXTURE_ID, "..\\..\\Assets\\Textures\\container.jpg");
+
+    Tower::p_Font font = std::make_shared<Tower::Font>();
+    font->Load("..\\..\\Assets\\Default\\Fonts\\PressStart2P-Regular.tff", 48);
 
     Tower::p_World spinningCratesWorld = make_shared<Soyokaze::SpinningCrates>();
     spinningCratesWorld->v_Init(director);
