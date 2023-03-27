@@ -6,11 +6,19 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
-#include <Tower/Components/Font.hpp>
+//#include <Tower/Components/Font.hpp>
 
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+
+void RenderText(Tower::p_Shader& shader, const string& text, F32 x, F32 y, F32 scale, const glm::vec3& color)
+{
+    shader->Use();
+    shader->SetUniform("text_color", color);
+
+
+}
 
 int main(void)
 {
@@ -39,8 +47,9 @@ int main(void)
     //
     director->GetTextureManager()->LoadTexture(CRATE_TEXTURE_ID, "..\\..\\Assets\\Textures\\container.jpg");
 
-    Tower::p_Font font = std::make_shared<Tower::Font>();
-    font->Load("..\\..\\Assets\\Default\\Fonts\\PressStart2P-Regular.tff", 48);
+    // TODO: Work on this later. Pausing UI for now
+    //Tower::p_Font font = std::make_shared<Tower::Font>();
+    //font->Load("..\\..\\Assets\\Default\\Fonts\\PressStart2P-Regular.tff", 48);
 
     Tower::p_World spinningCratesWorld = make_shared<Soyokaze::SpinningCrates>();
     spinningCratesWorld->v_Init(director);
