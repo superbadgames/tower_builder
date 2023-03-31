@@ -3,25 +3,47 @@
 #include "pch.h"
 #include "Tower/framework.h"
 #include "Tower/Managers/Director.hpp"
+#include "Tower/Entity.hpp"
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Tower
 {
+    class Entity;
     class Camera
     {
+    private:
+        shared_ptr<Entity> _target;
+        glm::mat4 _view;
+        glm::mat4 _projection;
+        glm::vec3 _position;
+        glm::vec3 _front;
+        glm::vec3 _cameraUp;
+        glm::vec3 _right;
+        glm::vec3 _worldUp;
+        F32 _yaw;
+        F32 _pitch;
+        F32 _moveSpeed;
+        F32 _sensitivity;
+        F32 _zoom;
+        F32 _verticalOffset;
+        F32 _targetOffset; // for a z forward world, this should be (0, 0, value)
+
     public:
         Camera(void);
 
-        Camera(const glm::vec3& position,
+        Camera(shared_ptr<Entity> target,
+            const glm::vec3& position,
             const glm::vec3& front,
             const glm::vec3& worldUp,
             F32 yaw,
             F32 pitch,
             F32 speed,
             F32 turnSpeed,
-            F32 zoom);
+            F32 zoom,
+            F32 verticalOffset,
+            F32 targetOffset);
 
         ~Camera(void);
 
@@ -36,7 +58,7 @@ namespace Tower
 
         void SetPosition(const glm::vec3& position);
 
-        void MouseControl(F64 xChange, F64 yChange);
+        void UpdateYawAndPitch(F32 yaw, F32 pitch);
 
         void CalculateViewMatrix(void);
 
@@ -64,23 +86,12 @@ namespace Tower
         // Update pitch by offset, apply turn speed
         void UpdatePitch(F32 offset, bool clamp = true);
 
+        inline void SetSensitivity(F32 sensitivity) { _sensitivity = sensitivity; }
+
 
     private:
         void _UpdateVectors(void);
 
-        glm::mat4 _view;
-        glm::mat4 _projection;
-        glm::vec3 _position;
-        glm::vec3 _front;
-        glm::vec3 _cameraUp;
-        glm::vec3 _right;
-        glm::vec3 _worldUp;
-
-        F32 _yaw;
-        F32 _pitch;
-        F32 _moveSpeed;
-        F32 _turnSpeed;
-        F32 _zoom;
     };
     typedef shared_ptr<Camera> p_Camera;
 }

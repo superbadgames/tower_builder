@@ -8,7 +8,9 @@
 #include <Tower/Components/Camera.hpp>
 #include <Tower/Entity.hpp>
 #include <glm/vec4.hpp>
+#include <glm/gtx/norm.hpp>
 #include <vector>
+#include  <iomanip>
 
 namespace Soyokaze
 {
@@ -38,6 +40,7 @@ namespace Soyokaze
         F32 _angle2;
         F32 _offset;
         F32 _direction;
+        F32 _cameraDeadZone;
         bool _firstMouseMove;
         bool _moveCamera;
     };

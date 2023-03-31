@@ -4,6 +4,7 @@
 #include "Tower/framework.h"
 #include "Tower/Input/InputButtons.hpp"
 #include "Tower/Input/InputController.hpp"
+#include "Tower/Components/Camera.hpp"
 #include <glm/vec3.hpp>
 
 namespace Tower
@@ -23,6 +24,8 @@ namespace Tower
 
         virtual bool v_Init(string gameName, U32 width, U32 height) = 0;
 
+        void Init(void);
+
         virtual void v_Cleanup(void) = 0;
 
         virtual void v_ProcessEvents(void);
@@ -39,6 +42,8 @@ namespace Tower
 
         void RegisterInputController(p_InputController controller);
 
+        void RegisterCamera(p_Camera camera);
+
         void HideMouseCursor(void) const;
 
         void ShowMouseCursor(void) const;
@@ -47,9 +52,14 @@ namespace Tower
 
         inline S32 GetScreenHeight(void) { return _bufferHeight; }
 
+        inline p_InputController GetInputController(void) { return _inputController; }
+
+        inline p_Camera GetCamera(void) { return _camera; }
+
     protected:
         GLFWwindow* _mainWindow;
         p_InputController _inputController;
+        p_Camera _camera;
         S32 _bufferWidth;
         S32 _bufferHeight;
 
