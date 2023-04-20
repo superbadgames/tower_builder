@@ -102,7 +102,7 @@ void SpinningCrates::v_Init(Tower::p_Director director)
     //camera->SetViewMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f)));
     _camera->SetMovementSpeed(25.0f);
 
-
+    _director->RegisterCameraWithWindow(_camera);
 
     // The shader needs to be updated with the camera's new projection matrix
     shaderPtr->SetUniform("view", _camera->GetViewMatrix());
@@ -130,12 +130,14 @@ void SpinningCrates::v_Update(void)
     {
         _moveCamera = true;
         // _director->GetWindowPointer()->HideMouseCursor();
+        _camera->AllowMove();
     }
 
     if (_controller->IsMouseBindingActive("stop_move_camera"))
     {
         _moveCamera = false;
         //_director->GetWindowPointer()->ShowMouseCursor();
+        _camera->StopMove();
     }
 
 
@@ -151,55 +153,6 @@ void SpinningCrates::v_Update(void)
         std::cout << "camera dead zone is now " << _cameraDeadZone << std::endl;
     }
 
-    //
-    // CAMERA LOOK LOOP
-    //
-    if (_moveCamera)
-    {
-        const glm::vec2& prevMouse = _controller->GetMousePreviousCursorPosition();
-        const glm::vec2& curMouse = _controller->GetMouseCurrentCursorPosition();
-
-        std::cout << "previous Mouse = (" << prevMouse.x << "," << prevMouse.y << ")" << std::endl
-            << "current Mouse = (" << curMouse.x << "," << curMouse.y << ")" << std::endl;
-
-
-
-        // if (_firstMouseMove)
-        // {
-        //     prevMouse = _controller->GetMouseCurrentCursorPosition();
-        //     _firstMouseMove = false;
-        // }
-
-        F32 xOffset = curMouse.x - prevMouse.x;
-        F32 yOffset = prevMouse.y - curMouse.y;
-        //offset.x = curMouse.x - prevMouse.x;
-        // Reversed because the screen maps space different?
-        //offset.y = prevMouse.y - curMouse.y;
-        //std::cout << "\r" << "offset: (" << offset.x << "," << offset.y << "\t\t\t\tlength: " << offset.length() << std::flush;
-        //if (offset.length() >= _cameraDeadZone)
-        //{
-
-        // std::cout << std::fixed;
-        // std::cout << std::setprecision(5);
-        // std::cout << "==========================================================" << std::endl
-        //     << "prevMouse: (" << prevMouse.x << "," << prevMouse.y << ")" << std::endl
-        //     << "curMouse: (" << curMouse.x << "," << curMouse.y << ")" << std::endl
-        //     << "offset: (" << offset.x << "," << offset.y << ")" << std::endl
-        //     << "Offset length: " << offset.length() << std::endl;
-
-
-        _camera->MouseControl(xOffset, yOffset);
-
-
-        //}
-        if (_controller->IsMouseBindingActive("check_screen_location"))
-        {
-            const glm::vec2 mousePos = _controller->GetMouseCurrentCursorPosition();
-
-            std::cout << "Mouse Position: (" << mousePos.x << "," << mousePos.y << ")\n";
-        }
-
-    }
 
     //
     // UPDATE CAMERA MOVEMENT LOOP

@@ -48,6 +48,8 @@ namespace Tower
 
         void RegisterInputWithWindow(p_InputController controller);
 
+        void RegisterCameraWithWindow(p_Camera camera);
+
         void BeginUpdate(void);
 
         void EndUpdate(void);

@@ -11,7 +11,6 @@
 
 namespace Tower
 {
-    class Camera;
     class Entity
     {
     public:
@@ -19,7 +18,7 @@ namespace Tower
 
         ~Entity(void);
 
-        void Draw(shared_ptr<Camera> camera) const;
+        void Draw(p_Camera camera) const;
 
         void Update(F32 delta);
 
