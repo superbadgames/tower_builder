@@ -4,7 +4,7 @@
 
 using namespace Soyokaze;
 
-SpinningCrates::SpinningCrates(void):
+SpinningCrates::SpinningCrates(void) :
     _controller(nullptr),
     _camera(nullptr),
     _crates3D(),
@@ -188,7 +188,7 @@ void SpinningCrates::v_Update(void)
         //     << "Offset length: " << offset.length() << std::endl;
 
 
-        _camera->MouseControl(xOffset, yOffset);
+       // _camera->MouseControl(xOffset, yOffset);
 
 
         //}
@@ -278,14 +278,17 @@ void SpinningCrates::v_Update(void)
 
 void SpinningCrates::v_Render(void)
 {
-    _crate2D_1.Draw(_camera);
-    _crate2D_2.Draw(_camera);
+    glm::mat4 viewMatrix = _camera->GetViewMatrix();
+
+    _crate2D_1.Draw(viewMatrix);
+    _crate2D_2.Draw(viewMatrix);
 
     //
     // UPDATE AND DRAW ALL OBJECTS
     //
     for (U32 i = 0; i < _crates3D.size(); i++)
     {
-        _crates3D[i].Draw(_camera);
+        _crates3D[i].Draw(viewMatrix
+        );
     }
 }

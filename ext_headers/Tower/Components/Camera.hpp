@@ -10,7 +10,6 @@
 
 namespace Tower
 {
-    class Entity;
     class Camera
     {
     private:

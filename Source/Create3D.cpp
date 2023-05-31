@@ -3,7 +3,7 @@
 
 using namespace Soyokaze;
 
-Crate3D::Crate3D(void):
+Crate3D::Crate3D(void) :
     _entity(),
     _rotationSpeed(15.0f),
     _angle(0.0f),
@@ -14,7 +14,7 @@ Crate3D::Crate3D(void):
     //Init("..\\..\\Assets\\Models\\cube.glb", "..\\..\\Assets\\Textures\\container.jpg");
 }
 
-Crate3D::Crate3D(Tower::p_Shader shader):
+Crate3D::Crate3D(Tower::p_Shader shader) :
     _entity(),
     _rotationSpeed(15.0f),
     _angle(0.0f),
@@ -23,7 +23,7 @@ Crate3D::Crate3D(Tower::p_Shader shader):
     Init("..\\..\\Assets\\Models\\cube.glb", "..\\..\\Assets\\Textures\\container.jpg", shader);
 }
 
-Crate3D::Crate3D(const string& modelFilepath, const string& texture, Tower::p_Shader shader):
+Crate3D::Crate3D(const string& modelFilepath, const string& texture, Tower::p_Shader shader) :
     _entity(),
     _rotationSpeed(15.0f),
     _angle(0.0f),
@@ -52,9 +52,9 @@ void Crate3D::Init(Tower::p_Shader shader)
     Init("..\\..\\Assets\\Models\\cube.glb", "..\\..\\Assets\\Textures\\container.jpg", shader);
 }
 
-void Crate3D::Draw(Tower::p_Camera camera)
+void Crate3D::Draw(const glm::mat4& viewMatrix)
 {
-    _entity.Draw(camera);
+    _entity.Draw(viewMatrix);
 }
 
 void Crate3D::Update(F32 delta, F32 modifier)

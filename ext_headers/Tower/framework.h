@@ -12,8 +12,10 @@
 // Windows Header Files
 #include <windows.h>
 
+extern "C" {
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+}
 
 // stl global includes
 #include <cstdint>
