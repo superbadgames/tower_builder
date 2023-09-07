@@ -8,7 +8,6 @@
 #include <Tower/Managers/ShaderManager.hpp>
 //#include <Tower/Components/Font.hpp>
 
-#include <GLFW/glfw3.h>
 
 #include <iostream>
 

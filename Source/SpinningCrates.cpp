@@ -4,9 +4,8 @@
 
 using namespace Soyokaze;
 
-SpinningCrates::SpinningCrates(void):
+SpinningCrates::SpinningCrates(void) :
     _controller(nullptr),
-    _camera(nullptr),
     _crates3D(),
     _crate2D_1(),
     _crate2D_2(),
@@ -15,9 +14,7 @@ SpinningCrates::SpinningCrates(void):
     _angle1(0.0f),
     _angle2(0.0f),
     _offset(0.0f),
-    _direction(1.0f),
-    _firstMouseMove(true),
-    _moveCamera(false)
+    _direction(0.0f)
 {
 
 }
@@ -29,7 +26,8 @@ SpinningCrates::~SpinningCrates(void)
 
 void SpinningCrates::v_Init(Tower::p_Director director)
 {
-    std::cout << "spinning crates init called\n";
+    assert(_camera != nullptr && "Error: SpinningCrates::v_Init called with a null camera!");
+
     _director = director;
     // Set up data
     Tower::p_Shader shaderPtr = _director->GetShaderManager()->GetShader(1);
@@ -93,13 +91,6 @@ void SpinningCrates::v_Init(Tower::p_Director director)
     U32 width = (U32)_director->GetWindowPointer()->GetScreenWidth();
     U32 height = (U32)_director->GetWindowPointer()->GetScreenHeight();
 
-    _camera = make_shared<Tower::Camera>();
-    _camera->Init(45.0f, width, height, 0.1f, 100.0f);
-    // I need to fix the constructor first. The up, yaw and pitch aren't set yet.
-    _camera->MoveBack(1.0f);
-    //camera->SetViewMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f)));
-    _camera->SetMovementSpeed(25.0f);
-
     // The shader needs to be updated with the camera's new projection matrix
     shaderPtr->SetUniform("view", _camera->GetViewMatrix());
     shaderPtr->SetUniform("projection", _camera->GetProjectionMatrix());
@@ -121,66 +112,6 @@ void SpinningCrates::v_Update(void)
     {
         _director->CloseProgram();
     }
-
-    if (_controller->IsMouseBindingActive("move_camera"))
-    {
-        _moveCamera = true;
-        _director->GetWindowPointer()->HideMouseCursor();
-    }
-
-    if (_controller->IsMouseBindingActive("stop_move_camera"))
-    {
-        std::cout << "Mouse Release happened\n";
-        _moveCamera = false;
-        _director->GetWindowPointer()->ShowMouseCursor();
-    }
-
-    //
-    // CAMERA LOOK LOOP
-    //
-    if (_moveCamera)
-    {
-        const glm::vec2& prevMouse = _controller->GetMousePreviousCursorPosition();
-        const glm::vec2& curMouse = _controller->GetMouseCurrentCursorPosition();
-        // if (_firstMouseMove)
-        // {
-        //     prevMouse = _controller->GetMouseCurrentCursorPosition();
-        //     _firstMouseMove = false;
-        // }
-        glm::vec2 offset;
-        offset.x = curMouse.x - prevMouse.x;
-        offset.y = prevMouse.y - curMouse.y;
-
-        _camera->UpdateYaw(offset.x);
-        _camera->UpdatePitch(offset.y);
-
-    }
-
-    //
-    // UPDATE CAMERA MOVEMENT LOOP
-    //
-    if (_controller->IsKeyboardBindingActive("move_forward"))
-    {
-        _camera->MoveForward(delta);
-    }
-    else if (_controller->IsKeyboardBindingActive("move_back"))
-    {
-        _camera->MoveBack(delta);
-    }
-    else if (_controller->IsKeyboardBindingActive("move_right"))
-    {
-        _camera->MoveRight(delta);
-    }
-    else if (_controller->IsKeyboardBindingActive("move_left"))
-    {
-        _camera->MoveLeft(delta);
-    }
-
-
-    //
-    // CAMERA UPDATE
-    //
-    _camera->CalculateViewMatrix();
 
     //
     // 2D OBJECT UPDATE

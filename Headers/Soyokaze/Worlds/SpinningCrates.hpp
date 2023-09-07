@@ -12,7 +12,7 @@
 
 namespace Soyokaze
 {
-    class SpinningCrates: public Tower::World
+    class SpinningCrates : public Tower::World
     {
     public:
 
@@ -27,7 +27,6 @@ namespace Soyokaze
         void v_Render(void) final;
 
     private:
-        Tower::p_Camera _camera;
         Tower::p_InputController _controller;
         std::vector<Crate3D> _crates3D;
         Tower::Entity _crate2D_1;
@@ -38,7 +37,5 @@ namespace Soyokaze
         F32 _angle2;
         F32 _offset;
         F32 _direction;
-        bool _firstMouseMove;
-        bool _moveCamera;
     };
 }
