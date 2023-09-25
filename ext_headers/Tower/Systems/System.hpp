@@ -13,6 +13,7 @@ namespace Tower
 
         virtual ~System(void);
 
+    protected:
         std::set<EntityID> entities;
     };
     typedef shared_ptr<System> p_System;

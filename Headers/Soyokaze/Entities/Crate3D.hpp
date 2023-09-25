@@ -23,7 +23,7 @@ namespace Soyokaze
 
         void Init(Tower::p_Shader shader);
 
-        void Draw(Tower::p_Camera camera);
+        //   void Draw(Tower::p_Camera camera);
 
         void Update(F32 delta, F32 modifier);
 

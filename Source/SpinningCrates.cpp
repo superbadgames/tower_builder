@@ -93,7 +93,7 @@ void SpinningCrates::v_Init(Tower::p_Director director)
 
     // The shader needs to be updated with the camera's new projection matrix
     shaderPtr->SetUniform("view", _camera->GetViewMatrix());
-    shaderPtr->SetUniform("projection", _camera->GetProjectionMatrix());
+    // shaderPtr->SetUniform("projection", _camera->GetProjectionMatrix());
     shaderPtr->SetUniform("light_color", glm::vec4(1.0f, 0.5f, 0.31f, 1.0f));
 }
 
@@ -164,14 +164,14 @@ void SpinningCrates::v_Update(void)
 
 void SpinningCrates::v_Render(void)
 {
-    _crate2D_1.Draw(_camera);
-    _crate2D_2.Draw(_camera);
+    // _crate2D_1.Draw(_camera);
+    // _crate2D_2.Draw(_camera);
 
-    //
-    // UPDATE AND DRAW ALL OBJECTS
-    //
-    for (U32 i = 0; i < _crates3D.size(); i++)
-    {
-        _crates3D[i].Draw(_camera);
-    }
+    // //
+    // // UPDATE AND DRAW ALL OBJECTS
+    // //
+    // for (U32 i = 0; i < _crates3D.size(); i++)
+    // {
+    //     _crates3D[i].Draw(_camera);
+    // }
 }

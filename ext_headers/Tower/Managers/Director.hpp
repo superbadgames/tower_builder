@@ -10,6 +10,8 @@
 #include "Tower/Managers/TextureManager.hpp"
 #include "Tower/Rendering/Shader.hpp"
 #include "Tower/Input/InputController.hpp"
+#include "Tower/Components/Camera.hpp"
+#include "Tower/Entity.hpp"
 
 namespace Tower
 {
@@ -21,6 +23,10 @@ namespace Tower
         static shared_ptr<Director> Instance(void);
 
         bool Init(WindowType type = WindowType::OPEN_GL, string name = "Tower Window", const U32 width = 800, const U32 height = 600);
+
+        void Update(void);
+
+        void Draw(void);
 
         void Cleanup(void);
 
@@ -59,6 +65,7 @@ namespace Tower
         TimeSystem _time;
         p_ShaderManager _shaderManager;
         p_TextureManager _textureManager;
+     //   p_Camera _camera;
 
         Director(void);
 

@@ -10,6 +10,7 @@
 
 
 #include <iostream>
+#include <bitset>
 
 void RenderText(Tower::p_Shader& shader, const string& text, F32 x, F32 y, F32 scale, const glm::vec3& color)
 {
@@ -21,6 +22,7 @@ void RenderText(Tower::p_Shader& shader, const string& text, F32 x, F32 y, F32 s
 
 int main(void)
 {
+    // TODO: This should come from a config file
     const U32 WINDOW_WIDTH = 1200;
     const U32 WINDOW_HEIGHT = 800;
     const U32 BASIC_SHADER_ID = 1;

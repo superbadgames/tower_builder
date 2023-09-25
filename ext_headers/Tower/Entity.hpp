@@ -7,41 +7,41 @@
 #include "Tower/Rendering/Model.hpp"
 #include "Tower/Rendering/Mesh.hpp"
 #include "Tower/Rendering/Shader.hpp"
-#include "Tower/Components/Camera.hpp"
 
 namespace Tower
 {
-    class Entity
+    class IEntity
     {
     public:
-        Entity(void);
+        IEntity(void);
 
-        ~Entity(void);
+        ~IEntity(void);
 
-        void Draw(p_Camera camera) const;
+        // TODO: Move this code into the RenderingSystem
+        //void Draw(const glm::mat4& viewMatrix) const;
 
-        void Update(F32 delta);
+        virtual void v_Update(F32 delta) = 0;
 
-        void AddTransform(void);
+        void InitModel(const string& filePath);
 
-        void AddModel(void);
+        void InitSprite(p_Shader shader, p_Texture texture);
 
-        void AddModel(const string& filePath);
+        void SetShader(p_Shader shader);
 
-        void AddSprite(p_Shader shader, p_Texture texture);
+        void InitTexture(const string& filepath);
 
-        void AddShader(void);
-
-        void AddShader(p_Shader shader);
-
-        void AddTexture(const string& filepath);
-
-        inline void AddTexture(p_Texture texture) { _model->SetTexture(texture); }
+        inline void AddTexture(p_Texture texture)
+        {
+            _model.SetTexture(texture);
+        }
 
         glm::vec3 GetPosition(void) const;
 
         void SetPostion(const glm::vec3& position);
 
+        //
+        //TODO:: Look at all of this and decide what is worth keeping. I think there is a better way to do all of this.
+        //
         const glm::vec3& GetRotationAxis(void) const;
 
         F32 GetRotationAngle(void) const;
@@ -60,15 +60,30 @@ namespace Tower
 
         void SetColor(const glm::vec4& color);
 
-        const glm::mat4& GetTransform(void) const;
+        const glm::mat4& GetTransform(void);
 
-        p_Model GetModel(void) const;
+        const Model& GetModel(void) const;
+
+        inline const glm::mat4& GetModelMatrix(void)
+        {
+            return _transform.GetTransform();
+        }
+
+        inline p_Shader GetShader(void) const
+        {
+            return _shader;
+        }
+
+        inline const glm::vec4& GetColor(void) const
+        {
+            return _transform.color;
+        }
 
 
     private:
-        p_Transform _transform;
-        p_Model _model;
+        Transform _transform;
+        Model _model;
         p_Shader _shader;
     };
-    typedef shared_ptr<Entity> p_Entity;
+    typedef shared_ptr<IEntity> p_Entity;
 }

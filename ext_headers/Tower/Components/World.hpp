@@ -3,7 +3,7 @@
 #include "pch.h"
 #include "Tower/framework.h"
 #include "Tower/Managers/Director.hpp"
-#include "Tower/Components/Camera.hpp"
+//#include "Tower/Components/Camera.hpp"
 
 namespace Tower
 {
@@ -22,7 +22,7 @@ namespace Tower
 
     protected:
         p_Director _director;
-        p_Camera _camera;
+        //   p_Camera _camera;
     };
     typedef shared_ptr<World> p_World;
 }
