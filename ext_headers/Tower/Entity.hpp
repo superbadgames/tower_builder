@@ -10,38 +10,37 @@
 
 namespace Tower
 {
-    class IEntity
+    class Entity
     {
     public:
-        IEntity(void);
+        Entity(void);
 
-        ~IEntity(void);
+        ~Entity(void);
 
-        // TODO: Move this code into the RenderingSystem
-        //void Draw(const glm::mat4& viewMatrix) const;
+        void Draw(const glm::mat4& viewMatrix) const;
 
-        virtual void v_Update(F32 delta) = 0;
+        void Update(F32 delta);
 
-        void InitModel(const string& filePath);
+        void AddTransform(void);
 
-        void InitSprite(p_Shader shader, p_Texture texture);
+        void AddModel(void);
 
-        void SetShader(p_Shader shader);
+        void AddModel(const string& filePath);
 
-        void InitTexture(const string& filepath);
+        void AddSprite(p_Shader shader, p_Texture texture);
 
-        inline void AddTexture(p_Texture texture)
-        {
-            _model.SetTexture(texture);
-        }
+        void AddShader(void);
+
+        void AddShader(p_Shader shader);
+
+        void AddTexture(const string& filepath);
+
+        inline void AddTexture(p_Texture texture) { _model->SetTexture(texture); }
 
         glm::vec3 GetPosition(void) const;
 
         void SetPostion(const glm::vec3& position);
 
-        //
-        //TODO:: Look at all of this and decide what is worth keeping. I think there is a better way to do all of this.
-        //
         const glm::vec3& GetRotationAxis(void) const;
 
         F32 GetRotationAngle(void) const;
@@ -60,30 +59,15 @@ namespace Tower
 
         void SetColor(const glm::vec4& color);
 
-        const glm::mat4& GetTransform(void);
+        const glm::mat4& GetTransform(void) const;
 
-        const Model& GetModel(void) const;
-
-        inline const glm::mat4& GetModelMatrix(void)
-        {
-            return _transform.GetTransform();
-        }
-
-        inline p_Shader GetShader(void) const
-        {
-            return _shader;
-        }
-
-        inline const glm::vec4& GetColor(void) const
-        {
-            return _transform.color;
-        }
+        p_Model GetModel(void) const;
 
 
     private:
-        Transform _transform;
-        Model _model;
+        p_Transform _transform;
+        p_Model _model;
         p_Shader _shader;
     };
-    typedef shared_ptr<IEntity> p_Entity;
+    typedef shared_ptr<Entity> p_Entity;
 }

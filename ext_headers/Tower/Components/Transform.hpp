@@ -17,7 +17,6 @@ namespace Tower
         glm::vec4 color{ 0.0f };
         real rotationAngle{ 0 };
 
-        // TODO:: this is terrible. Change this right away
         inline const glm::mat4& GetTransform(void)
         {
             transform = glm::mat4(1.0);

@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "framework.hpp"
-#include "Soyokaze/Worlds/SpinningCrates.hpp"
+#include <Tower/framework.h>
+#include "BuilderTest/Worlds/TestWorld1.hpp"
 #include <Tower/Components/World.hpp>
 #include <Tower/Managers/Director.hpp>
 #include <Tower/Rendering/Shader.hpp>
@@ -12,21 +12,13 @@
 #include <iostream>
 #include <bitset>
 
-void RenderText(Tower::p_Shader& shader, const string& text, F32 x, F32 y, F32 scale, const glm::vec3& color)
-{
-    shader->Use();
-    shader->SetUniform("text_color", color);
-
-
-}
-
 int main(void)
 {
     // TODO: This should come from a config file
     const U32 WINDOW_WIDTH = 1200;
     const U32 WINDOW_HEIGHT = 800;
     const U32 BASIC_SHADER_ID = 1;
-    const U32 CRATE_TEXTURE_ID = 1;
+    const U32 CRATE_TEXTURE_ID = 2;
 
     Tower::p_Director director = Tower::Director::Instance();
 
@@ -52,14 +44,20 @@ int main(void)
     //Tower::p_Font font = std::make_shared<Tower::Font>();
     //font->Load("..\\..\\Assets\\Default\\Fonts\\PressStart2P-Regular.tff", 48);
 
-    Tower::p_World spinningCratesWorld = make_shared<Soyokaze::SpinningCrates>();
-    spinningCratesWorld->v_Init(director);
+    //Tower::p_World spinningCratesWorld = make_shared<Soyokaze::SpinningCrates>();
+    //spinningCratesWorld->v_Init(director);
 
-    while (!director->ShouldProgramClose())
-    {
-        spinningCratesWorld->v_Update();
-        spinningCratesWorld->v_Render();
-    }
+    BuilderTest::TestWorldOne worldOne{};
+
+    // while (!director->ShouldProgramClose())
+    // {
+    //     //spinningCratesWorld->v_Update();
+    //     //spinningCratesWorld->v_Render();
+    //    // director->Update();
+
+
+    // }
+
 
     director->Cleanup();
 

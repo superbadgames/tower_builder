@@ -2,26 +2,29 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
-#include "Tower/Entity.hpp"
-#include "Tower/Rendering/Shader.hpp"
+#include "Tower/Systems/System.hpp"
+#include "Tower/Rendering/Model.hpp"
+#include "Tower/Components/Transform.hpp"
+#include "Tower/Components/Camera.hpp"
+#include "Tower/Rendering/Light.hpp"
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Tower
 {
-    class RenderSystem
+    class RenderSystem: public System
     {
     public:
         RenderSystem(void);
 
         ~RenderSystem(void);
 
-        void Init(F32 fov, F32 aspect, F32 nearDraw, F32 farDraw);
+        void Init(void);
 
-        void Draw(p_Entity entity);
+        void Draw(const Camera& camera);
 
     private:
-        glm::mat4 _projectionMatrix;
+        Camera _camera;
     };
     typedef shared_ptr<RenderSystem> p_RenderSystem;
 }

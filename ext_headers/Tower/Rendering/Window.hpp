@@ -4,28 +4,27 @@
 #include "Tower/framework.h"
 #include "Tower/Input/InputButtons.hpp"
 #include "Tower/Input/InputController.hpp"
+#include "Tower/Components/Camera.hpp"
 #include <glm/vec3.hpp>
 
 namespace Tower
 {
-    enum class WindowType
-    {
-        OPEN_GL,
-        VULKAN
-    };
+    // Forward declaration needed because the call back functions, the handlers cause some circular refs, I think.
+    class Camera;
+    typedef shared_ptr<Camera> p_Camera;
 
     class Window
     {
     public:
         Window(void);
 
-        virtual ~Window(void);
+        ~Window(void);
 
-        virtual bool v_Init(string gameName, U32 width, U32 height) = 0;
+        bool Init(string gameName, U32 width, U32 height);
 
-        virtual void v_Cleanup(void) = 0;
+        void Cleanup(void);
 
-        virtual void v_ProcessEvents(void);
+        void ProcessEvents(void);
 
         void SetColor(glm::vec3& color);
 
@@ -39,6 +38,8 @@ namespace Tower
 
         void RegisterInputController(p_InputController controller);
 
+        void RegisterCamera(p_Camera camera);
+
         void HideMouseCursor(void) const;
 
         void ShowMouseCursor(void) const;
@@ -47,9 +48,14 @@ namespace Tower
 
         inline S32 GetScreenHeight(void) { return _bufferHeight; }
 
+        inline p_InputController GetInputController(void) { return _inputController; }
+
+        inline p_Camera GetCamera(void) { return _camera; }
+
     protected:
         GLFWwindow* _mainWindow;
         p_InputController _inputController;
+        p_Camera _camera;
         S32 _bufferWidth;
         S32 _bufferHeight;
 

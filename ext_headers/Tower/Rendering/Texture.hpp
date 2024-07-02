@@ -2,7 +2,6 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
-#include <GLFW/glfw3.h>
 
 
 namespace Tower
