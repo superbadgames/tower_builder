@@ -18,7 +18,6 @@ int main(void)
     const U32 WINDOW_WIDTH = 1200;
     const U32 WINDOW_HEIGHT = 800;
     const U32 BASIC_SHADER_ID = 1;
-    const U32 CRATE_TEXTURE_ID = 2;
 
     Tower::p_Director director = Tower::Director::Instance();
 
@@ -38,7 +37,7 @@ int main(void)
     //
     // Initialize Textures
     //
-    director->GetTextureManager()->LoadTexture(CRATE_TEXTURE_ID, "..\\..\\Assets\\Textures\\container.jpg");
+    director->GetTextureManager()->LoadTexture(1, "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
 
     // TODO: Work on this later. Pausing UI for now
     //Tower::p_Font font = std::make_shared<Tower::Font>();
@@ -48,15 +47,18 @@ int main(void)
     //spinningCratesWorld->v_Init(director);
 
     BuilderTest::TestWorldOne worldOne{};
+    worldOne.v_Init(director);
 
-    // while (!director->ShouldProgramClose())
-    // {
-    //     //spinningCratesWorld->v_Update();
-    //     //spinningCratesWorld->v_Render();
-    //    // director->Update();
+    while (!director->ShouldProgramClose())
+    {
+        //spinningCratesWorld->v_Update();
+        //spinningCratesWorld->v_Render();
 
+        worldOne.v_Update();
+        worldOne.v_Render();
 
-    // }
+        director->ProcessEvents();
+    }
 
 
     director->Cleanup();

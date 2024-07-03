@@ -3,6 +3,7 @@
 #include "pch.h"
 #include <Tower/framework.h>
 #include <Tower/Components/World.hpp>
+#include "BuilderTest/Entities/Box2D.hpp"
 
 namespace BuilderTest
 {
@@ -19,5 +20,7 @@ namespace BuilderTest
 
         void v_Render(void) final;
     private:
+        Box2D _blueBox;
+        glm::mat4 _viewMatrix;
     };
 }
