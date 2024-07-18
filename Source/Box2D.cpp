@@ -24,12 +24,11 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
         _entity = std::make_shared<Tower::Entity>();
     }
 
-    _entity->AddTransform();
     _entity->AddSprite(shader, texture);
+    //  _entity->GetModel()->EnableWireframeMode();
 }
 
 void Box2D::Draw(const glm::mat4& viewMatrix)
 {
-    std::cout << "draw called\n";
     _entity->Draw(viewMatrix);
 }

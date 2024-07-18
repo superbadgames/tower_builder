@@ -30,9 +30,14 @@ int main(void)
     //
     // Initialize shaders
     //
-    Tower::p_Shader basicShader = std::make_shared<Tower::Shader>();
-    basicShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
-    director->GetShaderManager()->RegisterShader(BASIC_SHADER_ID, basicShader);
+    // Tower::p_Shader basicShader = std::make_shared<Tower::Shader>();
+    // basicShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
+    // director->GetShaderManager()->RegisterShader(BASIC_SHADER_ID, basicShader);
+
+    Tower::p_Shader spriteShader = std::make_shared<Tower::Shader>();
+    spriteShader->Load("..\\..\\Assets\\Default\\Shaders\\sprite_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\sprite_fragment.glsl");
+    director->GetShaderManager()->RegisterShader(2, spriteShader);
+
 
     //
     // Initialize Textures
@@ -51,10 +56,8 @@ int main(void)
 
     while (!director->ShouldProgramClose())
     {
-        //spinningCratesWorld->v_Update();
-        //spinningCratesWorld->v_Render();
-
-        worldOne.v_Update();
+        // worldOne.v_Update();
+        spriteShader->Use();
         worldOne.v_Render();
 
         director->ProcessEvents();

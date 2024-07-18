@@ -19,10 +19,10 @@ TestWorldOne::~TestWorldOne()
 
 void TestWorldOne::v_Init(Tower::p_Director director)
 {
-    glm::vec3 gray = { 0.2f, 0.2, 0.2f };
+    glm::vec3 gray = { 0.2f, 0.2, 0.5f };
     director->GetWindowPointer()->SetColor(gray);
 
-    Tower::p_Shader spriteShader = director->GetShaderManager()->GetShader(1);
+    Tower::p_Shader spriteShader = director->GetShaderManager()->GetShader(2);
     Tower::p_Texture blueBoxTexture = director->GetTextureManager()->GetTexture(1);
 
     _blueBox.Init(spriteShader, blueBoxTexture);
