@@ -23,7 +23,7 @@ void TestWorldOne::v_Init(Tower::p_Director director)
     director->GetWindowPointer()->SetColor(gray);
 
     Tower::p_Shader spriteShader = director->GetShaderManager()->GetShader(2);
-    Tower::p_Texture texture = director->GetTextureManager()->GetTexture(2);
+    Tower::p_Texture texture = director->GetTextureManager()->GetTexture(3);
 
     _blueBox.Init(spriteShader, texture);
 }
