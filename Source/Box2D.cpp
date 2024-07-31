@@ -7,9 +7,9 @@ using namespace BuilderTest;
 
 Box2D::Box2D(void)
     : _entity(nullptr),
-      _counter(0.0f),
-      _timer(5.0f),
-      _currentTexture(1)
+    _counter(0.0f),
+    _timer(5.0f),
+    _currentTexture(1)
 {
 }
 
@@ -28,7 +28,7 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
     //_entity->GetModel()->EnableWireframeMode();
 }
 
-void Box2D::Draw(const glm::mat4 &viewMatrix)
+void Box2D::Draw(const glm::mat4& viewMatrix)
 {
     _entity->Draw(viewMatrix);
 }
@@ -40,4 +40,9 @@ void Box2D::Update(F32 delta)
     if (_counter <= _timer)
     {
     }
+}
+
+void Box2D::SetColor(const Tower::Color& color)
+{
+    _entity->SetColor(color);
 }

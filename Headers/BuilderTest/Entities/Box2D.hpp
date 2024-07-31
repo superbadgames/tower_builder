@@ -17,9 +17,11 @@ namespace BuilderTest
 
         void Init(Tower::p_Shader, Tower::p_Texture);
 
-        void Draw(const glm::mat4 &viewMatrix);
+        void Draw(const glm::mat4& viewMatrix);
 
         void Update(F32 delta);
+
+        void SetColor(const Tower::Color& color);
 
     private:
         Tower::p_Entity _entity;

@@ -45,6 +45,7 @@ int main(void)
     director->GetTextureManager()->LoadTexture(1, "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
     director->GetTextureManager()->LoadTexture(2, "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
     director->GetTextureManager()->LoadTexture(3, "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
+    director->GetTextureManager()->LoadTexture(4, "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
 
     // TODO: Work on this later. Pausing UI for now
     //Tower::p_Font font = std::make_shared<Tower::Font>();

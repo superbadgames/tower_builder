@@ -26,11 +26,12 @@ void TestWorldOne::v_Init(Tower::p_Director director)
     Tower::p_Texture texture = director->GetTextureManager()->GetTexture(3);
 
     _blueBox.Init(spriteShader, texture);
+    _blueBox.SetColor(Tower::Color(0.5f, 0.5f, 0.0f));
 }
 
 void TestWorldOne::v_Update(void)
 {
-    _blueBox.Update();
+    // _blueBox.Update();
 }
 
 void TestWorldOne::v_Render(void)
