@@ -9,10 +9,7 @@
 #include "Tower/Rendering/Mesh.hpp"
 #include "Tower/Rendering/Sprite.hpp"
 #include "Tower/Rendering/Shader.hpp"
-<<<<<<< HEAD
-=======
 #include "Tower/Rendering/Color.hpp"
->>>>>>> picking-up-the-pieces
 
 namespace Tower
 {

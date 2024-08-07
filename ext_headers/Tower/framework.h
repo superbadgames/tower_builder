@@ -6,24 +6,11 @@
 #define TOWER_API __declspec(dllimport)
 #endif
 
-<<<<<<< HEAD
-#define WIN32_LEAN_AND_MEAN
-
-
-// Windows Header Files
-#include <windows.h>
-
-extern "C" {
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-}
-=======
 extern "C" {
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 }
 
->>>>>>> picking-up-the-pieces
 
 // stl global includes
 // stl library with signed integer types with exact widths

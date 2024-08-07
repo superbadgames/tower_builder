@@ -22,13 +22,7 @@ namespace Tower
 
         bool Init(string gameName, U32 width, U32 height);
 
-<<<<<<< HEAD
-        void Init(void);
-
-        virtual void v_Cleanup(void) = 0;
-=======
         void Cleanup(void);
->>>>>>> picking-up-the-pieces
 
         void ProcessEvents(void);
 

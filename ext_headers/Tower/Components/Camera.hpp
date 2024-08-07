@@ -10,48 +10,12 @@
 
 namespace Tower
 {
-<<<<<<< HEAD
-    class Camera
-    {
-    private:
-        shared_ptr<Entity> _target;
-        glm::mat4 _view;
-        glm::mat4 _projection;
-        glm::vec3 _position;
-        glm::vec3 _front;
-        glm::vec3 _cameraUp;
-        glm::vec3 _right;
-        glm::vec3 _worldUp;
-        F32 _yaw;
-        F32 _pitch;
-        F32 _moveSpeed;
-        F32 _sensitivity;
-        F32 _zoom;
-        F32 _verticalOffset;
-        F32 _targetOffset; // for a z forward world, this should be (0, 0, value)
-
-    public:
-        Camera(void);
-
-        Camera(shared_ptr<Entity> target,
-            const glm::vec3& position,
-            const glm::vec3& front,
-            const glm::vec3& worldUp,
-            F32 yaw,
-            F32 pitch,
-            F32 speed,
-            F32 turnSpeed,
-            F32 zoom,
-            F32 verticalOffset,
-            F32 targetOffset);
-=======
     // class Camera
     // {
     // public:
     //     Camera(void);
 
     //     ~Camera(void);
->>>>>>> picking-up-the-pieces
 
     //     void Init(F32 fov = 45.0f, S32 width = 800, S32 height = 600, F32 near = 0.1f, F32 far = 100.0f);
 
@@ -66,11 +30,7 @@ namespace Tower
 
     //     void UpdateYawAndPitch(F32 yaw, F32 pitch);
 
-<<<<<<< HEAD
-        void UpdateYawAndPitch(F32 yaw, F32 pitch);
-=======
     //     void CalculateViewMatrix(void);
->>>>>>> picking-up-the-pieces
 
     //     inline glm::mat4 GetProjectionMatrix(void) const { return _projection; }
 
@@ -98,16 +58,10 @@ namespace Tower
 
     //     inline void SetSensitivity(F32 sensitivity) { _sensitivity = sensitivity; }
 
-        inline void SetSensitivity(F32 sensitivity) { _sensitivity = sensitivity; }
-
 
     // private:
     //     void _UpdateVectors(void);
 
-<<<<<<< HEAD
-    };
-    typedef shared_ptr<Camera> p_Camera;
-=======
     //     shared_ptr<Entity> _target;
     //     glm::mat4 _view;
     //     glm::mat4 _projection;
@@ -126,5 +80,4 @@ namespace Tower
 
     // };
     // typedef shared_ptr<Camera> p_Camera;
->>>>>>> picking-up-the-pieces
 }
