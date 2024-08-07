@@ -25,7 +25,9 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
     }
 
     _entity->AddSprite(shader, texture);
-    //_entity->GetModel()->EnableWireframeMode();
+    _entity->SetScale(glm::vec3(0.25f, 0.25f, 0.25f));
+    _entity->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+    _entity->SetRotation(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 void Box2D::Draw(const glm::mat4& viewMatrix)
