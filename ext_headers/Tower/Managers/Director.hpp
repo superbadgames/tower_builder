@@ -5,7 +5,6 @@
 #include "Tower/Systems/TimeSystem.hpp"
 #include "Tower/Rendering/Window.hpp"
 // OpenGLWindow must be included before ShaderManager!
-#include "Tower/Rendering/OpenGLWindow.hpp"
 #include "Tower/Managers/ShaderManager.hpp"
 #include "Tower/Managers/TextureManager.hpp"
 #include "Tower/Rendering/Shader.hpp"
@@ -13,6 +12,17 @@
 
 namespace Tower
 {
+    // Forward Declaration:
+    // Needed to compile because the window uses the director in it's callback functions, so there are circular referenced, I think.
+    class Window;
+    typedef shared_ptr<Window> p_Window;
+
+    enum class WindowType
+    {
+        OPEN_GL,
+        VULKAN
+    };
+
     class Director
     {
     public:

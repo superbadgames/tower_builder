@@ -9,26 +9,28 @@
 
 namespace Tower
 {
-    enum class WindowType
-    {
-        OPEN_GL,
-        VULKAN
-    };
+    // Forward declaration needed because the call back functions, the handlers cause some circular refs, I think.
+    class Camera;
+    typedef shared_ptr<Camera> p_Camera;
 
     class Window
     {
     public:
         Window(void);
 
-        virtual ~Window(void);
+        ~Window(void);
 
-        virtual bool v_Init(string gameName, U32 width, U32 height) = 0;
+        bool Init(string gameName, U32 width, U32 height);
 
+<<<<<<< HEAD
         void Init(void);
 
         virtual void v_Cleanup(void) = 0;
+=======
+        void Cleanup(void);
+>>>>>>> picking-up-the-pieces
 
-        virtual void v_ProcessEvents(void);
+        void ProcessEvents(void);
 
         void SetColor(glm::vec3& color);
 

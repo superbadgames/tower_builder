@@ -2,31 +2,40 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
+#include "Tower/Math/AxisAngle.hpp"
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Tower
 {
-    struct Transform
+    class Transform
     {
-        glm::mat4 transform{ 1.0 };
-        glm::vec3 position{ 0.0f };
-        glm::vec3 rotationAxis{ 1.0f };
-        glm::vec3 scale{ 1.0f };
-        glm::vec4 color{ 0.0f };
-        real rotationAngle{ 0 };
+    public:
+        Transform(void);
 
-        inline const glm::mat4& GetTransform(void)
-        {
-            transform = glm::mat4(1.0);
+        ~Transform(void);
 
-            transform = glm::translate(transform, position);
-            transform = glm::rotate(transform, RADIAN(rotationAngle), rotationAxis);
-            transform = glm::scale(transform, scale);
+        glm::mat4 ToMatrix(void) const;
 
-            return transform;
-        }
+        inline const glm::vec3& GetPosition(void) const { return _position; }
+
+        inline void SetPosition(const glm::vec3& position) { _position = position; }
+
+        inline const glm::vec3& GetScale(void) const { return _scale; }
+
+        inline void SetScale(const glm::vec3& scale) { _scale = scale; }
+
+        inline const AxisAngle& GetRotation(void) const { return _rotation; }
+
+        inline void SetRotation(const AxisAngle& rotation) { _rotation = rotation; }
+
+        void SetRotation(F32 angle, const glm::vec3& axis);
+
+    private:
+        glm::vec3 _position;
+        glm::vec3 _scale;
+        AxisAngle _rotation;
     };
     typedef shared_ptr<Transform> p_Transform;
 };

@@ -3,10 +3,16 @@
 #include "pch.h"
 #include "Tower/framework.h"
 #include "Tower/Components/Transform.hpp"
-//#include "Tower/Rendering/Texture.hpp"
+#include "Tower/Math/AxisAngle.hpp"
+// #include "Tower/Rendering/Texture.hpp"
 #include "Tower/Rendering/Model.hpp"
 #include "Tower/Rendering/Mesh.hpp"
+#include "Tower/Rendering/Sprite.hpp"
 #include "Tower/Rendering/Shader.hpp"
+<<<<<<< HEAD
+=======
+#include "Tower/Rendering/Color.hpp"
+>>>>>>> picking-up-the-pieces
 
 namespace Tower
 {
@@ -20,8 +26,6 @@ namespace Tower
         void Draw(const glm::mat4& viewMatrix) const;
 
         void Update(F32 delta);
-
-        void AddTransform(void);
 
         void AddModel(void);
 
@@ -37,37 +41,30 @@ namespace Tower
 
         inline void AddTexture(p_Texture texture) { _model->SetTexture(texture); }
 
-        glm::vec3 GetPosition(void) const;
+        inline const Color& GetColor(void) const { return _color; }
 
-        void SetPostion(const glm::vec3& position);
+        void SetColor(const Color& color);
 
-        const glm::vec3& GetRotationAxis(void) const;
+        const glm::vec3& GetPosition(void) const;
 
-        F32 GetRotationAngle(void) const;
-
-        void SetRotationAxisAndAngle(F32 angle, const glm::vec3& axis);
-
-        void SetRotationAngle(F32 angle);
-
-        void SetRotationAxis(const glm::vec3& axis);
+        void SetPosition(const glm::vec3& position);
 
         const glm::vec3& GetScale(void) const;
 
         void SetScale(const glm::vec3& scale);
 
-        void SetPosition(const glm::vec3& position);
+        const AxisAngle& GetRotation(void) const;
 
-        void SetColor(const glm::vec4& color);
+        void SetRotation(const AxisAngle& rotation);
 
-        const glm::mat4& GetTransform(void) const;
-
-        p_Model GetModel(void) const;
-
+        void SetRotation(F32 angle, const glm::vec3& axis);
 
     private:
-        p_Transform _transform;
         p_Model _model;
+        p_Sprite _sprite;
         p_Shader _shader;
+        Transform _transform;
+        Color _color;
     };
     typedef shared_ptr<Entity> p_Entity;
 }

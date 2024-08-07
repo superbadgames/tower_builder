@@ -215,7 +215,6 @@ xcopy /y/e "$(ProjectDir)..\Tower\Resources" "$(ProjectDir)Assets\Default\"</Com
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Headers\framework.cpp" />
     <ClCompile Include="Source\*.cpp" />
   </ItemGroup>
   <ItemGroup>
