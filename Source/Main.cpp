@@ -6,6 +6,7 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
+#include <Tower/Managers/InputManager.hpp>
 //#include <Tower/Components/Font.hpp>
 
 
@@ -26,6 +27,15 @@ int main(void)
         std::cout << "Error! Unable to initialize." << std::endl;
         return 1;
     }
+
+    Tower::p_InputManager inputManager = Tower::InputManager::Instance();
+
+    // Set up key bindings
+    Tower::InputBinding binding;
+    binding.name = "test";
+    binding.button = Tower::InputButton::T;
+    binding.state = Tower::InputButtonState::PRESS;
+    inputManager->AddBinding(binding);
 
     //
     // Initialize shaders
@@ -62,6 +72,11 @@ int main(void)
     {
         worldOne.v_Update();
         worldOne.v_Render();
+
+        if (inputManager->IsBindingActive("test"))
+        {
+            std::cout << "The TEST button was pressed!\n";
+        }
 
         director->ProcessEvents();
     }
