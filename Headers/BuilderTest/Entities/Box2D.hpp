@@ -5,6 +5,7 @@
 #include <Tower/Entity.hpp>
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Color.hpp>
+#include <Tower/Input/InputManager.hpp>
 
 namespace BuilderTest
 {
@@ -19,7 +20,7 @@ namespace BuilderTest
 
         void Draw(const glm::mat4& viewMatrix);
 
-        void Update(F32 delta);
+        void Update(void);
 
         void SetColor(const Tower::Color& color);
 
@@ -28,5 +29,6 @@ namespace BuilderTest
         F32 _counter;
         const F32 _timer;
         U32 _currentTexture;
+        F32 _moveSpeed;
     };
 }

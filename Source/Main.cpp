@@ -31,11 +31,9 @@ int main(void)
     Tower::p_InputManager inputManager = Tower::InputManager::Instance();
 
     // Set up key bindings
-    Tower::InputBinding binding;
-    binding.name = "test";
-    binding.button = Tower::InputButton::T;
-    binding.state = Tower::InputButtonState::PRESS;
-    inputManager->AddBinding(binding);
+    inputManager->AddBinding("exit", Tower::InputButton::ESCAPE);
+    inputManager->AddWASDMovement("move_up", "move_down", "move_right", "move_left");
+    inputManager->AddBinding("reset_position", Tower::InputButton::SPACE);
 
     //
     // Initialize shaders
@@ -70,15 +68,18 @@ int main(void)
 
     while (!director->ShouldProgramClose())
     {
+        director->StartFrame();
+
+        if (inputManager->IsBindingPressed("exit"))
+        {
+            director->CloseProgram();
+        }
+
         worldOne.v_Update();
         worldOne.v_Render();
 
-        if (inputManager->IsBindingActive("test"))
-        {
-            std::cout << "The TEST button was pressed!\n";
-        }
 
-        director->ProcessEvents();
+        director->EndFrame();
     }
 
 

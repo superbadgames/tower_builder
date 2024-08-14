@@ -30,7 +30,7 @@ void TestWorldOne::v_Init(Tower::p_Director director)
 
 void TestWorldOne::v_Update(void)
 {
-    // _blueBox.Update();
+    _blueBox.Update();
 }
 
 void TestWorldOne::v_Render(void)
