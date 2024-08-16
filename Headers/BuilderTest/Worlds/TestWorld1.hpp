@@ -18,9 +18,8 @@ namespace BuilderTest
 
         void v_Update(void) final;
 
-        void v_Render(void) final;
+        void v_Render(const glm::mat4& viewMatrix) final;
     private:
         Box2D _blueBox;
-        glm::mat4 _viewMatrix;
     };
 }

@@ -6,8 +6,8 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
-#include <Tower/Managers/InputManager.hpp>
-//#include <Tower/Components/Font.hpp>
+#include <Tower/Input/InputManager.hpp>
+#include <Tower/Cameras/Camera2D.hpp>
 
 
 #include <iostream>
@@ -66,6 +66,9 @@ int main(void)
     BuilderTest::TestWorldOne worldOne{};
     worldOne.v_Init(director);
 
+    Tower::Camera2D camera{};
+    camera.Init(WINDOW_WIDTH, WINDOW_HEIGHT);
+
     while (!director->ShouldProgramClose())
     {
         director->StartFrame();
@@ -76,7 +79,7 @@ int main(void)
         }
 
         worldOne.v_Update();
-        worldOne.v_Render();
+        worldOne.v_Render(camera.GetViewMatrix());
 
 
         director->EndFrame();

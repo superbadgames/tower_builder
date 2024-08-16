@@ -6,8 +6,7 @@
 using namespace BuilderTest;
 
 TestWorldOne::TestWorldOne() :
-    _blueBox(),
-    _viewMatrix(1.0f)
+    _blueBox()
 {
 
 }
@@ -33,7 +32,7 @@ void TestWorldOne::v_Update(void)
     _blueBox.Update();
 }
 
-void TestWorldOne::v_Render(void)
+void TestWorldOne::v_Render(const glm::mat4& viewMatrix)
 {
-    _blueBox.Draw(_viewMatrix);
+    _blueBox.Draw(viewMatrix);
 }
