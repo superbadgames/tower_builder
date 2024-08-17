@@ -5,12 +5,13 @@
 
 using namespace BuilderTest;
 
-Box2D::Box2D(void)
-    : _entity(nullptr),
+Box2D::Box2D(void) :
+    _entity(nullptr),
+    _active(false),
     _counter(0.0f),
     _timer(5.0f),
     _currentTexture(1),
-    _moveSpeed(0.01f)
+    _moveSpeed(6.0f)
 {
 }
 
@@ -26,7 +27,7 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
     }
 
     _entity->AddSprite(shader, texture);
-    _entity->SetScale(glm::vec3(0.1f, 0.1f, 0.25f));
+    _entity->SetScale(glm::vec3(50.0f, 50.0f, 0.0f));
     _entity->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
     _entity->SetRotation(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 }
@@ -39,23 +40,23 @@ void Box2D::Draw(const glm::mat4& viewMatrix)
 void Box2D::Update(void)
 {
     glm::vec3 position = _entity->GetPosition();
-    if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_up"))
+    if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_up"))
     {
         position.y += _moveSpeed;
     }
-    else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_down"))
+    else if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_down"))
     {
         position.y -= _moveSpeed;
     }
-    else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
+    else if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
     {
         position.x += _moveSpeed;
     }
-    else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
+    else if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
     {
         position.x -= _moveSpeed;
     }
-    else if (Tower::InputManager::Instance()->IsBindingPressed("reset_position"))
+    else if (_active && Tower::InputManager::Instance()->IsBindingPressed("reset_position"))
     {
         position = glm::vec3(0.0f);
     }
@@ -66,4 +67,15 @@ void Box2D::Update(void)
 void Box2D::SetColor(const Tower::Color& color)
 {
     _entity->SetColor(color);
+}
+
+void Box2D::SetPosition(const glm::vec2& pos)
+{
+    _entity->SetPosition(glm::vec3(pos, 0.0f));
+}
+
+
+void Box2D::SetActive(bool state)
+{
+    _active = state;
 }

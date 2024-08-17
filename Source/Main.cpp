@@ -33,7 +33,11 @@ int main(void)
     // Set up key bindings
     inputManager->AddBinding("exit", Tower::InputButton::ESCAPE);
     inputManager->AddWASDMovement("move_up", "move_down", "move_right", "move_left");
+    inputManager->AddArrowMovement("camera_move_up", "camera_move_down", "camera_move_right", "camera_move_left");
     inputManager->AddBinding("reset_position", Tower::InputButton::SPACE);
+    inputManager->AddBinding("red_box", Tower::InputButton::NUM_1);
+    inputManager->AddBinding("green_box", Tower::InputButton::NUM_2);
+    inputManager->AddBinding("blue_box", Tower::InputButton::NUM_3);
 
     //
     // Initialize shaders
@@ -64,10 +68,7 @@ int main(void)
     //spinningCratesWorld->v_Init(director);
 
     BuilderTest::TestWorldOne worldOne{};
-    worldOne.v_Init(director);
-
-    Tower::Camera2D camera{};
-    camera.Init(WINDOW_WIDTH, WINDOW_HEIGHT);
+    worldOne.v_Init();
 
     while (!director->ShouldProgramClose())
     {
@@ -79,7 +80,7 @@ int main(void)
         }
 
         worldOne.v_Update();
-        worldOne.v_Render(camera.GetViewMatrix());
+        worldOne.v_Render();
 
 
         director->EndFrame();

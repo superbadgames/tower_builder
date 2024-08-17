@@ -6,7 +6,10 @@
 using namespace BuilderTest;
 
 TestWorldOne::TestWorldOne() :
-    _blueBox()
+    _redBox(),
+    _greenBox(),
+    _blueBox(),
+    _cameraMoveSpeed(3.0f)
 {
 
 }
@@ -16,23 +19,75 @@ TestWorldOne::~TestWorldOne()
 
 }
 
-void TestWorldOne::v_Init(Tower::p_Director director)
+void TestWorldOne::v_Init(void)
 {
     glm::vec3 gray = { 0.2f, 0.2, 0.2f };
-    director->GetWindowPointer()->SetColor(gray);
+    Tower::Director::Instance()->GetWindowPointer()->SetColor(gray);
 
-    Tower::p_Shader spriteShader = director->GetShaderManager()->GetShader(2);
-    Tower::p_Texture texture = director->GetTextureManager()->GetTexture(3);
+    Tower::p_Shader spriteShader = Tower::Director::Instance()->GetShaderManager()->GetShader(2);
+    Tower::p_Texture redTexture = Tower::Director::Instance()->GetTextureManager()->GetTexture(1);
+    Tower::p_Texture greenTexture = Tower::Director::Instance()->GetTextureManager()->GetTexture(2);
+    Tower::p_Texture blueTexture = Tower::Director::Instance()->GetTextureManager()->GetTexture(3);
 
-    _blueBox.Init(spriteShader, texture);
+    _redBox.Init(spriteShader, redTexture);
+    _redBox.SetPosition(glm::vec2(400.0f, -400.0f));
+    _greenBox.Init(spriteShader, greenTexture);
+    _greenBox.SetPosition(glm::vec2(-400.0f, -400.0f));
+    _blueBox.Init(spriteShader, blueTexture);
+    _blueBox.SetActive(true);
 }
 
 void TestWorldOne::v_Update(void)
 {
+    _CheckInput();
+    _redBox.Update();
+    _greenBox.Update();
     _blueBox.Update();
 }
 
-void TestWorldOne::v_Render(const glm::mat4& viewMatrix)
+void TestWorldOne::v_Render(void)
 {
-    _blueBox.Draw(viewMatrix);
+    _redBox.Draw(Tower::Director::Instance()->GetCamera2D()->GetViewMatrix());
+    _greenBox.Draw(Tower::Director::Instance()->GetCamera2D()->GetViewMatrix());
+    _blueBox.Draw(Tower::Director::Instance()->GetCamera2D()->GetViewMatrix());
+}
+
+void TestWorldOne::_CheckInput(void)
+{
+
+    if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_up"))
+    {
+        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(0.0f, 1.0f) * _cameraMoveSpeed);
+    }
+    else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_down"))
+    {
+        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(0.0f, -1.0f) * _cameraMoveSpeed);
+    }
+    else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_right"))
+    {
+        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(1.0f, 0.0f) * _cameraMoveSpeed);
+    }
+    else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_left"))
+    {
+        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(-1.0f, 0.0f) * _cameraMoveSpeed);
+    }
+
+    if (Tower::InputManager::Instance()->IsBindingPressed("red_box"))
+    {
+        _redBox.SetActive(true);
+        _greenBox.SetActive(false);
+        _blueBox.SetActive(false);
+    }
+    else if (Tower::InputManager::Instance()->IsBindingPressed("green_box"))
+    {
+        _redBox.SetActive(false);
+        _greenBox.SetActive(true);
+        _blueBox.SetActive(false);
+    }
+    else if (Tower::InputManager::Instance()->IsBindingPressed("blue_box"))
+    {
+        _redBox.SetActive(false);
+        _greenBox.SetActive(false);
+        _blueBox.SetActive(true);
+    }
 }

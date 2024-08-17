@@ -24,8 +24,13 @@ namespace BuilderTest
 
         void SetColor(const Tower::Color& color);
 
+        void SetPosition(const glm::vec2& pos);
+
+        void SetActive(bool state);
+
     private:
         Tower::p_Entity _entity;
+        bool _active;
         F32 _counter;
         const F32 _timer;
         U32 _currentTexture;

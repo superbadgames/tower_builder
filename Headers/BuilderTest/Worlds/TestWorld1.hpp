@@ -14,12 +14,18 @@ namespace BuilderTest
 
         ~TestWorldOne();
 
-        void v_Init(Tower::p_Director director) final;
+        void v_Init(void) final;
 
         void v_Update(void) final;
 
-        void v_Render(const glm::mat4& viewMatrix) final;
+        void v_Render(void) final;
+
     private:
+        Box2D _redBox;
+        Box2D _greenBox;
         Box2D _blueBox;
+        F32 _cameraMoveSpeed;
+
+        void _CheckInput(void);
     };
 }
