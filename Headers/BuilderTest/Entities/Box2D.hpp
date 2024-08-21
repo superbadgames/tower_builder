@@ -26,6 +26,10 @@ namespace BuilderTest
 
         void SetPosition(const glm::vec2& pos);
 
+        void SetZPosition(F32 zPos);
+
+        void SetScale(const glm::vec2& scale);
+
         void SetActive(bool state);
 
     private:

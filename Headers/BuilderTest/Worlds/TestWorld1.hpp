@@ -21,6 +21,7 @@ namespace BuilderTest
         void v_Render(void) final;
 
     private:
+        Box2D _background;
         Box2D _redBox;
         Box2D _greenBox;
         Box2D _blueBox;

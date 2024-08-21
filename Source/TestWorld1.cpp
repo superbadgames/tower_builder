@@ -6,6 +6,7 @@
 using namespace BuilderTest;
 
 TestWorldOne::TestWorldOne() :
+    _background(),
     _redBox(),
     _greenBox(),
     _blueBox(),
@@ -29,6 +30,9 @@ void TestWorldOne::v_Init(void)
     Tower::p_Texture greenTexture = Tower::Director::Instance()->GetTextureManager()->GetTexture(2);
     Tower::p_Texture blueTexture = Tower::Director::Instance()->GetTextureManager()->GetTexture(3);
 
+    _background.Init(spriteShader, Tower::Director::Instance()->GetTextureManager()->GetTexture(6));
+    _background.SetScale(glm::vec2(500, 500));
+
     _redBox.Init(spriteShader, redTexture);
     _redBox.SetPosition(glm::vec2(400.0f, -400.0f));
     _greenBox.Init(spriteShader, greenTexture);
@@ -47,9 +51,11 @@ void TestWorldOne::v_Update(void)
 
 void TestWorldOne::v_Render(void)
 {
-    _redBox.Draw(Tower::Director::Instance()->GetCamera2D()->GetViewMatrix());
-    _greenBox.Draw(Tower::Director::Instance()->GetCamera2D()->GetViewMatrix());
-    _blueBox.Draw(Tower::Director::Instance()->GetCamera2D()->GetViewMatrix());
+    glm::mat4 viewMatrix = Tower::Director::Instance()->GetCamera2D()->GetViewMatrix();
+    _redBox.Draw(viewMatrix);
+    _greenBox.Draw(viewMatrix);
+    _background.Draw(viewMatrix);
+    _blueBox.Draw(viewMatrix);
 }
 
 void TestWorldOne::_CheckInput(void)

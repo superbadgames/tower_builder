@@ -74,6 +74,18 @@ void Box2D::SetPosition(const glm::vec2& pos)
     _entity->SetPosition(glm::vec3(pos, 0.0f));
 }
 
+void Box2D::SetZPosition(F32 zPos)
+{
+    glm::vec3 currentPos = _entity->GetPosition();
+    currentPos.z = zPos;
+    _entity->SetPosition(currentPos);
+}
+
+void Box2D::SetScale(const glm::vec2& scale)
+{
+    _entity->SetScale(glm::vec3(scale, 0.0f));
+}
+
 
 void Box2D::SetActive(bool state)
 {
