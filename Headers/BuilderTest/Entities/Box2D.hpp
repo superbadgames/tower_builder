@@ -20,7 +20,7 @@ namespace BuilderTest
 
         void Draw(const glm::mat4& viewMatrix);
 
-        void Update(void);
+        void Update(F32 delta);
 
         void SetColor(const Tower::Color& color);
 

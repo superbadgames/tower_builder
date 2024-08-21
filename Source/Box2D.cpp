@@ -11,7 +11,7 @@ Box2D::Box2D(void) :
     _counter(0.0f),
     _timer(5.0f),
     _currentTexture(1),
-    _moveSpeed(6.0f)
+    _moveSpeed(600.0f)
 {
 }
 
@@ -37,24 +37,25 @@ void Box2D::Draw(const glm::mat4& viewMatrix)
     _entity->Draw(viewMatrix);
 }
 
-void Box2D::Update(void)
+void Box2D::Update(F32 delta)
 {
     glm::vec3 position = _entity->GetPosition();
+
     if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_up"))
     {
-        position.y += _moveSpeed;
+        position.y += _moveSpeed * delta;
     }
     else if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_down"))
     {
-        position.y -= _moveSpeed;
+        position.y -= _moveSpeed * delta;
     }
     else if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
     {
-        position.x += _moveSpeed;
+        position.x += _moveSpeed * delta;
     }
     else if (_active && Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
     {
-        position.x -= _moveSpeed;
+        position.x -= _moveSpeed * delta;
     }
     else if (_active && Tower::InputManager::Instance()->IsBindingPressed("reset_position"))
     {

@@ -43,10 +43,11 @@ void TestWorldOne::v_Init(void)
 
 void TestWorldOne::v_Update(void)
 {
+    F32 delta = Tower::Director::Instance()->GetDeltaTime();
     _CheckInput();
-    _redBox.Update();
-    _greenBox.Update();
-    _blueBox.Update();
+    _redBox.Update(delta);
+    _greenBox.Update(delta);
+    _blueBox.Update(delta);
 }
 
 void TestWorldOne::v_Render(void)
