@@ -53,9 +53,10 @@ void TestWorldOne::v_Update(void)
 void TestWorldOne::v_Render(void)
 {
     glm::mat4 viewMatrix = Tower::Director::Instance()->GetCamera2D()->GetViewMatrix();
+    _background.Draw(viewMatrix);
+    
     _redBox.Draw(viewMatrix);
     _greenBox.Draw(viewMatrix);
-    _background.Draw(viewMatrix);
     _blueBox.Draw(viewMatrix);
 }
 
