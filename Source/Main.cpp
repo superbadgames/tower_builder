@@ -6,8 +6,11 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
+#include <Tower/Managers/TextureManager.hpp>
 #include <Tower/Input/InputManager.hpp>
 #include <Tower/Cameras/Camera2D.hpp>
+#include <Tower/UI/Font.hpp>
+#include <Tower/UI/Glyph.hpp>
 
 
 #include <iostream>
@@ -18,7 +21,6 @@ int main(void)
     // TODO: This should come from a config file
     const U32 WINDOW_WIDTH = 1200;
     const U32 WINDOW_HEIGHT = 800;
-    const U32 BASIC_SHADER_ID = 1;
 
     Tower::p_Director director = Tower::Director::Instance();
 
@@ -42,31 +44,25 @@ int main(void)
     //
     // Initialize shaders
     //
-    // Tower::p_Shader basicShader = std::make_shared<Tower::Shader>();
-    // basicShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
-    // director->GetShaderManager()->RegisterShader(BASIC_SHADER_ID, basicShader);
+    Tower::p_Shader glyphShader = std::make_shared<Tower::Shader>();
+    glyphShader->Load("..\\..\\Assets\\Default\\Shaders\\ui_text_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\ui_text_fragment.glsl");
+    Tower::ShaderManager::Instance()->RegisterShader(1, glyphShader);
 
     Tower::p_Shader spriteShader = std::make_shared<Tower::Shader>();
     spriteShader->Load("..\\..\\Assets\\Default\\Shaders\\sprite_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\sprite_fragment.glsl");
-    director->GetShaderManager()->RegisterShader(2, spriteShader);
+    Tower::ShaderManager::Instance()->RegisterShader(2, spriteShader);
 
 
     //
     // Initialize Textures
     //
-    director->GetTextureManager()->LoadTexture(1, "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
-    director->GetTextureManager()->LoadTexture(2, "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
-    director->GetTextureManager()->LoadTexture(3, "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
-    director->GetTextureManager()->LoadTexture(4, "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
-    director->GetTextureManager()->LoadTexture(5, "..\\..\\Assets\\Textures\\brick.png");
-    director->GetTextureManager()->LoadTexture(6, "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
+    Tower::TextureManager::Instance()->LoadTexture(1, "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture(2, "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture(3, "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture(4, "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture(5, "..\\..\\Assets\\Textures\\brick.png");
+    Tower::TextureManager::Instance()->LoadTexture(6, "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
 
-    // TODO: Work on this later. Pausing UI for now
-    //Tower::p_Font font = std::make_shared<Tower::Font>();
-    //font->Load("..\\..\\Assets\\Default\\Fonts\\PressStart2P-Regular.tff", 48);
-
-    //Tower::p_World spinningCratesWorld = make_shared<Soyokaze::SpinningCrates>();
-    //spinningCratesWorld->v_Init(director);
 
     BuilderTest::TestWorldOne worldOne{};
     worldOne.v_Init();
@@ -82,7 +78,6 @@ int main(void)
 
         worldOne.v_Update();
         worldOne.v_Render();
-
 
         director->EndFrame();
     }
