@@ -9,7 +9,6 @@
 #include <Tower/Managers/TextureManager.hpp>
 #include <Tower/Input/InputManager.hpp>
 #include <Tower/Cameras/Camera2D.hpp>
-#include <Tower/UI/Font.hpp>
 #include <Tower/UI/Glyph.hpp>
 
 

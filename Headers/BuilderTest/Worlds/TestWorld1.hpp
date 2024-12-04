@@ -3,8 +3,6 @@
 #include "pch.h"
 #include <Tower/framework.h>
 #include <Tower/Components/World.hpp>
-#include <Tower/UI/Glyph.hpp>
-#include <Tower/UI/Font.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
 #include <Tower/Rendering/Color.hpp>
@@ -30,9 +28,7 @@ namespace BuilderTest
         Box2D _redBox;
         Box2D _greenBox;
         Box2D _blueBox;
-        Tower::Glyph _glyph_S;
-        Tower::p_Font _font;
-        Tower::Color _glyphColor;
+
         F32 _cameraMoveSpeed;
 
         void _CheckInput(void);

@@ -10,9 +10,6 @@ TestWorldOne::TestWorldOne() :
     _redBox(),
     _greenBox(),
     _blueBox(),
-    _glyph_S(),
-    _font(nullptr),
-    _glyphColor(1.0f, 1.0f, 1.0f),
     _cameraMoveSpeed(3.0f)
 {
 
@@ -42,13 +39,6 @@ void TestWorldOne::v_Init(void)
     _greenBox.SetPosition(glm::vec2(-400.0f, -400.0f));
     _blueBox.Init(spriteShader, blueTexture);
     _blueBox.SetActive(true);
-
-    _font = std::make_shared<Tower::Font>();
-    _font->Load("H:\\SuperBadGames\\Tower_Builder\\Assets\\Default\\Fonts\\PressStart2P-Regular.ttf", 48);
-
-
-    _glyph_S.Init(_font->GetCharacterData('S'));
-    _glyph_S.SetScale(glm::vec2(100.0f, 100.0f));
 }
 
 void TestWorldOne::v_Update(void)
@@ -69,11 +59,6 @@ void TestWorldOne::v_Render(void)
     _greenBox.Draw(viewMatrix);
     _blueBox.Draw(viewMatrix);
 
-    Tower::p_Shader glyphShader = Tower::ShaderManager::Instance()->GetShader(1);
-    glyphShader->SetUniform("projection", Tower::Director::Instance()->GetCamera2D()->GetProjectionMatrix());
-
-
-    _glyph_S.Draw(glyphShader, _glyphColor);
 }
 
 void TestWorldOne::_CheckInput(void)
