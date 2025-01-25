@@ -43,6 +43,13 @@ int main(void)
     inputManager->AddBinding("green_box", Tower::InputButton::NUM_2);
     inputManager->AddBinding("blue_box", Tower::InputButton::NUM_3);
 
+    inputManager->AddBinding("move_forward", Tower::InputButton::W);
+    inputManager->AddBinding("move_back", Tower::InputButton::S);
+    inputManager->AddBinding("up", Tower::InputButton::E);
+    inputManager->AddBinding("down", Tower::InputButton::Q);
+
+    inputManager->AddBinding("toggleMouse", Tower::InputButton::ENTER);
+
     //
     // Initialize shaders
     //

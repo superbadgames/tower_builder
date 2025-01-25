@@ -36,6 +36,8 @@ namespace Tower
 
         const glm::vec2& GetMousePreviousCursorPosition(void) const;
 
+        glm::vec2 GetMouseInputOffset(void);
+
         void AddWASDMovement(const string& forward = "move_forward",
             const string& back = "move_back",
             const string& right = "move_right",
@@ -53,6 +55,10 @@ namespace Tower
         std::map<string, InputButtonState> _bindingStates;
         glm::vec2 _mousePreviousPosition;
         glm::vec2 _mouseCurentPosition;
+        glm::vec2 _mouseInputOffset;
+        F32 _mouseSensitivity;
+        bool _mouseUpdatedThisFrame;
+        bool _firstMouse;
 
         InputManager(void);
 

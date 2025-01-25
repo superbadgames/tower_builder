@@ -6,6 +6,7 @@
 
 #include <Tower/Components/Map.hpp>
 #include <Tower/Managers/TextureManager.hpp>
+#include <Tower/Cameras/Camera3D.hpp>
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtx/transform.hpp>
@@ -28,6 +29,7 @@ namespace BuilderTest
     private:
         static const U32 NUM_BOXES = 10;
         Box3D _boxes[NUM_BOXES];
-        glm::mat4 _viewMatrix;
+        Tower::Camera3D _camera;
+        bool _mouseOn;
     };
 }
