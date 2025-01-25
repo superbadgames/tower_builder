@@ -27,10 +27,8 @@ namespace Tower
         // uv buffer object
         U32 _texcoordBuffer;
         // Element (or index) Buffer Object
-        U32 _ebo;
         std::vector<F32> _vertices;
         std::vector<F32> _uvs;
-        std::vector<U32> _indices;
         p_Texture _texture;
     };
     typedef shared_ptr<Cube> p_Cube;

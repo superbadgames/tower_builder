@@ -6,8 +6,10 @@
 
 #include <Tower/Components/Map.hpp>
 #include <Tower/Managers/TextureManager.hpp>
+
 #include <glm/mat4x4.hpp>
 #include <glm/gtx/transform.hpp>
+//#include <random>
 
 namespace BuilderTest
 {
@@ -24,7 +26,8 @@ namespace BuilderTest
 
         void v_Render(void) final;
     private:
-        Box3D _box3d;
+        static const U32 NUM_BOXES = 10;
+        Box3D _boxes[NUM_BOXES];
         glm::mat4 _viewMatrix;
     };
 }

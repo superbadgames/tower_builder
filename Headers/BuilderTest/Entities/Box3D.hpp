@@ -20,7 +20,12 @@ namespace BuilderTest
 
         void Draw(const glm::mat4& viewMatrix);
 
+        void Update(F32 delta);
+
+        void SetPosition(const glm::vec3& pos);
+
     private:
         Tower::p_Entity _entity;
+        Tower::AxisAngle _rotation;
     };
 }
