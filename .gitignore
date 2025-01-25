@@ -167,3 +167,6 @@ $RECYCLE.BIN/
 
 # build files
 *.tlog*
+
+# Blender automatic backups
+*.blend*

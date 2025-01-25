@@ -34,6 +34,7 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
 
 void Box2D::Draw(const glm::mat4& viewMatrix)
 {
+    glDisable(GL_DEPTH_TEST);
     _entity->Draw(viewMatrix);
 }
 

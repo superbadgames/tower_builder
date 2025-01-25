@@ -1,16 +1,18 @@
 #pragma once
-
 #include "pch.h"
 #include <Tower/framework.h>
-#include <Tower/Components/World.hpp>
+
+#include "BuilderTest/Entities/Box2D.hpp"
+
+
+#include <Tower/Components/Map.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
 #include <Tower/Rendering/Color.hpp>
-#include "BuilderTest/Entities/Box2D.hpp"
 
 namespace BuilderTest
 {
-    class TestWorldOne : public Tower::World
+    class TestWorldOne : public Tower::I_Map
     {
     public:
         TestWorldOne();
@@ -28,7 +30,6 @@ namespace BuilderTest
         Box2D _redBox;
         Box2D _greenBox;
         Box2D _blueBox;
-
         F32 _cameraMoveSpeed;
 
         void _CheckInput(void);

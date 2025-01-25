@@ -1,6 +1,9 @@
 #include "pch.h"
 #include <Tower/framework.h>
+
 #include "BuilderTest/Worlds/TestWorld1.hpp"
+#include "BuilderTest/Worlds/TestWorld3D.hpp"
+
 #include <Tower/Components/World.hpp>
 #include <Tower/Managers/Director.hpp>
 #include <Tower/Rendering/Shader.hpp>
@@ -51,6 +54,10 @@ int main(void)
     spriteShader->Load("..\\..\\Assets\\Default\\Shaders\\sprite_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\sprite_fragment.glsl");
     Tower::ShaderManager::Instance()->RegisterShader(2, spriteShader);
 
+    Tower::p_Shader basic3dShader = std::make_shared<Tower::Shader>();
+    basic3dShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
+    Tower::ShaderManager::Instance()->RegisterShader(3, basic3dShader);
+
 
     //
     // Initialize Textures
@@ -61,10 +68,14 @@ int main(void)
     Tower::TextureManager::Instance()->LoadTexture(4, "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
     Tower::TextureManager::Instance()->LoadTexture(5, "..\\..\\Assets\\Textures\\brick.png");
     Tower::TextureManager::Instance()->LoadTexture(6, "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
+    Tower::TextureManager::Instance()->LoadTexture(7, "..\\..\\Assets\\Default\\Textures\\cube_text.png");
 
 
     BuilderTest::TestWorldOne worldOne{};
     worldOne.v_Init();
+
+    BuilderTest::TestWorld3D world3D{};
+    world3D.v_Init();
 
     while (!director->ShouldProgramClose())
     {
@@ -75,8 +86,11 @@ int main(void)
             director->CloseProgram();
         }
 
-        worldOne.v_Update();
-        worldOne.v_Render();
+        // worldOne.v_Update();
+        // worldOne.v_Render();
+
+        world3D.v_Update();
+        world3D.v_Render();
 
         director->EndFrame();
     }

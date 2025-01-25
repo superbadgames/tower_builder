@@ -7,7 +7,8 @@
 // #include "Tower/Rendering/Texture.hpp"
 #include "Tower/Rendering/Model.hpp"
 #include "Tower/Rendering/Mesh.hpp"
-#include "Tower/Rendering/Sprite.hpp"
+#include "Tower/Components/Sprite.hpp"
+#include "Tower/Components/Cube.hpp"
 #include "Tower/Rendering/Shader.hpp"
 #include "Tower/Rendering/Color.hpp"
 
@@ -30,9 +31,13 @@ namespace Tower
 
         void AddSprite(p_Shader shader, p_Texture texture);
 
+        void AddCubeModel(p_Texture texture);
+
         void AddShader(void);
 
         void AddShader(p_Shader shader);
+
+        p_Shader GetShader(void) const;
 
         void AddTexture(const string& filepath);
 
@@ -59,6 +64,7 @@ namespace Tower
     private:
         p_Model _model;
         p_Sprite _sprite;
+        p_Cube _cubeModel;
         p_Shader _shader;
         Transform _transform;
         Color _color;

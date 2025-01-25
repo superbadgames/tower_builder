@@ -28,9 +28,9 @@ void TestWorldOne::v_Init(void)
     Tower::p_Shader spriteShader = Tower::ShaderManager::Instance()->GetShader(2);
     Tower::p_Texture redTexture = Tower::TextureManager::Instance()->GetTexture(1);
     Tower::p_Texture greenTexture = Tower::TextureManager::Instance()->GetTexture(2);
-    Tower::p_Texture blueTexture = Tower::TextureManager::Instance()->GetTexture(3);
+    Tower::p_Texture blueTexture = Tower::TextureManager::Instance()->GetTexture(5);
 
-    _background.Init(spriteShader, Tower::TextureManager::Instance()->GetTexture(6));
+    _background.Init(spriteShader, Tower::TextureManager::Instance()->GetTexture(5));
     _background.SetScale(glm::vec2(500, 500));
 
     _redBox.Init(spriteShader, redTexture);
@@ -53,12 +53,12 @@ void TestWorldOne::v_Update(void)
 void TestWorldOne::v_Render(void)
 {
     glm::mat4 viewMatrix = Tower::Director::Instance()->GetCamera2D()->GetViewMatrix();
+
     _background.Draw(viewMatrix);
 
     _redBox.Draw(viewMatrix);
     _greenBox.Draw(viewMatrix);
     _blueBox.Draw(viewMatrix);
-
 }
 
 void TestWorldOne::_CheckInput(void)

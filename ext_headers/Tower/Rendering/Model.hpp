@@ -20,8 +20,6 @@ namespace Tower
 
         ~Model(void);
 
-        void CreateSprite(p_Shader shader, p_Texture texture);
-
         void LoadFromFile(p_Shader shader, const string& filepath);
 
         void LoadFromFile(const string& filepath);

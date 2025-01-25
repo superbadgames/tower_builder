@@ -1,12 +1,12 @@
 #version 330 core
 
-layout (location=0) in vec2 position;
+layout (location=0) in vec3 position;
 layout (location=1) in vec2 uvs;
 
 out vec2 texture_uvs;
 
 uniform mat4 model;
-// View = projectMatrix * cameraViewMatrix
+// View = projectionMatrix * cameraViewMatrix
 uniform mat4 view;
 
 void main()

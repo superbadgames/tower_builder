@@ -2,7 +2,7 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
-#include "Tower/Rendering/Sprite.hpp"
+#include "Tower/Components/Sprite.hpp"
 #include "Tower/UI/CharacterData.hpp"
 #include "Tower/Math/Transform.hpp"
 

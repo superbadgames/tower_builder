@@ -6,6 +6,7 @@
 #include "Tower/Rendering/Window.hpp"
 #include "Tower/Rendering/Shader.hpp"
 #include "Tower/Cameras/Camera2D.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Tower
 {
@@ -51,12 +52,18 @@ namespace Tower
 
         p_Camera2D GetCamera2D(void) const;
 
+        const glm::mat4& GetPerspectiveMatrix(void) const;
+
+        const glm::mat4& GetOrthographicMatrix(void) const;
+
     private:
         static shared_ptr<Director> _instance;
 
         p_Window _window;
         Time _globalTime;
         p_Camera2D _camera2D;
+        glm::mat4 _perspectiveProjectionMatrix;
+        glm::mat4 _orthographicProjectionMatrix;
 
         Director(void);
 
