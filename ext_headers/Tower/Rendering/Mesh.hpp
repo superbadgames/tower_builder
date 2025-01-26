@@ -20,11 +20,7 @@ namespace Tower
 
         void Load(const std::vector<Vertex>& vertices, const std::vector<U32> indices, p_Shader shader);
 
-        void Draw(p_Shader shader);
-
-        void Use(p_Shader shader);
-
-        void StopUse(void);
+        void Draw(void);
 
         void EnableWireframeMode(void);
 

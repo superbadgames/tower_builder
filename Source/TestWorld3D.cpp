@@ -5,6 +5,10 @@ using namespace BuilderTest;
 
 TestWorld3D::TestWorld3D(void) :
     _boxes(),
+    _coloredCube(),
+    _theZipper(),
+    _wall(),
+    _mine(),
     _camera(),
     _mouseOn(true)
 {
@@ -20,7 +24,7 @@ TestWorld3D::~TestWorld3D(void)
 
 void TestWorld3D::v_Init(void)
 {
-    glm::vec3 position{ 0.0f, 0.0f, -30.0f };
+    glm::vec3 position{ 30.0f, 0.0f, -30.0f };
     F32 yPos = 45.0f;
     F32 zPos = 65.0f;
     for (U32 i = 0; i < NUM_BOXES; ++i)
@@ -40,6 +44,18 @@ void TestWorld3D::v_Init(void)
         position.z += zPos;
         //zPos *= -1.0f;
     }
+
+    _coloredCube.Init("..\\..\\Assets\\Default\\CubeModel\\cube.glb", 7);
+    _coloredCube.SetPosition(glm::vec3(0.0f, 0.0f, 30.0f));
+
+    _theZipper.Init("..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", 8);
+    _theZipper.SetPosition(glm::vec3(0.0f, -100.0f, -150.0f));
+
+    _wall.Init("..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", 11);
+    _wall.SetPosition(glm::vec3(100.0f, -100.0f, 0.0f));
+
+    _mine.Init("..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", 10);
+    _mine.SetPosition(glm::vec3(200.0f, -100.0f, 0.0f));
 
     _camera.Init();
 
@@ -97,6 +113,8 @@ void TestWorld3D::v_Update(void)
     }
 
     _camera.Update(delta);
+
+    _theZipper.Update(delta);
 }
 
 
@@ -107,4 +125,8 @@ void TestWorld3D::v_Render(void)
     {
         _boxes[i].Draw(_camera.GetViewMatrix());
     }
+    _coloredCube.Draw(_camera.GetViewMatrix());
+    _theZipper.Draw(_camera.GetViewMatrix());
+    _wall.Draw(_camera.GetViewMatrix());
+    _mine.Draw(_camera.GetViewMatrix());
 }

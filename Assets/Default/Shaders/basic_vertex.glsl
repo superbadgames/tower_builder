@@ -6,7 +6,6 @@ layout (location=2) in vec2 uvs;
 
 uniform mat4 model;
 uniform mat4 view;
-//uniform mat4 projection;
 
 out vec3 vertex_normal;
 out vec2 vertex_uvs;

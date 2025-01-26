@@ -75,7 +75,11 @@ int main(void)
     Tower::TextureManager::Instance()->LoadTexture(4, "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
     Tower::TextureManager::Instance()->LoadTexture(5, "..\\..\\Assets\\Textures\\brick.png");
     Tower::TextureManager::Instance()->LoadTexture(6, "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
-    Tower::TextureManager::Instance()->LoadTexture(7, "..\\..\\Assets\\Default\\Textures\\cube_text.png");
+    Tower::TextureManager::Instance()->LoadTexture(7, "..\\..\\Assets\\Default\\Textures\\cube_test_bigger.png");
+    Tower::TextureManager::Instance()->LoadTexture(8, "..\\..\\Assets\\Textures\\Simulator\\Zipper_texture.png");
+    Tower::TextureManager::Instance()->LoadTexture(9, "..\\..\\Assets\\Textures\\Simulator\\Simulator_Asteroid_v1.png");
+    Tower::TextureManager::Instance()->LoadTexture(10, "..\\..\\Assets\\Textures\\Simulator\\Simulator_Mine.png");
+    Tower::TextureManager::Instance()->LoadTexture(11, "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
 
 
     BuilderTest::TestWorldOne worldOne{};

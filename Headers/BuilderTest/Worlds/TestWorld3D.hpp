@@ -3,6 +3,7 @@
 #include <Tower/framework.h>
 
 #include "BuilderTest/Entities/Box3D.hpp"
+#include "BuilderTest/Entities/Object3D.hpp"
 
 #include <Tower/Components/Map.hpp>
 #include <Tower/Managers/TextureManager.hpp>
@@ -29,6 +30,10 @@ namespace BuilderTest
     private:
         static const U32 NUM_BOXES = 10;
         Box3D _boxes[NUM_BOXES];
+        Object3D _coloredCube;
+        Object3D _theZipper;
+        Object3D _wall;
+        Object3D _mine;
         Tower::Camera3D _camera;
         bool _mouseOn;
     };
