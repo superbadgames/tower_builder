@@ -5,7 +5,11 @@ using namespace Simulator;
 
 TheZipper::TheZipper(void) :
     _entity(nullptr),
-    _rotation()
+    _rotation(),
+    _forward(glm::vec3(0.0f, 0.0f, 1.0f)),
+    _throttleLevel(0),
+    _throttleMultiplier(50.0f),
+    _activeControl(true)
 {
 
 }
@@ -26,7 +30,7 @@ void TheZipper::Init(const glm::vec3& position)
     _entity->AddModel("..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb");
     _entity->AddTexture(Tower::TextureManager::Instance()->GetTexture(8));
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
-    _entity->SetPosition(glm::vec3(0.0f, 0.0f, -30.0f));
+    _entity->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 }
 
 void TheZipper::Draw(const glm::mat4& viewMatrix)
@@ -38,7 +42,42 @@ void TheZipper::Draw(const glm::mat4& viewMatrix)
 
 void TheZipper::Update(F32 delta)
 {
+    //glm::vec2 mouseInput = Tower::InputManager::Instance()->GetMouseInputOffset();
 
+    glm::vec3 newPosition = _entity->GetPosition();
+    if (_activeControl)
+    {
+        if (Tower::InputManager::Instance()->IsBindingPressed("throttleUp") && _throttleLevel < _maxThrottle)
+        {
+            ++_throttleLevel;
+        }
+        if (Tower::InputManager::Instance()->IsBindingPressed("throttleDown") && _throttleLevel > -_maxThrottle)
+        {
+            --_throttleLevel;
+        }
+        if (Tower::InputManager::Instance()->IsBindingPressed("fullstop"))
+        {
+            _throttleLevel = 0;
+        }
+        if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
+        {
+            newPosition.x += 1.0f;
+        }
+        else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
+        {
+            newPosition.x -= 1.0f;
+        }
+        else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("up"))
+        {
+            newPosition.y += 1.0f;
+        }
+        else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("down"))
+        {
+            newPosition.y -= 1.0f;
+        }
+    }
+
+    SetPosition(newPosition + (_forward * ((_throttleMultiplier * _throttleLevel) * delta)));
 }
 
 void TheZipper::SetPosition(const glm::vec3& pos)

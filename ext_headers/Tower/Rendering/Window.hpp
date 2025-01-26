@@ -21,7 +21,7 @@ namespace Tower
 
         void ProcessEvents(void);
 
-        void SetColor(glm::vec3& color);
+        void SetColor(const glm::vec3& color);
 
         F64 GetMouseXDelta(void);
 

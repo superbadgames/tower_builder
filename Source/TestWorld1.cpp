@@ -22,8 +22,7 @@ TestWorldOne::~TestWorldOne()
 
 void TestWorldOne::v_Init(void)
 {
-    glm::vec3 gray = { 0.2f, 0.2, 0.2f };
-    Tower::Director::Instance()->GetWindowPointer()->SetColor(gray);
+    Tower::Director::Instance()->GetWindowPointer()->SetColor(glm::vec3(0.2f, 0.2, 0.2f));
 
     Tower::p_Shader spriteShader = Tower::ShaderManager::Instance()->GetShader(2);
     Tower::p_Texture redTexture = Tower::TextureManager::Instance()->GetTexture(1);

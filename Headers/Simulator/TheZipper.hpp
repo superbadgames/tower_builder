@@ -7,6 +7,7 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
+#include <Tower/Input/InputManager.hpp>
 
 namespace Simulator
 {
@@ -25,8 +26,21 @@ namespace Simulator
 
         void SetPosition(const glm::vec3& pos);
 
+        inline const glm::vec3& GetPosition(void) const { return _entity->GetPosition(); }
+
+        inline const glm::vec3& GetForward(void) const { return _forward; }
+
+        inline void ActivateControls(void) { _activeControl = true; }
+
+        inline void DeactivateControl(void) { _activeControl = false; }
+
     private:
         Tower::p_Entity _entity;
         Tower::AxisAngle _rotation;
+        glm::vec3 _forward;
+        const S32 _maxThrottle = 5;
+        S32 _throttleLevel;
+        F32 _throttleMultiplier;
+        bool _activeControl;
     };
 }

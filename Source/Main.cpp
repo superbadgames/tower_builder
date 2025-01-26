@@ -3,6 +3,7 @@
 
 #include "BuilderTest/Worlds/TestWorld1.hpp"
 #include "BuilderTest/Worlds/TestWorld3D.hpp"
+#include "Simulator/SimulatorMap.hpp"
 
 #include <Tower/Components/World.hpp>
 #include <Tower/Managers/Director.hpp>
@@ -50,6 +51,11 @@ int main(void)
 
     inputManager->AddBinding("toggleMouse", Tower::InputButton::ENTER);
 
+    inputManager->AddBinding("swapControls", Tower::InputButton::TAB);
+    inputManager->AddBinding("throttleUp", Tower::InputButton::W);
+    inputManager->AddBinding("throttleDown", Tower::InputButton::S);
+    inputManager->AddBinding("fullstop", Tower::InputButton::SPACE);
+
     //
     // Initialize shaders
     //
@@ -88,6 +94,9 @@ int main(void)
     BuilderTest::TestWorld3D world3D{};
     world3D.v_Init();
 
+    Simulator::SimulatorMap simulatorMap{};
+    simulatorMap.v_Init();
+
     while (!director->ShouldProgramClose())
     {
         director->StartFrame();
@@ -100,8 +109,11 @@ int main(void)
         // worldOne.v_Update();
         // worldOne.v_Render();
 
-        world3D.v_Update();
-        world3D.v_Render();
+        // world3D.v_Update();
+        // world3D.v_Render();
+
+        simulatorMap.v_Update();
+        simulatorMap.v_Render();
 
         director->EndFrame();
     }
