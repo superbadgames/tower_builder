@@ -8,7 +8,7 @@ TheZipper::TheZipper(void) :
     _rotation(),
     _forward(glm::vec3(0.0f, 0.0f, 1.0f)),
     _throttleLevel(0),
-    _throttleMultiplier(50.0f),
+    _throttleMultiplier(150.0f),
     _activeControl(true)
 {
 
@@ -16,7 +16,6 @@ TheZipper::TheZipper(void) :
 
 TheZipper::~TheZipper(void)
 {
-
 }
 
 void TheZipper::Init(const glm::vec3& position)
@@ -61,19 +60,19 @@ void TheZipper::Update(F32 delta)
         }
         if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
         {
-            newPosition.x += 1.0f;
+            newPosition.x += _turnMultiplier * delta;
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
         {
-            newPosition.x -= 1.0f;
+            newPosition.x -= _turnMultiplier * delta;
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("up"))
         {
-            newPosition.y += 1.0f;
+            newPosition.y += _turnMultiplier * delta;
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("down"))
         {
-            newPosition.y -= 1.0f;
+            newPosition.y -= _turnMultiplier * delta;
         }
     }
 

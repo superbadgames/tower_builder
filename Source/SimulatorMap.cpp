@@ -157,6 +157,11 @@ void SimulatorMap::v_Update(void)
 
     _theZipper.Update(delta);
 
+    if (_theZipper.GetPosition().z >= 30250.0f)
+    {
+        std::cout << "YOU WON!!! You've reached the end of the game, and there is nothing else to do!\n";
+    }
+
     for (U32 i = 0; i < NUM_MINES; ++i)
     {
         _mines[i].Update(delta);

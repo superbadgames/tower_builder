@@ -41,6 +41,7 @@ namespace Simulator
         const S32 _maxThrottle = 5;
         S32 _throttleLevel;
         F32 _throttleMultiplier;
+        const F32 _turnMultiplier = 500.0f;
         bool _activeControl;
     };
 }
