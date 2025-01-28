@@ -30,7 +30,7 @@ namespace Simulator
 
         void v_Render(void) final;
     private:
-        static const U32 NUM_WALLS = 100;
+        static const U32 NUM_WALLS = 500;
         Wall _wallsLeft[NUM_WALLS];
         Wall _wallsRight[NUM_WALLS];
         static const U32 NUM_MINES = 500;

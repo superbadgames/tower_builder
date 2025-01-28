@@ -35,8 +35,7 @@ void TheZipper::Init(const glm::vec3& position)
 void TheZipper::Draw(const glm::mat4& viewMatrix)
 {
     glEnable(GL_DEPTH_TEST);
-    glm::mat4 combinedViewMatrix = Tower::Director::Instance()->GetPerspectiveMatrix() * viewMatrix;
-    _entity->Draw(combinedViewMatrix);
+    _entity->Draw(viewMatrix);
 }
 
 void TheZipper::Update(F32 delta)

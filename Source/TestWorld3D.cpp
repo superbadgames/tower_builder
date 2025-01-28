@@ -57,7 +57,7 @@ void TestWorld3D::v_Init(void)
     _mine.Init("..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", 10);
     _mine.SetPosition(glm::vec3(200.0f, -100.0f, 0.0f));
 
-    _camera.Init();
+    _camera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());
 
     Tower::Director::Instance()->GetWindowPointer()->HideMouseCursor();
     _mouseOn = false;

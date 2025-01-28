@@ -32,8 +32,7 @@ void Object3D::Init(const string& filepath, U32 textureId)
 void Object3D::Draw(const glm::mat4& viewMatrix)
 {
     glEnable(GL_DEPTH_TEST);
-    glm::mat4 combinedViewMatrix = Tower::Director::Instance()->GetPerspectiveMatrix() * viewMatrix;
-    _entity->Draw(combinedViewMatrix);
+    _entity->Draw(viewMatrix);
 }
 
 void Object3D::Update(F32 delta)

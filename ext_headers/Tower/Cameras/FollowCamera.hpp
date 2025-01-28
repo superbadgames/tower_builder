@@ -17,6 +17,8 @@ namespace Tower
 
         ~FollowCamera(void);
 
+        void Init(const glm::mat4& projectionMatrix);
+
         void Update(const glm::vec3& targetPos, const glm::vec3& targetUp, const glm::vec3& targetDirection);
 
         inline void SetOffset(const glm::vec2& offset) { _cameraOffset = offset; }
@@ -24,6 +26,7 @@ namespace Tower
         inline const glm::mat4& GetViewMatrix(void) const { return _viewMatrix; }
 
     private:
+        glm::mat4 _projectionMatrix;
         glm::mat4 _viewMatrix;
         glm::vec3 _eye;
         glm::vec3 _position;

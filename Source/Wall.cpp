@@ -35,8 +35,7 @@ void Wall::Draw(const glm::mat4& viewMatrix)
     if (_active)
     {
         glEnable(GL_DEPTH_TEST);
-        glm::mat4 combinedViewMatrix = Tower::Director::Instance()->GetPerspectiveMatrix() * viewMatrix;
-        _entity->Draw(combinedViewMatrix);
+        _entity->Draw(viewMatrix);
     }
 }
 

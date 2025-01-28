@@ -28,8 +28,9 @@ void SimulatorMap::v_Init(void)
 {
     Tower::Director::Instance()->GetWindowPointer()->SetColor(glm::vec3(0.1f, 0.1f, 0.3f));
 
-    _editorCamera.Init();
+    _editorCamera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());
 
+    _zipperCamera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());
     _zipperCamera.SetOffset(glm::vec2(300.0f, 85.0f));
 
     _theZipper.Init(glm::vec3(0.0f));
@@ -42,7 +43,7 @@ void SimulatorMap::v_Init(void)
     wallRotation.axis = glm::vec3(0.0f, 0.0f, 1.0f);
     wallRotation.angle = 90.0f;
 
-    glm::vec3 wallScale(100.0f, 20.0f, 75.0f);
+    glm::vec3 wallScale(100.0f, 420.0f, 75.0f);
 
     for (U32 i = 0; i < NUM_WALLS; ++i)
     {

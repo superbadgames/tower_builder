@@ -17,7 +17,7 @@ namespace Tower
 
         ~Camera3D(void);
 
-        void Init(void);
+        void Init(const glm::mat4& projectionMatrix);
 
         void Update(F32 delta);
 
@@ -40,6 +40,7 @@ namespace Tower
         void MoveDown(F32 speed);
 
     private:
+        glm::mat4 _projectionMatrix;
         glm::mat4 _viewMatrix;
         glm::vec3 _position;
         glm::vec3 _target;
