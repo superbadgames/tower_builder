@@ -24,10 +24,10 @@ void Box3D::Init(void)
         _entity = std::make_shared<Tower::Entity>();
     }
 
-    _entity->AddShader(Tower::ShaderManager::Instance()->GetShader(3));
+    _entity->AddShader(Tower::ShaderManager::Instance()->GetShader("basic3d"));
     //_entity->AddModel("..\\..\\Assets\\Default\\CubeModel\\cube.glb");
     //_entity->AddTexture(Tower::TextureManager::Instance()->GetTexture(7));
-    _entity->AddCubeModel(Tower::TextureManager::Instance()->GetTexture(5));
+    _entity->AddCubeModel(Tower::TextureManager::Instance()->GetTexture("brick"));
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
     _entity->SetPosition(glm::vec3(0.0f, 0.0f, -30.0f));
     _rotation.angle = -55.0f;
@@ -37,12 +37,10 @@ void Box3D::Init(void)
 
 void Box3D::Draw(const glm::mat4& viewMatrix)
 {
-    //glDisable(GL_DEPTH_TEST);
-    glEnable(GL_DEPTH_TEST);
-    //_entity->GetShader()->SetUniform("projection", Tower::Director::Instance()->GetPerspectiveMatrix());
-    //_entity->GetShader()->SetUniform("projection", Tower::Director::Instance()->GetOrthographicMatrix());
-    glm::mat4 combinedViewMatrix = Tower::Director::Instance()->GetPerspectiveMatrix() * viewMatrix;
-    _entity->Draw(combinedViewMatrix);
+    // the winding order for the cube is wrong, so for this draw I'll disable face culling
+    glDisable(GL_CULL_FACE);
+    _entity->Draw(viewMatrix);
+    glEnable(GL_CULL_FACE);
 }
 
 void Box3D::Update(F32 delta)

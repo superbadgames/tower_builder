@@ -15,15 +15,15 @@ namespace Tower
 
         static shared_ptr<ShaderManager> Instance(void);
 
-        void LoadShader(U32 shaderID, const string& vertexFilepath, const string& fragmentFilepath);
+        void LoadShader(const string& shaderID, const string& vertexFilepath, const string& fragmentFilepath);
 
-        void RegisterShader(U32 shaderID, p_Shader shader);
+        void RegisterShader(const string& shaderID, p_Shader shader);
 
-        p_Shader GetShader(U32 shaderID);
+        p_Shader GetShader(const string& shaderID);
 
     private:
         static shared_ptr<ShaderManager> _instance;
-        std::unordered_map<U32, p_Shader> _shaders;
+        std::unordered_map<string, p_Shader> _shaders;
 
         ShaderManager(void);
     };

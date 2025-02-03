@@ -61,31 +61,31 @@ int main(void)
     //
     Tower::p_Shader glyphShader = std::make_shared<Tower::Shader>();
     glyphShader->Load("..\\..\\Assets\\Default\\Shaders\\ui_text_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\ui_text_fragment.glsl");
-    Tower::ShaderManager::Instance()->RegisterShader(1, glyphShader);
+    Tower::ShaderManager::Instance()->RegisterShader("glyph", glyphShader);
 
     Tower::p_Shader spriteShader = std::make_shared<Tower::Shader>();
     spriteShader->Load("..\\..\\Assets\\Default\\Shaders\\sprite_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\sprite_fragment.glsl");
-    Tower::ShaderManager::Instance()->RegisterShader(2, spriteShader);
+    Tower::ShaderManager::Instance()->RegisterShader("sprite", spriteShader);
 
     Tower::p_Shader basic3dShader = std::make_shared<Tower::Shader>();
     basic3dShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
-    Tower::ShaderManager::Instance()->RegisterShader(3, basic3dShader);
+    Tower::ShaderManager::Instance()->RegisterShader("basic3d", basic3dShader);
 
 
     //
     // Initialize Textures
     //
-    Tower::TextureManager::Instance()->LoadTexture(1, "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture(2, "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture(3, "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture(4, "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture(5, "..\\..\\Assets\\Textures\\brick.png");
-    Tower::TextureManager::Instance()->LoadTexture(6, "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
-    Tower::TextureManager::Instance()->LoadTexture(7, "..\\..\\Assets\\Default\\Textures\\cube_test_bigger.png");
-    Tower::TextureManager::Instance()->LoadTexture(8, "..\\..\\Assets\\Textures\\Simulator\\Zipper_texture.png");
-    Tower::TextureManager::Instance()->LoadTexture(9, "..\\..\\Assets\\Textures\\Simulator\\Simulator_Asteroid_v1.png");
-    Tower::TextureManager::Instance()->LoadTexture(10, "..\\..\\Assets\\Textures\\Simulator\\Simulator_Mine.png");
-    Tower::TextureManager::Instance()->LoadTexture(11, "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
+    Tower::TextureManager::Instance()->LoadTexture("redbox", "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture("greenbox", "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture("bluebox", "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture("box_template", "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
+    Tower::TextureManager::Instance()->LoadTexture("brick", "..\\..\\Assets\\Textures\\brick.png");
+    Tower::TextureManager::Instance()->LoadTexture("brown_background", "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
+    Tower::TextureManager::Instance()->LoadTexture("cube_test_bigger", "..\\..\\Assets\\Default\\Textures\\cube_test_bigger.png");
+    Tower::TextureManager::Instance()->LoadTexture("the_zipper", "..\\..\\Assets\\Textures\\Simulator\\Zipper_texture.png");
+    Tower::TextureManager::Instance()->LoadTexture("asteroid_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Asteroid_v1.png");
+    Tower::TextureManager::Instance()->LoadTexture("mine_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Mine.png");
+    Tower::TextureManager::Instance()->LoadTexture("wall_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
 
 
     BuilderTest::TestWorldOne worldOne{};

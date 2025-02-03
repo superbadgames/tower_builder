@@ -24,12 +24,12 @@ void TestWorldOne::v_Init(void)
 {
     Tower::Director::Instance()->GetWindowPointer()->SetColor(glm::vec3(0.2f, 0.2, 0.2f));
 
-    Tower::p_Shader spriteShader = Tower::ShaderManager::Instance()->GetShader(2);
-    Tower::p_Texture redTexture = Tower::TextureManager::Instance()->GetTexture(1);
-    Tower::p_Texture greenTexture = Tower::TextureManager::Instance()->GetTexture(2);
-    Tower::p_Texture blueTexture = Tower::TextureManager::Instance()->GetTexture(3);
+    Tower::p_Shader spriteShader = Tower::ShaderManager::Instance()->GetShader("sprite");
+    Tower::p_Texture redTexture = Tower::TextureManager::Instance()->GetTexture("redbox");
+    Tower::p_Texture greenTexture = Tower::TextureManager::Instance()->GetTexture("greenbox");
+    Tower::p_Texture blueTexture = Tower::TextureManager::Instance()->GetTexture("bluebox");
 
-    _background.Init(spriteShader, Tower::TextureManager::Instance()->GetTexture(6));
+    _background.Init(spriteShader, Tower::TextureManager::Instance()->GetTexture("brown_background"));
     _background.SetScale(glm::vec2(500, 500));
 
     _redBox.Init(spriteShader, redTexture);

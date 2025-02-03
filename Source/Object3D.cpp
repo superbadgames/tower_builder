@@ -15,14 +15,14 @@ Object3D::~Object3D(void)
 
 }
 
-void Object3D::Init(const string& filepath, U32 textureId)
+void Object3D::Init(const string& filepath, const string& textureId)
 {
     if (_entity == nullptr)
     {
         _entity = std::make_shared<Tower::Entity>();
     }
 
-    _entity->AddShader(Tower::ShaderManager::Instance()->GetShader(3));
+    _entity->AddShader(Tower::ShaderManager::Instance()->GetShader("basic3d"));
     _entity->AddModel(filepath);
     _entity->AddTexture(Tower::TextureManager::Instance()->GetTexture(textureId));
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));

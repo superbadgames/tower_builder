@@ -23,9 +23,9 @@ void Wall::Init(const glm::vec3& position)
         _entity = std::make_shared<Tower::Entity>();
     }
 
-    _entity->AddShader(Tower::ShaderManager::Instance()->GetShader(3));
+    _entity->AddShader(Tower::ShaderManager::Instance()->GetShader("basic3d"));
     _entity->AddModel("..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb");
-    _entity->AddTexture(Tower::TextureManager::Instance()->GetTexture(11));
+    _entity->AddTexture(Tower::TextureManager::Instance()->GetTexture("wall_v1"));
     _entity->SetPosition(position);
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
 }

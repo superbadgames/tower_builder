@@ -17,7 +17,7 @@ namespace BuilderTest
 
         ~Object3D(void);
 
-        void Init(const string& filepath, U32 textureId);
+        void Init(const string& filepath, const string& textureId);
 
         void Draw(const glm::mat4& viewMatrix);
 

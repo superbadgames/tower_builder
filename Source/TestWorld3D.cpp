@@ -45,16 +45,16 @@ void TestWorld3D::v_Init(void)
         //zPos *= -1.0f;
     }
 
-    _coloredCube.Init("..\\..\\Assets\\Default\\CubeModel\\cube.glb", 7);
+    _coloredCube.Init("..\\..\\Assets\\Default\\CubeModel\\cube.glb", "cube_test_bigger");
     _coloredCube.SetPosition(glm::vec3(0.0f, 0.0f, 30.0f));
 
-    _theZipper.Init("..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", 8);
+    _theZipper.Init("..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", "the_zipper");
     _theZipper.SetPosition(glm::vec3(0.0f, -100.0f, -150.0f));
 
-    _wall.Init("..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", 11);
+    _wall.Init("..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", "wall_v1");
     _wall.SetPosition(glm::vec3(100.0f, -100.0f, 0.0f));
 
-    _mine.Init("..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", 10);
+    _mine.Init("..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", "mine_v1");
     _mine.SetPosition(glm::vec3(200.0f, -100.0f, 0.0f));
 
     _camera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());

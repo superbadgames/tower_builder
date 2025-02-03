@@ -34,8 +34,12 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
 
 void Box2D::Draw(const glm::mat4& viewMatrix)
 {
+    // Winding order and what not are wrong. Gotta make sure they are right
     glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
     _entity->Draw(viewMatrix);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 }
 
 void Box2D::Update(F32 delta)

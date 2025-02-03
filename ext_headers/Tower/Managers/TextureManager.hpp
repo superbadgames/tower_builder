@@ -15,15 +15,15 @@ namespace Tower
 
         static shared_ptr<TextureManager> Instance(void);
 
-        void LoadTexture(U32 textureID, const string& filepath);
+        void LoadTexture(const string& textureID, const string& filepath);
 
-        void RegisterTexture(U32 textureID, p_Texture texture);
+        void RegisterTexture(const string& textureID, p_Texture texture);
 
-        p_Texture GetTexture(U32 textureID);
+        p_Texture GetTexture(const string& textureID);
 
     private:
         static shared_ptr<TextureManager> _instance;
-        std::unordered_map<U32, p_Texture> _textures;
+        std::unordered_map<string, p_Texture> _textures;
 
         TextureManager(void);
     };
