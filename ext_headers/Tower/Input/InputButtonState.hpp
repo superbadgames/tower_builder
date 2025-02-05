@@ -7,9 +7,9 @@ namespace Tower
 {
     enum InputButtonState
     {
-        RELEASE = GLFW_RELEASE,
-        PRESS = GLFW_PRESS,
-        HOLD = GLFW_REPEAT,
+        RELEASE,
+        PRESS,
+        HOLD,
         NONE
     };
 }

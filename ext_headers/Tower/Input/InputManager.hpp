@@ -53,6 +53,7 @@ namespace Tower
         // TODO: Learn how to hash this string
         std::map<string, InputButton> _registeredBindings;
         std::map<string, InputButtonState> _bindingStates;
+        std::map<string, InputButtonState> _prevBindingStates;
         glm::vec2 _mousePreviousPosition;
         glm::vec2 _mouseCurentPosition;
         glm::vec2 _mouseInputOffset;
