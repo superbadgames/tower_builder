@@ -16,9 +16,9 @@ namespace Tower
 
         static shared_ptr<InputManager> Instance(void);
 
-        void UpdateBinding(ButtonPress update);
+        void InputEventDetected(ButtonPress update);
 
-        void ResetBindings(void);
+        void UpdateBindings(void);
 
         bool IsBindingPressed(const string& name);
 
@@ -52,8 +52,8 @@ namespace Tower
         static shared_ptr<InputManager> _instance;
         // TODO: Learn how to hash this string
         std::map<string, InputButton> _registeredBindings;
-        std::map<string, InputButtonState> _bindingStates;
-        std::map<string, InputButtonState> _prevBindingStates;
+        std::map<string, InputButtonState> _bindingChangeState;
+        std::map<string, InputButtonState> _activeBindingStates;
         glm::vec2 _mousePreviousPosition;
         glm::vec2 _mouseCurentPosition;
         glm::vec2 _mouseInputOffset;
