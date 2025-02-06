@@ -39,6 +39,7 @@ int main(void)
     inputManager->AddBinding("exit", Tower::InputButton::ESCAPE);
     inputManager->AddWASDMovement("move_up", "move_down", "move_right", "move_left");
     inputManager->AddArrowMovement("camera_move_up", "camera_move_down", "camera_move_right", "camera_move_left");
+    inputManager->AddBinding("camera_sprint", Tower::InputButton::LEFT_SHIFT);
     inputManager->AddBinding("reset_position", Tower::InputButton::SPACE);
     inputManager->AddBinding("red_box", Tower::InputButton::NUM_1);
     inputManager->AddBinding("green_box", Tower::InputButton::NUM_2);

@@ -10,7 +10,8 @@ SimulatorMap::SimulatorMap(void) :
     _editorCamera(),
     _zipperCamera(),
     _theZipper(),
-    _editorCameraMoveSpeed(50.0f),
+    _editorCameraMoveSpeed(100.0f),
+    _editorCameraSprintMultiplier(10.0f),
     _mouseOn(true),
     _builderInControl(false)
 {
@@ -124,29 +125,36 @@ void SimulatorMap::v_Update(void)
 
     if (_builderInControl)
     {
+        F32 finalMovSpeed = _editorCameraMoveSpeed;
+
+        if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_sprint"))
+        {
+            finalMovSpeed *= _editorCameraSprintMultiplier;
+        }
+
         if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_forward"))
         {
-            _editorCamera.MoveForward(_editorCameraMoveSpeed * delta);
+            _editorCamera.MoveForward(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_back"))
         {
-            _editorCamera.MoveBack(_editorCameraMoveSpeed * delta);
+            _editorCamera.MoveBack(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
         {
-            _editorCamera.MoveRight(_editorCameraMoveSpeed * delta);
+            _editorCamera.MoveRight(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
         {
-            _editorCamera.MoveLeft(_editorCameraMoveSpeed * delta);
+            _editorCamera.MoveLeft(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("up"))
         {
-            _editorCamera.MoveUp(_editorCameraMoveSpeed * delta);
+            _editorCamera.MoveUp(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("down"))
         {
-            _editorCamera.MoveDown(_editorCameraMoveSpeed * delta);
+            _editorCamera.MoveDown(finalMovSpeed * delta);
         }
 
         _editorCamera.Update(delta);

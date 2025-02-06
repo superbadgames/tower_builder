@@ -39,6 +39,7 @@ namespace Simulator
         Tower::FollowCamera _zipperCamera;
         TheZipper _theZipper;
         F32 _editorCameraMoveSpeed;
+        F32 _editorCameraSprintMultiplier;
         bool _mouseOn;
         bool _builderInControl;
     };

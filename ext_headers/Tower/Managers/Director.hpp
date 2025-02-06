@@ -56,6 +56,8 @@ namespace Tower
 
         const glm::mat4& GetOrthographicMatrix(void) const;
 
+        void RecalculateProjectionMatrices(S32 width, S32 height);
+
     private:
         static shared_ptr<Director> _instance;
 
