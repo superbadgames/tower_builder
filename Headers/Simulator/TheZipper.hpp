@@ -7,7 +7,7 @@
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
-#include <Tower/Input/InputManager.hpp>
+#include <Tower/Managers/InputManager.hpp>
 
 namespace Simulator
 {

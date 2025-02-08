@@ -4,7 +4,7 @@
 #include "Tower/framework.h"
 #include "Tower/Managers/Director.hpp"
 #include "Tower/Input/InputButtons.hpp"
-#include "Tower/Input/InputManager.hpp"
+#include "Tower/Managers/InputManager.hpp"
 #include <glm/vec3.hpp>
 
 namespace Tower

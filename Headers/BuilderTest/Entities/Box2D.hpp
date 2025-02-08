@@ -5,7 +5,7 @@
 #include <Tower/Entity.hpp>
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Color.hpp>
-#include <Tower/Input/InputManager.hpp>
+#include <Tower/Managers/InputManager.hpp>
 #include <Tower/Managers/Director.hpp>
 
 namespace BuilderTest

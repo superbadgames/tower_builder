@@ -11,7 +11,7 @@
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
-#include <Tower/Input/InputManager.hpp>
+#include <Tower/Managers/InputManager.hpp>
 #include <Tower/Cameras/Camera2D.hpp>
 #include <Tower/UI/Glyph.hpp>
 

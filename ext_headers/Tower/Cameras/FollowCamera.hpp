@@ -2,7 +2,7 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
-#include "Tower/Input/InputManager.hpp"
+#include "Tower/Managers/InputManager.hpp"
 
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
