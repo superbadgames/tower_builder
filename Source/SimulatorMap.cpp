@@ -90,11 +90,10 @@ void SimulatorMap::v_Init(void)
 }
 
 
-void SimulatorMap::v_Update(void)
+void SimulatorMap::v_Update(F32 delta)
 {
-    F32 delta = Tower::Director::Instance()->GetDeltaTime();
-
-
+    // TODO: Refactor away
+    // Where can this live?
     if (Tower::InputManager::Instance()->IsBindingPressed("toggleMouse"))
     {
         if (_mouseOn)

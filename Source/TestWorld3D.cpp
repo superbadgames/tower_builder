@@ -64,9 +64,8 @@ void TestWorld3D::v_Init(void)
 }
 
 
-void TestWorld3D::v_Update(void)
+void TestWorld3D::v_Update(F32 delta)
 {
-    F32 delta = Tower::Director::Instance()->GetDeltaTime();
     for (U32 i = 0; i < NUM_BOXES; ++i)
     {
         _boxes[i].Update(delta);

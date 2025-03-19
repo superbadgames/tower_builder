@@ -8,6 +8,7 @@
 
 #include <Tower/Components/Map.hpp>
 #include <Tower/Managers/TextureManager.hpp>
+
 #include <Tower/Cameras/Camera3D.hpp>
 #include <Tower/Cameras/FollowCamera.hpp>
 
@@ -26,10 +27,15 @@ namespace Simulator
 
         void v_Init(void) final;
 
-        void v_Update(void) final;
+        inline void v_Release(void) final {}
+
+        void v_Update(F32 delta) final;
 
         void v_Render(void) final;
+
     private:
+        // This is all basically data...
+        // If this could come from data, would I even need this file?
         static const U32 NUM_WALLS = 500;
         Wall _wallsLeft[NUM_WALLS];
         Wall _wallsRight[NUM_WALLS];

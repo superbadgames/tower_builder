@@ -6,6 +6,13 @@
 #include "Tower/Rendering/Window.hpp"
 #include "Tower/Rendering/Shader.hpp"
 #include "Tower/Cameras/Camera2D.hpp"
+#include "Tower/Managers/InputManager.hpp"
+#include "Tower/Managers/TextureManager.hpp"
+#include "Tower/Managers/ShaderManager.hpp"
+#include "Tower/Managers/ModelManager.hpp"
+#include "Tower/Managers/MapManager.hpp"
+#include "Tower/Systems/PhysicsSystem.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Tower

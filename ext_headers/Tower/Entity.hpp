@@ -29,13 +29,15 @@ namespace Tower
 
         void AddModel(const string& filePath);
 
+        inline void AddModel(p_Model model) { _model = model; }
+
         void AddSprite(p_Shader shader, p_Texture texture);
 
         void AddCubeModel(p_Texture texture);
 
         void AddShader(void);
 
-        void AddShader(p_Shader shader);
+        inline void AddShader(p_Shader shader) { _shader = shader; }
 
         p_Shader GetShader(void) const;
 

@@ -29,7 +29,6 @@ namespace Tower
         glm::mat4 _projectionMatrix;
         glm::mat4 _viewMatrix;
         glm::vec3 _eye;
-        glm::vec3 _position;
         glm::vec3 _cameraForward;
         glm::vec3 _cameraLeft;
         glm::vec3 _cameraUp;

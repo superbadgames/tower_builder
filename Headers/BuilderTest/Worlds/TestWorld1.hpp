@@ -21,9 +21,12 @@ namespace BuilderTest
 
         void v_Init(void) final;
 
-        void v_Update(void) final;
+        inline void v_Release(void) final {}
+
+        void v_Update(F32 delta) final;
 
         void v_Render(void) final;
+
 
     private:
         Box2D _background;

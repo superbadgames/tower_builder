@@ -5,7 +5,6 @@
 #include "Tower/Systems/System.hpp"
 #include "Tower/Rendering/Model.hpp"
 #include "Tower/Math/Transform.hpp"
-#include "Tower/Components/Camera.hpp"
 #include "Tower/Rendering/Light.hpp"
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -21,10 +20,9 @@ namespace Tower
 
         void Init(void);
 
-        void Draw(const Camera& camera);
+        void Draw(void);
 
     private:
-        Camera _camera;
     };
     typedef shared_ptr<RenderSystem> p_RenderSystem;
 }

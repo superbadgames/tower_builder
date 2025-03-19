@@ -35,6 +35,8 @@ int main(void)
 
     Tower::p_InputManager inputManager = Tower::InputManager::Instance();
 
+    // TODO: Refactor to use database
+    // This is a great starting place to get the DB up and running
     // Set up key bindings
     inputManager->AddBinding("exit", Tower::InputButton::ESCAPE);
     inputManager->AddWASDMovement("move_up", "move_down", "move_right", "move_left");
@@ -113,7 +115,7 @@ int main(void)
         // world3D.v_Update();
         // world3D.v_Render();
 
-        simulatorMap.v_Update();
+        simulatorMap.v_Update(director->GetDeltaTime());
         simulatorMap.v_Render();
 
         director->EndFrame();

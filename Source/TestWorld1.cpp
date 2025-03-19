@@ -40,29 +40,13 @@ void TestWorldOne::v_Init(void)
     _blueBox.SetActive(true);
 }
 
-void TestWorldOne::v_Update(void)
+void TestWorldOne::v_Update(F32 delta)
 {
-    F32 delta = Tower::Director::Instance()->GetDeltaTime();
-    _CheckInput();
-    _redBox.Update(delta);
-    _greenBox.Update(delta);
-    _blueBox.Update(delta);
-}
-
-void TestWorldOne::v_Render(void)
-{
-    glm::mat4 viewMatrix = Tower::Director::Instance()->GetCamera2D()->GetViewMatrix();
-
-    _background.Draw(viewMatrix);
-
-    _redBox.Draw(viewMatrix);
-    _greenBox.Draw(viewMatrix);
-    _blueBox.Draw(viewMatrix);
-}
-
-void TestWorldOne::_CheckInput(void)
-{
-
+    // TODO:
+    // Refactor all these controls into various other objects that actually control this logic
+    // For instance, make a Camera2D, not in the engine maybe, but here to be re-used in later games/projects
+    // and put these controls in that object
+    // Maybe later, consider putting this in LUA, or just leaving here
     if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_up"))
     {
         Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(0.0f, 1.0f) * _cameraMoveSpeed);
@@ -98,4 +82,19 @@ void TestWorldOne::_CheckInput(void)
         _greenBox.SetActive(false);
         _blueBox.SetActive(true);
     }
+
+    _redBox.Update(delta);
+    _greenBox.Update(delta);
+    _blueBox.Update(delta);
+}
+
+void TestWorldOne::v_Render(void)
+{
+    glm::mat4 viewMatrix = Tower::Director::Instance()->GetCamera2D()->GetViewMatrix();
+
+    _background.Draw(viewMatrix);
+
+    _redBox.Draw(viewMatrix);
+    _greenBox.Draw(viewMatrix);
+    _blueBox.Draw(viewMatrix);
 }
