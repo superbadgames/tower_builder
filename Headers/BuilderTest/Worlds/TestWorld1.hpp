@@ -29,10 +29,13 @@ namespace BuilderTest
 
 
     private:
+        // Where do we live?
+        // Where is out code/behavior defined?
         Box2D _background;
         Box2D _redBox;
         Box2D _greenBox;
         Box2D _blueBox;
+        // Why am I here, but not the camera itself?
         F32 _cameraMoveSpeed;
 
         void _CheckInput(void);

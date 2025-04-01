@@ -13,6 +13,9 @@
 #include <Tower/Managers/TextureManager.hpp>
 #include <Tower/Managers/InputManager.hpp>
 #include <Tower/Cameras/Camera2D.hpp>
+
+
+#include <Tower/UI/Font.hpp>
 #include <Tower/UI/Glyph.hpp>
 
 
@@ -89,6 +92,14 @@ int main(void)
     Tower::TextureManager::Instance()->LoadTexture("asteroid_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Asteroid_v1.png");
     Tower::TextureManager::Instance()->LoadTexture("mine_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Mine.png");
     Tower::TextureManager::Instance()->LoadTexture("wall_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
+
+    //
+    // Font Test
+    //
+    // Use this later to get text rendering to work.
+    // Disabled for now, for convience
+    // Tower::p_Font font = std::make_shared<Tower::Font>();
+    // font->Load("..\\..\\Assets\\Default\\Fonts\\arial.ttf", 48);
 
 
     BuilderTest::TestWorldOne worldOne{};
