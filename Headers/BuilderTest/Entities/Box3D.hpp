@@ -4,6 +4,7 @@
 #include <Tower/framework.h>
 #include <Tower/Managers/Director.hpp>
 #include <Tower/Entity.hpp>
+#include <Tower/Managers/EntityManager.hpp>
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 
@@ -17,8 +18,6 @@ namespace BuilderTest
         ~Box3D(void);
 
         void Init(void);
-
-        void Draw(const glm::mat4& viewMatrix);
 
         void Update(F32 delta);
 

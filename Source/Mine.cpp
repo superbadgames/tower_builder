@@ -34,15 +34,6 @@ void Mine::Init(const glm::vec3& position)
     _rotation.axis = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
-void Mine::Draw(const glm::mat4& viewMatrix)
-{
-    if (_active)
-    {
-        glEnable(GL_DEPTH_TEST);
-        _entity->Draw(viewMatrix);
-    }
-}
-
 void Mine::Update(F32 delta)
 {
     if (_active)

@@ -19,8 +19,6 @@ namespace Simulator
 
         void Init(const glm::vec3& position);
 
-        void Draw(const glm::mat4& viewMatrix);
-
         void Update(F32 delta);
 
         inline void SetPosition(const glm::vec3& pos) { _entity->SetPosition(pos); }

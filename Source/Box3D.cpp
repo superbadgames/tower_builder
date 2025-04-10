@@ -21,10 +21,14 @@ void Box3D::Init(void)
 {
     if (_entity == nullptr)
     {
-        _entity = std::make_shared<Tower::Entity>();
+        _entity = Tower::EntityManager::Instance()->GetNext();
     }
 
     _entity->AddShader(Tower::ShaderManager::Instance()->GetShader("basic3d"));
+    // There are two ways in the Tower Engine to create a cube. You can use a texture,
+    // created using the default cube from blender. This works fine.
+    // The "Cube Model" is made by hand, during the early stages of rendering development.
+    /// It's here more as a test than anything else.
     //_entity->AddModel("..\\..\\Assets\\Default\\CubeModel\\cube.glb");
     //_entity->AddTexture(Tower::TextureManager::Instance()->GetTexture(7));
     _entity->AddCubeModel(Tower::TextureManager::Instance()->GetTexture("brick"));
@@ -33,14 +37,6 @@ void Box3D::Init(void)
     _rotation.angle = -55.0f;
     _rotation.axis = glm::vec3(1.0f, 1.0f, 0.0f);
     _entity->SetRotation(_rotation);
-}
-
-void Box3D::Draw(const glm::mat4& viewMatrix)
-{
-    // the winding order for the cube is wrong, so for this draw I'll disable face culling
-    glDisable(GL_CULL_FACE);
-    _entity->Draw(viewMatrix);
-    glEnable(GL_CULL_FACE);
 }
 
 void Box3D::Update(F32 delta)

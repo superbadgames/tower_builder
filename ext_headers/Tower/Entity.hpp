@@ -21,9 +21,10 @@ namespace Tower
 
         ~Entity(void);
 
-        void Draw(const glm::mat4& viewMatrix) const;
+        // Will reset the Entity, indicates that a Map has just changed
+        void Reset(void);
 
-        void Update(F32 delta);
+        void Render(const glm::mat4& viewMatrix) const;
 
         void AddModel(void);
 
@@ -63,7 +64,26 @@ namespace Tower
 
         void SetRotation(F32 angle, const glm::vec3& axis);
 
+        inline bool IsUpdating(void) const { return _isUpdating; }
+
+        inline void SetUpdating(bool state) { _isUpdating = state; }
+
+        inline void ToggleUpdating(void) { _isUpdating = !_isUpdating; }
+
+        inline bool IsRendering(void) const { return _isRendering; }
+
+        inline void SetRendering(bool state) { _isRendering = state; }
+
+        inline void ToggleRendering(void) { _isRendering = !_isRendering; }
+
+        inline void ToggleShouldReset(void) { _shouldReset = !_shouldReset; }
+
     private:
+        static S32 _NEXT_ID;
+        bool _isUpdating;
+        bool _isRendering;
+        bool _shouldReset;
+        S32 _id;
         p_Model _model;
         p_Sprite _sprite;
         p_Cube _cubeModel;

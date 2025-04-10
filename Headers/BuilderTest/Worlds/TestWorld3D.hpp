@@ -1,11 +1,10 @@
 #pragma once
 #include "pch.h"
 #include <Tower/framework.h>
-
 #include "BuilderTest/Entities/Box3D.hpp"
 #include "BuilderTest/Entities/Object3D.hpp"
 
-#include <Tower/Components/Map.hpp>
+#include <Tower/Components/World.hpp>
 #include <Tower/Managers/TextureManager.hpp>
 #include <Tower/Cameras/Camera3D.hpp>
 
@@ -15,20 +14,17 @@
 
 namespace BuilderTest
 {
-    class TestWorld3D : public Tower::I_Map
+    class TestWorld3D : public Tower::World
     {
     public:
         TestWorld3D(void);
 
         ~TestWorld3D(void) final;
 
-        void v_Init(void) final;
-
-        inline void v_Release(void) final {}
+        void v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance) final;
 
         void v_Update(F32 delta) final;
 
-        void v_Render(void) final;
     private:
         static const U32 NUM_BOXES = 10;
         Box3D _boxes[NUM_BOXES];
@@ -36,7 +32,7 @@ namespace BuilderTest
         Object3D _theZipper;
         Object3D _wall;
         Object3D _mine;
-        Tower::Camera3D _camera;
+        Tower::p_Camera3D _camera3d;
         bool _mouseOn;
     };
 }

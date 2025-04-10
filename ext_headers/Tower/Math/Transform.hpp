@@ -16,6 +16,8 @@ namespace Tower
 
         ~Transform(void);
 
+        void Reset(void);
+
         glm::mat4 ToMatrix(void) const;
 
         inline const glm::vec3& GetPosition(void) const { return _position; }

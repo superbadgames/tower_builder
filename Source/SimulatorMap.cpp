@@ -7,8 +7,8 @@ SimulatorMap::SimulatorMap(void) :
     _wallsLeft(),
     _wallsRight(),
     _mines(),
-    _editorCamera(),
-    _zipperCamera(),
+    _editorCamera(nullptr),
+    _zipperCamera(nullptr),
     _theZipper(),
     _editorCameraMoveSpeed(100.0f),
     _editorCameraSprintMultiplier(10.0f),
@@ -25,14 +25,17 @@ SimulatorMap::~SimulatorMap(void)
 }
 
 
-void SimulatorMap::v_Init(void)
+void SimulatorMap::v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance)
 {
-    Tower::Director::Instance()->GetWindowPointer()->SetColor(glm::vec3(0.1f, 0.1f, 0.3f));
+    Tower::Director::Instance()->SetWindowBackgroundColor(glm::vec3(0.1f, 0.1f, 0.3f));
 
-    _editorCamera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());
+    _editorCamera = std::make_shared<Tower::Camera3D>();
+    _editorCamera->v_Init(screenWidth, screenHeight, fov, viewDistance);
 
-    _zipperCamera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());
-    _zipperCamera.SetOffset(glm::vec2(300.0f, 85.0f));
+    _zipperCamera = std::make_shared<Tower::FollowCamera>();
+    _zipperCamera->v_Init(screenWidth, screenHeight, fov, viewDistance);
+    _zipperCamera->SetOffset(glm::vec2(300.0f, 85.0f));
+    _camera = _zipperCamera;
 
     _theZipper.Init(glm::vec3(0.0f));
 
@@ -98,12 +101,12 @@ void SimulatorMap::v_Update(F32 delta)
     {
         if (_mouseOn)
         {
-            Tower::Director::Instance()->GetWindowPointer()->HideMouseCursor();
+            Tower::Director::Instance()->HideMouseCursor();
             _mouseOn = false;
         }
         else
         {
-            Tower::Director::Instance()->GetWindowPointer()->ShowMouseCursor();
+            Tower::Director::Instance()->ShowMouseCursor();
             _mouseOn = true;
         }
     }
@@ -114,11 +117,13 @@ void SimulatorMap::v_Update(F32 delta)
         {
             _builderInControl = false;
             _theZipper.ActivateControls();
+            _camera = _zipperCamera;
         }
         else
         {
             _builderInControl = true;
             _theZipper.DeactivateControl();
+            _camera = _editorCamera;
         }
     }
 
@@ -133,34 +138,34 @@ void SimulatorMap::v_Update(F32 delta)
 
         if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_forward"))
         {
-            _editorCamera.MoveForward(finalMovSpeed * delta);
+            _editorCamera->MoveForward(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_back"))
         {
-            _editorCamera.MoveBack(finalMovSpeed * delta);
+            _editorCamera->MoveBack(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
         {
-            _editorCamera.MoveRight(finalMovSpeed * delta);
+            _editorCamera->MoveRight(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
         {
-            _editorCamera.MoveLeft(finalMovSpeed * delta);
+            _editorCamera->MoveLeft(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("up"))
         {
-            _editorCamera.MoveUp(finalMovSpeed * delta);
+            _editorCamera->MoveUp(finalMovSpeed * delta);
         }
         else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("down"))
         {
-            _editorCamera.MoveDown(finalMovSpeed * delta);
+            _editorCamera->MoveDown(finalMovSpeed * delta);
         }
 
-        _editorCamera.Update(delta);
+        _editorCamera->Update(delta);
     }
     else
     {
-        _zipperCamera.Update(_theZipper.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f), _theZipper.GetForward());
+        _zipperCamera->Update(_theZipper.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f), _theZipper.GetForward());
     }
 
     _theZipper.Update(delta);
@@ -173,32 +178,5 @@ void SimulatorMap::v_Update(F32 delta)
     for (U32 i = 0; i < NUM_MINES; ++i)
     {
         _mines[i].Update(delta);
-    }
-}
-
-
-void SimulatorMap::v_Render(void)
-{
-    glm::mat4 viewMatrix{};
-    if (_builderInControl)
-    {
-        viewMatrix = _editorCamera.GetViewMatrix();
-    }
-    else
-    {
-        viewMatrix = _zipperCamera.GetViewMatrix();
-    }
-
-    _theZipper.Draw(viewMatrix);
-
-    for (U32 i = 0; i < NUM_WALLS; ++i)
-    {
-        _wallsLeft[i].Draw(viewMatrix);
-        _wallsRight[i].Draw(viewMatrix);
-    }
-
-    for (U32 i = 0; i < NUM_MINES; ++i)
-    {
-        _mines[i].Draw(viewMatrix);
     }
 }

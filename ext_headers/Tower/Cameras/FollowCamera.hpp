@@ -2,22 +2,22 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
+#include "Tower/Cameras/Camera.hpp"
 #include "Tower/Managers/InputManager.hpp"
-
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 namespace Tower
 {
-    class FollowCamera
+    class FollowCamera;
+    typedef shared_ptr<FollowCamera> p_FollowCamera;
+
+    class FollowCamera : public Camera
     {
     public:
         FollowCamera(void);
 
-        ~FollowCamera(void);
+        ~FollowCamera(void) final;
 
-        void Init(const glm::mat4& projectionMatrix);
+        void v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance) final;
 
         void Update(const glm::vec3& targetPos, const glm::vec3& targetUp, const glm::vec3& targetDirection);
 

@@ -23,23 +23,13 @@ void Box2D::Init(Tower::p_Shader shader, Tower::p_Texture texture)
 {
     if (_entity == nullptr)
     {
-        _entity = std::make_shared<Tower::Entity>();
+        _entity = Tower::EntityManager::Instance()->GetNext();
     }
 
     _entity->AddSprite(shader, texture);
     _entity->SetScale(glm::vec3(50.0f, 50.0f, 0.0f));
     _entity->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
     _entity->SetRotation(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-}
-
-void Box2D::Draw(const glm::mat4& viewMatrix)
-{
-    // Winding order and what not are wrong. Gotta make sure they are right
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    _entity->Draw(viewMatrix);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
 }
 
 void Box2D::Update(F32 delta)

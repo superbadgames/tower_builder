@@ -6,7 +6,7 @@
 #include "Simulator/Mine.hpp"
 #include "Simulator/Wall.hpp"
 
-#include <Tower/Components/Map.hpp>
+#include <Tower/Components/World.hpp>
 #include <Tower/Managers/TextureManager.hpp>
 
 #include <Tower/Cameras/Camera3D.hpp>
@@ -18,20 +18,16 @@
 
 namespace Simulator
 {
-    class SimulatorMap : public Tower::I_Map
+    class SimulatorMap : public Tower::World
     {
     public:
         SimulatorMap(void);
 
         ~SimulatorMap(void) final;
 
-        void v_Init(void) final;
-
-        inline void v_Release(void) final {}
+        void v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance) final;
 
         void v_Update(F32 delta) final;
-
-        void v_Render(void) final;
 
     private:
         // This is all basically data...
@@ -41,8 +37,8 @@ namespace Simulator
         Wall _wallsRight[NUM_WALLS];
         static const U32 NUM_MINES = 500;
         Mine _mines[NUM_MINES];
-        Tower::Camera3D _editorCamera;
-        Tower::FollowCamera _zipperCamera;
+        Tower::p_Camera3D _editorCamera;
+        Tower::p_FollowCamera _zipperCamera;
         TheZipper _theZipper;
         F32 _editorCameraMoveSpeed;
         F32 _editorCameraSprintMultiplier;

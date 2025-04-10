@@ -32,11 +32,6 @@ void TheZipper::Init(const glm::vec3& position)
     _entity->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 }
 
-void TheZipper::Draw(const glm::mat4& viewMatrix)
-{
-    glEnable(GL_DEPTH_TEST);
-    _entity->Draw(viewMatrix);
-}
 
 void TheZipper::Update(F32 delta)
 {

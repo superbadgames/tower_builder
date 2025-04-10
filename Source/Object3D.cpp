@@ -19,7 +19,7 @@ void Object3D::Init(const string& filepath, const string& textureId)
 {
     if (_entity == nullptr)
     {
-        _entity = std::make_shared<Tower::Entity>();
+        _entity = Tower::EntityManager::Instance()->GetNext();
     }
 
     _entity->AddShader(Tower::ShaderManager::Instance()->GetShader("basic3d"));
@@ -27,12 +27,6 @@ void Object3D::Init(const string& filepath, const string& textureId)
     _entity->AddTexture(Tower::TextureManager::Instance()->GetTexture(textureId));
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
     _entity->SetPosition(glm::vec3(0.0f, 0.0f, -30.0f));
-}
-
-void Object3D::Draw(const glm::mat4& viewMatrix)
-{
-    glEnable(GL_DEPTH_TEST);
-    _entity->Draw(viewMatrix);
 }
 
 void Object3D::Update(F32 delta)

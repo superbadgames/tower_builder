@@ -10,6 +10,7 @@ TestWorldOne::TestWorldOne() :
     _redBox(),
     _greenBox(),
     _blueBox(),
+    _camera2d(nullptr),
     _cameraMoveSpeed(3.0f)
 {
 
@@ -20,9 +21,16 @@ TestWorldOne::~TestWorldOne()
 
 }
 
-void TestWorldOne::v_Init(void)
+void TestWorldOne::v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance)
 {
-    Tower::Director::Instance()->GetWindowPointer()->SetColor(glm::vec3(0.2f, 0.2, 0.2f));
+    Tower::Director::Instance()->SetWindowBackgroundColor(glm::vec3(0.2f, 0.2, 0.2f));
+
+    _camera2d = std::make_shared<Tower::Camera2D>();
+    _camera2d->v_Init(screenWidth, screenHeight, fov, viewDistance);
+    // This is awkward and terrible, but only for now.
+    // I need to create an object to hold and move the camera for the 2d map,
+    // but this is a very low priority for now
+    _camera = _camera2d;
 
     Tower::p_Shader spriteShader = Tower::ShaderManager::Instance()->GetShader("sprite");
     Tower::p_Texture redTexture = Tower::TextureManager::Instance()->GetTexture("redbox");
@@ -49,19 +57,19 @@ void TestWorldOne::v_Update(F32 delta)
     // Maybe later, consider putting this in LUA, or just leaving here
     if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_up"))
     {
-        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(0.0f, 1.0f) * _cameraMoveSpeed);
+        _camera2d->Move(glm::vec2(0.0f, 1.0f) * _cameraMoveSpeed);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_down"))
     {
-        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(0.0f, -1.0f) * _cameraMoveSpeed);
+        _camera2d->Move(glm::vec2(0.0f, -1.0f) * _cameraMoveSpeed);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_right"))
     {
-        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(1.0f, 0.0f) * _cameraMoveSpeed);
+        _camera2d->Move(glm::vec2(1.0f, 0.0f) * _cameraMoveSpeed);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("camera_move_left"))
     {
-        Tower::Director::Instance()->GetCamera2D()->Move(glm::vec2(-1.0f, 0.0f) * _cameraMoveSpeed);
+        _camera2d->Move(glm::vec2(-1.0f, 0.0f) * _cameraMoveSpeed);
     }
 
     if (Tower::InputManager::Instance()->IsBindingPressed("red_box"))
@@ -86,15 +94,4 @@ void TestWorldOne::v_Update(F32 delta)
     _redBox.Update(delta);
     _greenBox.Update(delta);
     _blueBox.Update(delta);
-}
-
-void TestWorldOne::v_Render(void)
-{
-    glm::mat4 viewMatrix = Tower::Director::Instance()->GetCamera2D()->GetViewMatrix();
-
-    _background.Draw(viewMatrix);
-
-    _redBox.Draw(viewMatrix);
-    _greenBox.Draw(viewMatrix);
-    _blueBox.Draw(viewMatrix);
 }

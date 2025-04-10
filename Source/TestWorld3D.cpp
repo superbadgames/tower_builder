@@ -9,7 +9,7 @@ TestWorld3D::TestWorld3D(void) :
     _theZipper(),
     _wall(),
     _mine(),
-    _camera(),
+    _camera3d(nullptr),
     _mouseOn(true)
 {
 
@@ -22,7 +22,7 @@ TestWorld3D::~TestWorld3D(void)
 }
 
 
-void TestWorld3D::v_Init(void)
+void TestWorld3D::v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance)
 {
     glm::vec3 position{ 30.0f, 0.0f, -30.0f };
     F32 yPos = 45.0f;
@@ -57,9 +57,11 @@ void TestWorld3D::v_Init(void)
     _mine.Init("..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", "mine_v1");
     _mine.SetPosition(glm::vec3(200.0f, -100.0f, 0.0f));
 
-    _camera.Init(Tower::Director::Instance()->GetPerspectiveMatrix());
+    _camera3d = std::make_shared<Tower::Camera3D>();
+    _camera3d->v_Init(screenWidth, screenHeight, fov, viewDistance);
+    _camera = _camera3d;
 
-    Tower::Director::Instance()->GetWindowPointer()->HideMouseCursor();
+    Tower::Director::Instance()->HideMouseCursor();
     _mouseOn = false;
 }
 
@@ -75,12 +77,12 @@ void TestWorld3D::v_Update(F32 delta)
     {
         if (_mouseOn)
         {
-            Tower::Director::Instance()->GetWindowPointer()->HideMouseCursor();
+            Tower::Director::Instance()->HideMouseCursor();
             _mouseOn = false;
         }
         else
         {
-            Tower::Director::Instance()->GetWindowPointer()->ShowMouseCursor();
+            Tower::Director::Instance()->ShowMouseCursor();
             _mouseOn = true;
         }
     }
@@ -88,44 +90,30 @@ void TestWorld3D::v_Update(F32 delta)
     F32 cameraMovSpeed = 50.0f;
     if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_forward"))
     {
-        _camera.MoveForward(cameraMovSpeed * delta);
+        _camera3d->MoveForward(cameraMovSpeed * delta);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_back"))
     {
-        _camera.MoveBack(cameraMovSpeed * delta);
+        _camera3d->MoveBack(cameraMovSpeed * delta);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_right"))
     {
-        _camera.MoveRight(cameraMovSpeed * delta);
+        _camera3d->MoveRight(cameraMovSpeed * delta);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("move_left"))
     {
-        _camera.MoveLeft(cameraMovSpeed * delta);
+        _camera3d->MoveLeft(cameraMovSpeed * delta);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("up"))
     {
-        _camera.MoveUp(cameraMovSpeed * delta);
+        _camera3d->MoveUp(cameraMovSpeed * delta);
     }
     else if (Tower::InputManager::Instance()->IsBindingPressedOrHeld("down"))
     {
-        _camera.MoveDown(cameraMovSpeed * delta);
+        _camera3d->MoveDown(cameraMovSpeed * delta);
     }
 
-    _camera.Update(delta);
+    _camera3d->Update(delta);
 
     _theZipper.Update(delta);
-}
-
-
-void TestWorld3D::v_Render(void)
-{
-    // Render 3D cube
-    for (U32 i = 0; i < NUM_BOXES; ++i)
-    {
-        _boxes[i].Draw(_camera.GetViewMatrix());
-    }
-    _coloredCube.Draw(_camera.GetViewMatrix());
-    _theZipper.Draw(_camera.GetViewMatrix());
-    _wall.Draw(_camera.GetViewMatrix());
-    _mine.Draw(_camera.GetViewMatrix());
 }

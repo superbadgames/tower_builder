@@ -2,6 +2,7 @@
 
 #include "pch.h"
 #include "Tower/framework.h"
+#include "Tower/Cameras/Camera.hpp"
 #include "Tower/Managers/InputManager.hpp"
 
 #include <glm/vec3.hpp>
@@ -10,22 +11,19 @@
 
 namespace Tower
 {
-    class Camera3D
+    class Camera3D;
+    typedef shared_ptr<Camera3D> p_Camera3D;
+
+    class Camera3D : public Camera
     {
     public:
         Camera3D(void);
 
-        ~Camera3D(void);
+        ~Camera3D(void) final;
 
-        void Init(const glm::mat4& projectionMatrix);
+        void v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance) final;
 
         void Update(F32 delta);
-
-        inline const glm::mat4& GetViewMatrix(void) const { return _viewMatrix; }
-
-        void SetPosition(const glm::vec3& pos);
-
-        inline const glm::vec3& GetPosition(void) const { return _position; }
 
         void MoveForward(F32 speed);
 
@@ -40,9 +38,6 @@ namespace Tower
         void MoveDown(F32 speed);
 
     private:
-        glm::mat4 _projectionMatrix;
-        glm::mat4 _viewMatrix;
-        glm::vec3 _position;
         glm::vec3 _target;
         glm::vec3 _facingDirection;
         glm::vec3 _worldUp;

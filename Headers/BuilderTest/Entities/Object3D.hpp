@@ -4,6 +4,7 @@
 #include <Tower/framework.h>
 #include <Tower/Managers/Director.hpp>
 #include <Tower/Entity.hpp>
+#include <Tower/Managers/EntityManager.hpp>
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
@@ -18,8 +19,6 @@ namespace BuilderTest
         ~Object3D(void);
 
         void Init(const string& filepath, const string& textureId);
-
-        void Draw(const glm::mat4& viewMatrix);
 
         void Update(F32 delta);
 

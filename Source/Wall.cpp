@@ -30,15 +30,6 @@ void Wall::Init(const glm::vec3& position)
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
 }
 
-void Wall::Draw(const glm::mat4& viewMatrix)
-{
-    if (_active)
-    {
-        glEnable(GL_DEPTH_TEST);
-        _entity->Draw(viewMatrix);
-    }
-}
-
 void Wall::Update(F32 delta)
 {
 

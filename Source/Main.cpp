@@ -27,6 +27,10 @@ int main(void)
     // TODO: This should come from a config file
     const U32 WINDOW_WIDTH = 1200;
     const U32 WINDOW_HEIGHT = 800;
+    F32 width = (F32)WINDOW_WIDTH;
+    F32 height = (F32)WINDOW_HEIGHT;
+    F32 fov = 45.0f;
+    F32 viewDistance = 500.0f;
 
     Tower::p_Director director = Tower::Director::Instance();
 
@@ -102,14 +106,14 @@ int main(void)
     // font->Load("..\\..\\Assets\\Default\\Fonts\\arial.ttf", 48);
 
 
-    BuilderTest::TestWorldOne worldOne{};
-    worldOne.v_Init();
+    // BuilderTest::TestWorldOne worldOne{};
+    // worldOne.v_Init(width, height, fov, 100.0f);
 
-    BuilderTest::TestWorld3D world3D{};
-    world3D.v_Init();
+    // BuilderTest::TestWorld3D world3D{};
+    // world3D.v_Init(width, height, fov, viewDistance);
 
     Simulator::SimulatorMap simulatorMap{};
-    simulatorMap.v_Init();
+    simulatorMap.v_Init(width, height, fov, viewDistance);
 
     while (!director->ShouldProgramClose())
     {
@@ -121,13 +125,11 @@ int main(void)
         }
 
         // worldOne.v_Update();
-        // worldOne.v_Render();
 
         // world3D.v_Update();
-        // world3D.v_Render();
 
         simulatorMap.v_Update(director->GetDeltaTime());
-        simulatorMap.v_Render();
+        simulatorMap.Render();
 
         director->EndFrame();
     }
