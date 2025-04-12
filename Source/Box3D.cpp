@@ -37,6 +37,7 @@ void Box3D::Init(void)
     _rotation.angle = -55.0f;
     _rotation.axis = glm::vec3(1.0f, 1.0f, 0.0f);
     _entity->SetRotation(_rotation);
+    _entity->ToggleRendering(true);
 }
 
 void Box3D::Update(F32 delta)

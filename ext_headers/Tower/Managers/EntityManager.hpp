@@ -39,7 +39,7 @@ namespace Tower
     private:
         static shared_ptr<EntityManager> _instance;
         // TODO: Move this to the DB, as a per project config.
-        const S32 MAX_ENTITIES = 1000;
+        const S32 MAX_ENTITIES = 2000;
         S32 _nextEntity;
         std::vector<p_Entity> _entities;
 

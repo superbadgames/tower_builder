@@ -11,6 +11,7 @@
 #include <Tower/Rendering/Texture.hpp>
 #include <Tower/Managers/ShaderManager.hpp>
 #include <Tower/Managers/TextureManager.hpp>
+#include <Tower/Managers/ModelManager.hpp>
 #include <Tower/Managers/InputManager.hpp>
 #include <Tower/Cameras/Camera2D.hpp>
 
@@ -30,7 +31,7 @@ int main(void)
     F32 width = (F32)WINDOW_WIDTH;
     F32 height = (F32)WINDOW_HEIGHT;
     F32 fov = 45.0f;
-    F32 viewDistance = 500.0f;
+    F32 viewDistance = 5000.0f;
 
     Tower::p_Director director = Tower::Director::Instance();
 
@@ -98,6 +99,14 @@ int main(void)
     Tower::TextureManager::Instance()->LoadTexture("wall_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
 
     //
+    // Initialize 3D models
+    //
+    Tower::ModelManager::Instance()->Load("cube", "..\\..\\Assets\\Default\\CubeModel\\cube.glb", basic3dShader);
+    Tower::ModelManager::Instance()->Load("the_zipper", "..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", basic3dShader);
+    Tower::ModelManager::Instance()->Load("wall", "..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", basic3dShader);
+    Tower::ModelManager::Instance()->Load("mine", "..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", basic3dShader);
+
+    //
     // Font Test
     //
     // Use this later to get text rendering to work.
@@ -109,8 +118,8 @@ int main(void)
     // BuilderTest::TestWorldOne worldOne{};
     // worldOne.v_Init(width, height, fov, 100.0f);
 
-    // BuilderTest::TestWorld3D world3D{};
-    // world3D.v_Init(width, height, fov, viewDistance);
+    //BuilderTest::TestWorld3D world3D{};
+    //world3D.v_Init(width, height, fov, viewDistance);
 
     Simulator::SimulatorMap simulatorMap{};
     simulatorMap.v_Init(width, height, fov, viewDistance);
@@ -124,9 +133,8 @@ int main(void)
             director->CloseProgram();
         }
 
-        // worldOne.v_Update();
-
-        // world3D.v_Update();
+        //world3D.v_Update(director->GetDeltaTime());
+        //world3D.Render();
 
         simulatorMap.v_Update(director->GetDeltaTime());
         simulatorMap.Render();

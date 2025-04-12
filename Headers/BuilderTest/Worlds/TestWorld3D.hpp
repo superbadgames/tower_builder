@@ -6,6 +6,7 @@
 
 #include <Tower/Components/World.hpp>
 #include <Tower/Managers/TextureManager.hpp>
+#include <Tower/Managers/ModelManager.hpp>
 #include <Tower/Cameras/Camera3D.hpp>
 
 #include <glm/mat4x4.hpp>
@@ -26,7 +27,7 @@ namespace BuilderTest
         void v_Update(F32 delta) final;
 
     private:
-        static const U32 NUM_BOXES = 10;
+        static const U32 NUM_BOXES = 106;
         Box3D _boxes[NUM_BOXES];
         Object3D _coloredCube;
         Object3D _theZipper;

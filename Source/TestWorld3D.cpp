@@ -3,6 +3,8 @@
 
 using namespace BuilderTest;
 
+#include <iostream>
+
 TestWorld3D::TestWorld3D(void) :
     _boxes(),
     _coloredCube(),
@@ -24,6 +26,8 @@ TestWorld3D::~TestWorld3D(void)
 
 void TestWorld3D::v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDistance)
 {
+    Tower::Director::Instance()->SetWindowBackgroundColor(glm::vec3(0.1f, 0.2f, 0.1f));
+
     glm::vec3 position{ 30.0f, 0.0f, -30.0f };
     F32 yPos = 45.0f;
     F32 zPos = 65.0f;
@@ -45,20 +49,21 @@ void TestWorld3D::v_Init(F32 screenWidth, F32 screenHeight, F32 fov, F32 viewDis
         //zPos *= -1.0f;
     }
 
-    _coloredCube.Init("..\\..\\Assets\\Default\\CubeModel\\cube.glb", "cube_test_bigger");
+    _coloredCube.Init("cube", "cube_test_bigger");
     _coloredCube.SetPosition(glm::vec3(0.0f, 0.0f, 30.0f));
 
-    _theZipper.Init("..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", "the_zipper");
+    _theZipper.Init("the_zipper", "the_zipper");
     _theZipper.SetPosition(glm::vec3(0.0f, -100.0f, -150.0f));
 
-    _wall.Init("..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", "wall_v1");
+    _wall.Init("wall", "wall_v1");
     _wall.SetPosition(glm::vec3(100.0f, -100.0f, 0.0f));
 
-    _mine.Init("..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", "mine_v1");
+    _mine.Init("mine", "mine_v1");
     _mine.SetPosition(glm::vec3(200.0f, -100.0f, 0.0f));
 
     _camera3d = std::make_shared<Tower::Camera3D>();
     _camera3d->v_Init(screenWidth, screenHeight, fov, viewDistance);
+
     _camera = _camera3d;
 
     Tower::Director::Instance()->HideMouseCursor();

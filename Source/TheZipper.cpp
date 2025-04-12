@@ -22,14 +22,15 @@ void TheZipper::Init(const glm::vec3& position)
 {
     if (_entity == nullptr)
     {
-        _entity = std::make_shared<Tower::Entity>();
+        _entity = Tower::EntityManager::Instance()->GetNext();
     }
 
     _entity->AddShader(Tower::ShaderManager::Instance()->GetShader("basic3d"));
-    _entity->AddModel("..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb");
+    _entity->AddModel(Tower::ModelManager::Instance()->Get("the_zipper"));
     _entity->AddTexture(Tower::TextureManager::Instance()->GetTexture("the_zipper"));
     _entity->SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
     _entity->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+    _entity->ToggleRendering(true);
 }
 
 

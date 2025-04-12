@@ -18,7 +18,7 @@ namespace BuilderTest
 
         ~Object3D(void);
 
-        void Init(const string& filepath, const string& textureId);
+        void Init(const string& modelId, const string& textureId);
 
         void Update(F32 delta);
 

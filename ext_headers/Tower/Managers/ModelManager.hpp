@@ -25,6 +25,8 @@ namespace Tower
 
         void Add(const string& name, p_Model model);
 
+        void Load(const string& name, const string& filepath, p_Shader shader);
+
         void Remove(const string& name);
 
         p_Model Get(const string& name);

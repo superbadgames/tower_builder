@@ -76,6 +76,8 @@ namespace Tower
 
         inline void ToggleRendering(void) { _isRendering = !_isRendering; }
 
+        inline void ToggleRendering(bool state) { _isRendering = state; }
+
         inline void ToggleShouldReset(void) { _shouldReset = !_shouldReset; }
 
     private:

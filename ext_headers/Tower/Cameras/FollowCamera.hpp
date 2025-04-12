@@ -26,8 +26,6 @@ namespace Tower
         inline const glm::mat4& GetViewMatrix(void) const { return _viewMatrix; }
 
     private:
-        glm::mat4 _projectionMatrix;
-        glm::mat4 _viewMatrix;
         glm::vec3 _eye;
         glm::vec3 _cameraForward;
         glm::vec3 _cameraLeft;
