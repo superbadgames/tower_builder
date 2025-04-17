@@ -1,6 +1,9 @@
 #include "pch.h"
 #include <Tower/framework.h>
 
+// This is where we get windows dependents
+#include "windows.h"
+
 #include "BuilderTest/Worlds/TestWorld1.hpp"
 #include "BuilderTest/Worlds/TestWorld3D.hpp"
 #include "Simulator/SimulatorMap.hpp"
@@ -23,8 +26,13 @@
 #include <iostream>
 #include <bitset>
 
+typedef void* (__stdcall* game_LoadProject)(F32, F32);
+typedef void* (__stdcall* game_Update)(F32);
+typedef void* (__stdcall* game_Render)();
+
 int main(void)
 {
+    std::cout << "Hello?\n";
     // TODO: This should come from a config file
     const U32 WINDOW_WIDTH = 1200;
     const U32 WINDOW_HEIGHT = 800;
@@ -42,87 +50,123 @@ int main(void)
     }
 
     Tower::p_InputManager inputManager = Tower::InputManager::Instance();
-
-    // TODO: Refactor to use database
-    // This is a great starting place to get the DB up and running
-    // Set up key bindings
+    // This binding should come from someplace else soon
+    // Either a database entry, or a project dll itself.
     inputManager->AddBinding("exit", Tower::InputButton::ESCAPE);
-    inputManager->AddWASDMovement("move_up", "move_down", "move_right", "move_left");
-    inputManager->AddArrowMovement("camera_move_up", "camera_move_down", "camera_move_right", "camera_move_left");
-    inputManager->AddBinding("camera_sprint", Tower::InputButton::LEFT_SHIFT);
-    inputManager->AddBinding("reset_position", Tower::InputButton::SPACE);
-    inputManager->AddBinding("red_box", Tower::InputButton::NUM_1);
-    inputManager->AddBinding("green_box", Tower::InputButton::NUM_2);
-    inputManager->AddBinding("blue_box", Tower::InputButton::NUM_3);
 
-    inputManager->AddBinding("move_forward", Tower::InputButton::W);
-    inputManager->AddBinding("move_back", Tower::InputButton::S);
-    inputManager->AddBinding("up", Tower::InputButton::E);
-    inputManager->AddBinding("down", Tower::InputButton::Q);
+    // Leaving some things for now, until I have refactored all the needed dll projects
+        // Set up key bindings
+        // inputManager->AddWASDMovement("move_up", "move_down", "move_right", "move_left");
+        // inputManager->AddArrowMovement("camera_move_up", "camera_move_down", "camera_move_right", "camera_move_left");
+        // inputManager->AddBinding("camera_sprint", Tower::InputButton::LEFT_SHIFT);
+        // inputManager->AddBinding("reset_position", Tower::InputButton::SPACE);
+        // inputManager->AddBinding("red_box", Tower::InputButton::NUM_1);
+        // inputManager->AddBinding("green_box", Tower::InputButton::NUM_2);
+        // inputManager->AddBinding("blue_box", Tower::InputButton::NUM_3);
 
-    inputManager->AddBinding("toggleMouse", Tower::InputButton::ENTER);
-
-    inputManager->AddBinding("swapControls", Tower::InputButton::TAB);
-    inputManager->AddBinding("throttleUp", Tower::InputButton::W);
-    inputManager->AddBinding("throttleDown", Tower::InputButton::S);
-    inputManager->AddBinding("fullstop", Tower::InputButton::SPACE);
-
-    //
-    // Initialize shaders
-    //
-    Tower::p_Shader glyphShader = std::make_shared<Tower::Shader>();
-    glyphShader->Load("..\\..\\Assets\\Default\\Shaders\\ui_text_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\ui_text_fragment.glsl");
-    Tower::ShaderManager::Instance()->RegisterShader("glyph", glyphShader);
-
-    Tower::p_Shader spriteShader = std::make_shared<Tower::Shader>();
-    spriteShader->Load("..\\..\\Assets\\Default\\Shaders\\sprite_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\sprite_fragment.glsl");
-    Tower::ShaderManager::Instance()->RegisterShader("sprite", spriteShader);
-
-    Tower::p_Shader basic3dShader = std::make_shared<Tower::Shader>();
-    basic3dShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
-    Tower::ShaderManager::Instance()->RegisterShader("basic3d", basic3dShader);
+        // inputManager->AddBinding("move_forward", Tower::InputButton::W);
+        // inputManager->AddBinding("move_back", Tower::InputButton::S);
+        // inputManager->AddBinding("up", Tower::InputButton::E);
+        // inputManager->AddBinding("down", Tower::InputButton::Q);
 
 
-    //
-    // Initialize Textures
-    //
-    Tower::TextureManager::Instance()->LoadTexture("redbox", "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture("greenbox", "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture("bluebox", "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture("box_template", "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
-    Tower::TextureManager::Instance()->LoadTexture("brick", "..\\..\\Assets\\Textures\\brick.png");
-    Tower::TextureManager::Instance()->LoadTexture("brown_background", "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
-    Tower::TextureManager::Instance()->LoadTexture("cube_test_bigger", "..\\..\\Assets\\Default\\Textures\\cube_test_bigger.png");
-    Tower::TextureManager::Instance()->LoadTexture("the_zipper", "..\\..\\Assets\\Textures\\Simulator\\Zipper_texture.png");
-    Tower::TextureManager::Instance()->LoadTexture("asteroid_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Asteroid_v1.png");
-    Tower::TextureManager::Instance()->LoadTexture("mine_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Mine.png");
-    Tower::TextureManager::Instance()->LoadTexture("wall_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
+        //
+        // Initialize shaders
+        //
+        // Tower::p_Shader glyphShader = std::make_shared<Tower::Shader>();
+        // glyphShader->Load("..\\..\\Assets\\Default\\Shaders\\ui_text_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\ui_text_fragment.glsl");
+        // Tower::ShaderManager::Instance()->RegisterShader("glyph", glyphShader);
 
-    //
-    // Initialize 3D models
-    //
-    Tower::ModelManager::Instance()->Load("cube", "..\\..\\Assets\\Default\\CubeModel\\cube.glb", basic3dShader);
-    Tower::ModelManager::Instance()->Load("the_zipper", "..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", basic3dShader);
-    Tower::ModelManager::Instance()->Load("wall", "..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", basic3dShader);
-    Tower::ModelManager::Instance()->Load("mine", "..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", basic3dShader);
+        // Tower::p_Shader spriteShader = std::make_shared<Tower::Shader>();
+        // spriteShader->Load("..\\..\\Assets\\Default\\Shaders\\sprite_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\sprite_fragment.glsl");
+        // Tower::ShaderManager::Instance()->RegisterShader("sprite", spriteShader);
 
-    //
-    // Font Test
-    //
-    // Use this later to get text rendering to work.
-    // Disabled for now, for convience
-    // Tower::p_Font font = std::make_shared<Tower::Font>();
-    // font->Load("..\\..\\Assets\\Default\\Fonts\\arial.ttf", 48);
+        // Tower::p_Shader basic3dShader = std::make_shared<Tower::Shader>();
+        // basic3dShader->Load("..\\..\\Assets\\Default\\Shaders\\basic_vertex.glsl", "..\\..\\Assets\\Default\\Shaders\\basic_fragment.glsl");
+        // Tower::ShaderManager::Instance()->RegisterShader("basic3d", basic3dShader);
 
 
-    // BuilderTest::TestWorldOne worldOne{};
-    // worldOne.v_Init(width, height, fov, 100.0f);
+        //
+        // Initialize Textures
+        //
+        // Tower::TextureManager::Instance()->LoadTexture("redbox", "..\\..\\Assets\\Textures\\Boxes\\box_red_8x8.png");
+        // Tower::TextureManager::Instance()->LoadTexture("greenbox", "..\\..\\Assets\\Textures\\Boxes\\box_green_8x8.png");
+        // Tower::TextureManager::Instance()->LoadTexture("bluebox", "..\\..\\Assets\\Textures\\Boxes\\box_blue_8x8.png");
+        // Tower::TextureManager::Instance()->LoadTexture("box_template", "..\\..\\Assets\\Textures\\Boxes\\box_8x8.png");
+        // Tower::TextureManager::Instance()->LoadTexture("brick", "..\\..\\Assets\\Textures\\brick.png");
+        // Tower::TextureManager::Instance()->LoadTexture("brown_background", "..\\..\\Assets\\Textures\\Boxes\\brown_background.png");
+        // Tower::TextureManager::Instance()->LoadTexture("cube_test_bigger", "..\\..\\Assets\\Default\\Textures\\cube_test_bigger.png");
+        // Tower::TextureManager::Instance()->LoadTexture("the_zipper", "..\\..\\Assets\\Textures\\Simulator\\Zipper_texture.png");
+        // Tower::TextureManager::Instance()->LoadTexture("asteroid_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Asteroid_v1.png");
+        // Tower::TextureManager::Instance()->LoadTexture("mine_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Mine.png");
+        // Tower::TextureManager::Instance()->LoadTexture("wall_v1", "..\\..\\Assets\\Textures\\Simulator\\Simulator_Wall.png");
 
-    //BuilderTest::TestWorld3D world3D{};
-    //world3D.v_Init(width, height, fov, viewDistance);
+        //
+        // Initialize 3D models
+        //
+        // Tower::ModelManager::Instance()->Load("cube", "..\\..\\Assets\\Default\\CubeModel\\cube.glb", basic3dShader);
+        // Tower::ModelManager::Instance()->Load("the_zipper", "..\\..\\Assets\\Models\\Simulator\\zipper_v1.glb", basic3dShader);
+        // Tower::ModelManager::Instance()->Load("wall", "..\\..\\Assets\\Models\\Simulator\\simulator_wall_v1.glb", basic3dShader);
+        // Tower::ModelManager::Instance()->Load("mine", "..\\..\\Assets\\Models\\Simulator\\simulator_spike_mine_v1.glb", basic3dShader);
 
-    Simulator::SimulatorMap simulatorMap{};
-    simulatorMap.v_Init(width, height, fov, viewDistance);
+        //
+        // Font Test
+        //
+        // Use this later to get text rendering to work.
+        // Disabled for now, for convience
+        // Tower::p_Font font = std::make_shared<Tower::Font>();
+        // font->Load("..\\..\\Assets\\Default\\Fonts\\arial.ttf", 48);
+
+
+        // BuilderTest::TestWorldOne worldOne{};
+        // worldOne.v_Init(width, height, fov, 100.0f);
+
+        //BuilderTest::TestWorld3D world3D{};
+        //world3D.v_Init(width, height, fov, viewDistance);
+
+    const char* project_dll_name = "..\\..\\..\\Project_Philos\\Builds\\debug\\project_philos.dll";
+    //const char* project_dll_name = "project_philos.dll";
+
+    HINSTANCE projectDLLHandle = LoadLibrary(project_dll_name);
+    if (projectDLLHandle == NULL)
+    {
+        std::cout << "Unable to load DLL, try again, sorry, please don't get too mad, you'll figure this out :) <3<3<3\n";
+        director->CloseProgram();
+        return 1;
+    }
+
+    game_LoadProject LoadProject = (game_LoadProject)GetProcAddress(projectDLLHandle, "LoadProject");
+    if (LoadProject == NULL)
+    {
+        std::cout << "Unable to get the address for LoadProject. Make sure that you created a LoadProject function, and exported it somewhere.Keep trying, you'll get it :)\n";
+        FreeLibrary(projectDLLHandle);
+        director->CloseProgram();
+        return 1;
+    }
+
+    game_Update Update = (game_Update)GetProcAddress(projectDLLHandle, "Update");
+    if (Update == NULL)
+    {
+        std::cout << "Unable to get the address for Update. Make sure that you created a Update function, and exported it somewhere.Keep trying, you'll get it :)\n";
+        FreeLibrary(projectDLLHandle);
+        director->CloseProgram();
+        return 1;
+    }
+
+    game_Render Render = (game_Render)GetProcAddress(projectDLLHandle, "Render");
+    if (Render == NULL)
+    {
+        std::cout << "Unable to get the address for Render. Make sure that you created a Render function, and exported it somewhere.Keep trying, you'll get it :)\n";
+        FreeLibrary(projectDLLHandle);
+        director->CloseProgram();
+        return 1;
+    }
+
+    // Now we can safely load the project into memory
+    std::cout << "Calling LoadProject now..., wish me luck!\n";
+    LoadProject(width, height);
+    std::cout << "Whooo! I know that doesn't like we went very far from here, but man oh man, we got through that, didn't we!\n";
+
 
     while (!director->ShouldProgramClose())
     {
@@ -133,16 +177,14 @@ int main(void)
             director->CloseProgram();
         }
 
-        //world3D.v_Update(director->GetDeltaTime());
-        //world3D.Render();
-
-        simulatorMap.v_Update(director->GetDeltaTime());
-        simulatorMap.Render();
+        Update(director->GetDeltaTime());
+        Render();
 
         director->EndFrame();
     }
 
 
+    FreeLibrary(projectDLLHandle);
     director->Cleanup();
 
     std::cout << "Successful shutdown!" << std::endl;
