@@ -2,8 +2,8 @@
 
 #include "pch.h"
 #include <Tower/framework.h>
-#include <Tower/Entity.hpp>
-#include <Tower/Managers/EntityManager.hpp>
+#include <Tower/Rendering/Renderer.hpp>
+#include <Tower/Managers/RenderingManager.hpp>
 #include <Tower/Rendering/Shader.hpp>
 #include <Tower/Rendering/Color.hpp>
 #include <Tower/Managers/InputManager.hpp>
@@ -33,7 +33,7 @@ namespace BuilderTest
         void SetActive(bool state);
 
     private:
-        Tower::p_Entity _entity;
+        Tower::p_Renderer _renderer;
         bool _active;
         F32 _counter;
         const F32 _timer;

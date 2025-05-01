@@ -3,7 +3,7 @@
 //=====Engine Includes=====
 #include "pch.h"
 #include "Tower/framework.h"
-#include "Tower/Entity.hpp"
+#include "Tower/Rendering/Renderer.hpp"
 
 
 namespace Tower
@@ -17,7 +17,7 @@ namespace Tower
 
         static shared_ptr<CollisionDetector> Instance(void);
 
-        void Check(const Entity& entity);
+        void Check(p_Renderer entity);
 
     private:
         static shared_ptr<CollisionDetector> _instance;
