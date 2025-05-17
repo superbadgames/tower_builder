@@ -13,7 +13,9 @@ The database is powered by sqlite3.
 #include "pch.h"
 #include "Tower/framework.h"
 #include "Tower/Managers/RenderingManager.hpp"
-#include "Tower/Cameras/Camera.hpp"
+#include "Tower/Objects/Player.hpp"
+#include "Tower/Cameras/Camera3D.hpp"
+#include "Tower/Cameras/FollowCamera.hpp"
 
 
 #include <map>
@@ -55,11 +57,11 @@ namespace Tower
 
         void Render(void);
 
-        inline void SetCamera(p_Camera camera) { _camera = camera; }
-
     protected:
         //string currentWorld;
-        p_Camera _camera;
+        p_Player _playerOne;
+        p_Camera3D _fpsCamera;
+        p_FollowCamera _thirdPersonCamera;
 
     };
 }

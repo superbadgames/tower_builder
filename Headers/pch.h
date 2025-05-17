@@ -5,6 +5,3 @@
 // Do not add files here that you will be updating frequently as this negates the performance advantage.
 #pragma once
 
-// add headers that you want to pre-compile here
-
-

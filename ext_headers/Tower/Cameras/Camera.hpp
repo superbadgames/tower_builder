@@ -21,6 +21,10 @@ namespace Tower
     public:
         Camera(void);
 
+        Camera(const Camera& copy);
+
+        Camera& operator=(const Camera& copy);
+
         virtual ~Camera(void) {};
 
         // Should call either InitOrthographic or InitPerspective
